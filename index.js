@@ -61,18 +61,22 @@ var oilstats = [
 		"distribution": 9.22
     }
 ];
-
+//GET loadInitialData
 app.get(BASE_API_PATH+"oil-production-stats/loadInitialData", (req, res) =>{
     res.send(JSON.stringify(oilstats, null, 2));
 	
 });
-
+//GET a toda la lista de recursos
 app.get(BASE_API_PATH+"oil-production-stats", (req, res) =>{
     res.send(JSON.stringify(oilstats, null, 2));
 });
-
+//GET a un recurso
+app.get(BASE_API_PATH+"oil-production-stats/({country})", (req, res) =>{
+    res.send(JSON.stringify(oilstats, null, 2));
+});
+//POST para crear un nuevo recurso en nuestra lista
 app.post(BASE_API_PATH+"oil-production-stats", (req, res) =>{
-    var newCountry = req.body;
+    var newCountry = req.params;
     console.log(`new country to be added:	<${JSON.stringify(newCountry,null,2)}>`);
 	oilstats.push(newCountry);
 	res.sendStatus(201);
