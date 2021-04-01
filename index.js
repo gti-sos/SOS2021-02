@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded());
 
 app.use(bodyParser.json());
 //=========================================== AJMR =========================================================
-var nutsstats = [
+var nutsstatsInitial = [
     {
         "country": "Spain",
         "year": 2011,
@@ -56,6 +56,8 @@ var nutsstats = [
     }
 ];
 
+var nutsstats = [];
+
 //Get al info (tabla)
 app.get("/info/nuts-production-stats", (request,response) => {
 	response.send("<html><body><h1>En esta tabla se muestran los datos de la producción de almendras, nueces y pistachos en los diferentes países que más rendimiento sacan de ello</h1><table border><tr><th>country</th><th>year</th><th>almond-prod</th><th>walnut-prod</th><th>pistachio-prod</th></tr><tr><th>Spain</th><th>2011</th><th>208800</th><th>13815</th><th>2708</th></tr><tr><th>Italy</th><th>2011</th><th>104790</th><th>10500</th><th>3079</th></tr><tr><th>Greece</th><th>2011</th><th>29800</th><th>29800</th><th>7791</th></tr><tr><th>Turkey</th><th>2011</th><th>69838</th><th>203212</th><th>112000</th></tr><tr><th>USA</th><th>2011</th><th>1655000</th><th>418212</th><th>201395</th></tr></table></body></html>");
@@ -64,8 +66,15 @@ app.get("/info/nuts-production-stats", (request,response) => {
 
 //GET loadInitialData
 app.get(BASE_API_PATH+"nuts-production-stats/loadInitialData", (req, res) =>{
-    res.send(JSON.stringify(nutsstats, null, 2));
-	
+	if(nutsstats.length>0){
+		for(var j=0;j<nutsstats.length;j++){
+			nutsstats.splice(j);
+		}
+	}
+    for(var i=0;i<nutsstatsInitial.length;i++){
+		nutsstats.push(nutsstatsInitial[i]);
+	}
+	res.send(JSON.stringify(nutsstats, null, 2));
 });
 
 //GET a toda la lista de recursos
@@ -82,8 +91,8 @@ app.get(BASE_API_PATH+"nuts-production-stats/:country/:year", (req, res) =>{
 		if((String(nutsstats[i].country) === reqcountry) && (nutsstats[i].year === parseInt(reqyear))){
 			sendData.push(nutsstats[i]);
 		}
-    	res.send(JSON.stringify(sendData, null, 2));
 	}
+	res.send(JSON.stringify(sendData, null, 2));
 });
 
 //POST para crear un nuevo recurso en nuestra lista
@@ -163,11 +172,7 @@ app.get("/info/oil-production-stats", (request,response) => {
 	console.log("New request to /info/oil-production-stats has arrived");
 });
 
-
-
 //=========================================== AFB =========================================================
-
-
 
 var winestats = [
     {
@@ -232,8 +237,8 @@ app.get(BASE_API_PATH+"wine-production-stats/:country/:year", (req, res) =>{
 		if((String(winestats[i].country) === reqcountry) && (winestats[i].year === parseInt(reqyear))){
 			sendData.push(winestats[i]);
 		}
-    	res.send(JSON.stringify(sendData, null, 2));
 	}
+	res.send(JSON.stringify(sendData, null, 2));
 });
 
 //POST para crear un nuevo recurso en nuestra lista
@@ -243,6 +248,10 @@ app.post(BASE_API_PATH+"wine-production-stats", (req, res) =>{
 	winestats.push(newCountry);
 	res.sendStatus(201);
 });
+
+
+
+
 // =======================================Codigo de grupo===========================
 app.listen(port, () => {//la segunda parte del listen se ejecuta cuando el servidor esta listo
 	console.log("Server ready. Listening on port " + port);
