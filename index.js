@@ -173,8 +173,8 @@ app.get("/info/oil-production-stats", (request,response) => {
 });
 
 //=========================================== AFB =========================================================
-
-var winestats = [
+var winestats = [];
+var winestatsInitial= [
     {
         "country": "Spain",
         "year": 2011,
@@ -218,10 +218,19 @@ app.get("/info/wine-production-stats", (request,response) => {
 });
 
 //GET loadInitialData
+
 app.get(BASE_API_PATH+"wine-production-stats/loadInitialData", (req, res) =>{
-    res.send(JSON.stringify(winestats, null, 2));
-	
+	if(winestats.length>0){
+		for(var j=0;j<winestats.length;j++){
+			winestats.splice(j);
+		}
+	}
+    for(var i=0;i<winestatsInitial.length;i++){
+		winestats.push(winestatsInitial[i]);
+	}
+	res.send(JSON.stringify(winestats, null, 2));
 });
+
 
 //GET a toda la lista de recursos
 app.get(BASE_API_PATH+"wine-production-stats", (req, res) =>{
