@@ -18,43 +18,6 @@ app.use(bodyParser.urlencoded());
 
 app.use(bodyParser.json());
 //=========================================== AJMR =========================================================
-var nutsstatsInitial = [
-    {
-        "country": "Spain",
-        "year": 2011,
-		"almond-prod": 208800,
-		"walnut-prod": 13815,
-		"pistachio-prod": 2708
-    },
-	{
-        "country": "Italy",
-        "year": 2011,
-		"almond-prod": 104790,
-		"walnut-prod": 10500,
-		"pistachio-prod": 3079
-    },
-	{
-		"country": "Greece",
-        "year": 2011,
-		"almond-prod": 29800,
-		"walnut-prod": 29800,
-		"pistachio-prod": 7791
-    },
-	{
-		"country": "Turkey",
-        "year": 2011,
-		"almond-prod": 69838,
-		"walnut-prod": 203212,
-		"pistachio-prod": 112000
-    },
-	{
-        "country": "USA",
-        "year": 2011,
-		"almond-prod": 1655000,
-		"walnut-prod": 418212,
-		"pistachio-prod": 201395
-    }
-];
 
 var nutsstats = [];
 
@@ -66,6 +29,47 @@ app.get("/info/nuts-production-stats", (request,response) => {
 
 //GET loadInitialData
 app.get(BASE_API_PATH+"nuts-production-stats/loadInitialData", (req, res) =>{
+	
+	console.log("NEW GET .../tourists_countries_stats/loadInitialData");
+
+	var nutsstatsInitial = [
+		{
+			"country": "Spain",
+			"year": 2011,
+			"almond-prod": 208800,
+			"walnut-prod": 13815,
+			"pistachio-prod": 2708
+		},
+		{
+			"country": "Italy",
+			"year": 2011,
+			"almond-prod": 104790,
+			"walnut-prod": 10500,
+			"pistachio-prod": 3079
+		},
+		{
+			"country": "Greece",
+			"year": 2011,
+			"almond-prod": 29800,
+			"walnut-prod": 29800,
+			"pistachio-prod": 7791
+		},
+		{
+			"country": "Turkey",
+			"year": 2011,
+			"almond-prod": 69838,
+			"walnut-prod": 203212,
+			"pistachio-prod": 112000
+		},
+		{
+			"country": "USA",
+			"year": 2011,
+			"almond-prod": 1655000,
+			"walnut-prod": 418212,
+			"pistachio-prod": 201395
+		}
+	];
+
 	if(nutsstats.length>0){
 		for(var j=0;j<nutsstats.length;j++){
 			nutsstats.splice(j);
@@ -101,6 +105,26 @@ app.post(BASE_API_PATH+"nuts-production-stats", (req, res) =>{
     console.log(`new country to be added:	<${JSON.stringify(newCountry,null,2)}>`);
 	nutsstats.push(newCountry);
 	res.sendStatus(201);
+});
+
+//DELETE a /country/year
+app.delete(BASE_API_PATH+"nuts-production-stats/:country/:year", (req,res)=>{
+	console.log("NEW DELETE ...../nuts-production-stats/country/year");
+	var reqcountry = req.params.country;
+	var reqyear = parseInt(req.params.year);
+	var found = nutsstats.find(e => (e.country === reqcountry) && (e.year === reqyear));
+	if(!found){
+		console.log("DATA NOT FOUND");
+		res.sendStatus(404);
+	}else{
+		for(var i=0; i<nutsstats.length-1; i++) {
+			if((String(nutsstats[i].country) === reqcountry) && (nutsstats[i].year === reqyear)){
+				nutsstats.splice(i,1);
+				console.log("DATA REMOVED");
+				res.sendStatus(200);
+			}
+		}
+	}
 });
 
 //=========================================== JMGD =========================================================
