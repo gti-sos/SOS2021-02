@@ -104,7 +104,7 @@ app.post(BASE_API_PATH+"nuts-production-stats", (req, res) =>{
 });
 
 //=========================================== JMGD =========================================================
-var oilstats = [
+var oilstatsInitial = [
     {
         "country": "Spain",
         "year": 2011,
@@ -141,22 +141,48 @@ var oilstats = [
 		"distribution": 9.22
     }
 ];
+var oilstats = [];
+
+
+//GET info (tabla)
+
+app.get("/info/oil-production-stats", (request,response) => {
+	response.send("<html><body><h1>En esta tabla se muestra la producción, distribución y exportación de aceite en distintos paises del mundo</h1><table border><tr><th>country</th><th>year</th><th>production</th><th>exportation</th><th>distribution</th></tr><tr><th>Spain</th><th>2011</th><th>669,1</th><th>48,36</th><th>18,61</th></tr><tr><th>Italy</th><th>2011</th><th>735</th><th>28,74</th><th>22,12</th></tr><tr><th>Greece</th><th>2011</th><th>420</th><th>5,48</th><th>7,71</th></tr><tr><th>Turkey</th><th>2011</th><th>160</th><th>1.26</th><th>3.85</th></tr><tr><th>USA</th><th>2011</th><th>3</th><th>0.38</th><th>9.22</th></tr></table></body></html>");
+	console.log("New request to /info/oil-production-stats has arrived");
+});
 //GET loadInitialData
 app.get(BASE_API_PATH+"oil-production-stats/loadInitialData", (req, res) =>{
-    res.send(JSON.stringify(oilstats, null, 2));
-	
+	if(oilstats.length>0){
+		for(var j=0;j<oilstats.length;j++){
+			oilstats.splice(j);
+		}
+	}
+    for(var i=0;i<oilstatsInitial.length;i++){
+		oilstats.push(oilstatsInitial[i]);
+	}
+	res.send(JSON.stringify(oilstats, null, 2));
 });
 //GET a toda la lista de recursos
 app.get(BASE_API_PATH+"oil-production-stats", (req, res) =>{
     res.send(JSON.stringify(oilstats, null, 2));
 });
+
 //GET a un recurso
-app.get(BASE_API_PATH+"oil-production-stats/({country})", (req, res) =>{
-    res.send(JSON.stringify(oilstats, null, 2));
+app.get(BASE_API_PATH+"oil-production-stats/:country/:year", (req, res) =>{
+	var reqcountry = req.params.country;
+	var reqyear = req.params.year;
+	var sendData = [];
+	for(var i=0; i<oilstats.length-1; i++) {
+		if((String(oilstats[i].country) === reqcountry) && (oilstats[i].year === parseInt(reqyear))){
+			sendData.push(oilstats[i]);
+		}
+	}
+	res.send(JSON.stringify(sendData, null, 2));
 });
+
 //POST para crear un nuevo recurso en nuestra lista
 app.post(BASE_API_PATH+"oil-production-stats", (req, res) =>{
-    var newCountry = req.params;
+    var newCountry = req.body;
     console.log(`new country to be added:	<${JSON.stringify(newCountry,null,2)}>`);
 	oilstats.push(newCountry);
 	res.sendStatus(201);
@@ -166,11 +192,6 @@ app.post(BASE_API_PATH+"oil-production-stats", (req, res) =>{
 
 
 
-
-app.get("/info/oil-production-stats", (request,response) => {
-	response.send("<html><body><h1>En esta tabla se muestra la producción, distribución y exportación de aceite en distintos paises del mundo</h1><table border><tr><th>country</th><th>year</th><th>production</th><th>exportation</th><th>distribution</th></tr><tr><th>Spain</th><th>2011</th><th>669,1</th><th>48,36</th><th>18,61</th></tr><tr><th>Italy</th><th>2011</th><th>735</th><th>28,74</th><th>22,12</th></tr><tr><th>Greece</th><th>2011</th><th>420</th><th>5,48</th><th>7,71</th></tr><tr><th>Turkey</th><th>2011</th><th>160</th><th>1.26</th><th>3.85</th></tr><tr><th>USA</th><th>2011</th><th>3</th><th>0.38</th><th>9.22</th></tr></table></body></html>");
-	console.log("New request to /info/oil-production-stats has arrived");
-});
 
 //=========================================== AFB =========================================================
 var winestats = [];
@@ -265,5 +286,3 @@ app.post(BASE_API_PATH+"wine-production-stats", (req, res) =>{
 app.listen(port, () => {//la segunda parte del listen se ejecuta cuando el servidor esta listo
 	console.log("Server ready. Listening on port " + port);
 });
-
-
