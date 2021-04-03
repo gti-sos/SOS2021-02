@@ -130,23 +130,62 @@ app.delete(BASE_API_PATH+"nuts-production-stats/:country/:year", (req,res)=>{
 });
 
 // PUT a country/year
-app.put(BASE_API_PATH +"/nuts-production-stats/:country/:year",(req,res)=>{
+app.put(BASE_API_PATH +"nuts-production-stats/:country/:year",(req,res)=>{
     console.log("NEW PUT ...../nuts-production-stats/country/year");
-	var country=req.params.country;
-    var year=req.params.year;
+	var reqcountry=req.params.country;
+    var reqyear=parseInt(req.params.year);
     var data=req.body;
     
-    if(country!=data.country||year!=data.year){
+    if(reqcountry!=data.country||reqyear!=data.year){
         res.sendStatus(400).send("BAD Request");
     }else{
-		for(var i=0;i<nutsstats.length;i++){
+		for(var i=0;i<nutsstats.length ;i++){
 			if((String(nutsstats[i].country) === reqcountry) && (nutsstats[i].year === reqyear)){
-				//nutsstats.splice(i,1);
 				nutsstats[i] = data;
 				res.sendStatus(200).send("DATA UPDATED");
 			}
 		}
 	}
+});
+
+// POST a country/year error
+app.post(BASE_API_PATH+"nuts-production-stats/:country", (req,res)=>{
+    console.log("NEW POST ...../nuts-production-stats/country/year");
+    res.status(405).send("NOT ALLOWED");
+})
+app.post(BASE_API_PATH+"nuts-production-stats/:year", (req,res)=>{
+    console.log("NEW POST ...../nuts-production-stats/country/year");
+    res.status(405).send("NOT ALLOWED");
+})
+app.post(BASE_API_PATH+"nuts-production-stats/:production", (req,res)=>{
+    console.log("NEW POST ...../nuts-production-stats/country/year");
+    res.status(405).send("NOT ALLOWED");
+})
+app.post(BASE_API_PATH+"nuts-production-stats/:exportation", (req,res)=>{
+    console.log("NEW POST ...../nuts-production-stats/country/year");
+    res.status(405).send("NOT ALLOWED");
+})
+app.post(BASE_API_PATH+"nuts-production-stats/:distribution", (req,res)=>{
+    console.log("NEW POST ...../nuts-production-stats/country/year");
+    res.status(405).send("NOT ALLOWED");
+})
+app.post(BASE_API_PATH+"nuts-production-stats/:country/:year", (req,res)=>{
+    console.log("NEW POST ...../nuts-production-stats/country/year");
+    res.status(405).send("NOT ALLOWED");
+});
+
+//PUT a lista error
+app.put(BASE_API_PATH+"nuts-production-stats", (req,res)=>{
+    console.log("NEW PUT ...../nuts-production-stats");
+    res.status(405).send("NOT ALLOWED");
+})
+
+// DELETE a lista
+app.delete(BASE_API_PATH+"nuts-production-stats", (req,res)=>{
+	console.log("NEW DELETE ...../nuts-production-stats");
+	nutsstats = [];
+	console.log("Data removed");
+	res.sendStatus(200).send("Tabla eliminada");
 });
 
 //=========================================== JMGD =========================================================
