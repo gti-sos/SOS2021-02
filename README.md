@@ -1,5 +1,4 @@
 <html>
-	
 	<body>
 		<h1>SOS2021-02</h1>
 		<h3>Team</h3>
