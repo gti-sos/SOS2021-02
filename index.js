@@ -144,7 +144,7 @@ var oilstatsInitial = [
 		"distribution": 22.12
     },
 	{
-        "country": "Grece",
+        "country": "Greece",
         "year": 2011,
 		"production": 420,
 		"exportation": 5.48,
@@ -211,6 +211,29 @@ app.post(BASE_API_PATH+"oil-production-stats", (req, res) =>{
 	oilstats.push(newCountry);
 	res.sendStatus(201);
 });
+
+//DELETE a /country/year
+app.delete(BASE_API_PATH+"oil-production-stats/:country/:year", (req,res)=>{
+	console.log("NEW DELETE ...../oil-production-stats/country/year");
+	var reqcountry = req.params.country;
+	var reqyear = parseInt(req.params.year);
+	var found = oilstats.find(e => (e.country === reqcountry) && (e.year === reqyear));
+	if(!found){
+		console.log("DATA NOT FOUND");
+		res.sendStatus(404);
+	}else{
+		for(var i=0; i<oilstats.length; i++) {
+			if((String(oilstats[i].country) === reqcountry) && (oilstats[i].year === reqyear)){
+				oilstats.splice(i,1);
+				console.log("DATA REMOVED");
+				res.sendStatus(200);
+			}
+		}
+	}
+});
+
+
+//PUT a /country/year
 
 
 
