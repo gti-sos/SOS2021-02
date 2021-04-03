@@ -30,7 +30,7 @@ app.get("/info/nuts-production-stats", (request,response) => {
 //GET loadInitialData
 app.get(BASE_API_PATH+"nuts-production-stats/loadInitialData", (req, res) =>{
 	
-	console.log("NEW GET .../tourists_countries_stats/loadInitialData");
+	console.log("NEW GET .../nuts-production-stats/loadInitialData");
 
 	var nutsstatsInitial = [
 		{
@@ -83,11 +83,13 @@ app.get(BASE_API_PATH+"nuts-production-stats/loadInitialData", (req, res) =>{
 
 //GET a toda la lista de recursos
 app.get(BASE_API_PATH+"nuts-production-stats", (req, res) =>{
-    res.send(JSON.stringify(nutsstats, null, 2));
+    console.log("NEW GET .../nuts-production-stats");
+	res.send(JSON.stringify(nutsstats, null, 2));
 });
 
 //GET a un recurso
 app.get(BASE_API_PATH+"nuts-production-stats/:country/:year", (req, res) =>{
+	console.log("NEW GET .../nuts-production-stats/country/year");
 	var reqcountry = req.params.country;
 	var reqyear = req.params.year;
 	var sendData = [];
@@ -102,7 +104,7 @@ app.get(BASE_API_PATH+"nuts-production-stats/:country/:year", (req, res) =>{
 //POST para crear un nuevo recurso en nuestra lista
 app.post(BASE_API_PATH+"nuts-production-stats", (req, res) =>{
     var newCountry = req.body;
-    console.log(`new country to be added:	<${JSON.stringify(newCountry,null,2)}>`);
+    console.log(`NEW POST ... country to be added:	<${JSON.stringify(newCountry,null,2)}>`);
 	nutsstats.push(newCountry);
 	res.sendStatus(201);
 });
@@ -117,7 +119,7 @@ app.delete(BASE_API_PATH+"nuts-production-stats/:country/:year", (req,res)=>{
 		console.log("DATA NOT FOUND");
 		res.sendStatus(404);
 	}else{
-		for(var i=0; i<nutsstats.length-1; i++) {
+		for(var i=0; i<nutsstats.length; i++) {
 			if((String(nutsstats[i].country) === reqcountry) && (nutsstats[i].year === reqyear)){
 				nutsstats.splice(i,1);
 				console.log("DATA REMOVED");
