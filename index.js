@@ -255,13 +255,64 @@ app.delete(BASE_API_PATH+"oil-production-stats/:country/:year", (req,res)=>{
 });
 
 
-//PUT a /country/year
+// PUT a country/year
+app.put(BASE_API_PATH +"oil-production-stats/:country/:year",(req,res)=>{
+    console.log("NEW PUT ...../oil-production-stats/country/year");
+	var reqcountry=req.params.country;
+    var reqyear=parseInt(req.params.year);
+    var data=req.body;
+    
+    if(reqcountry!=data.country||reqyear!=data.year){
+        res.sendStatus(400).send("BAD Request");
+    }else{
+		for(var i=0;i<oilstats.length ;i++){
+			if((String(oilstats[i].country) === reqcountry) && (oilstats[i].year === reqyear)){
+				oilstats[i] = data;
+				res.sendStatus(200).send("DATA UPDATED");
+			}
+		}
+	}
+});
 
+// POST a country/year error
+app.post(BASE_API_PATH+"oil-production-stats/:country", (req,res)=>{
+    console.log("NEW POST ...../oil-production-stats/country/year");
+    res.status(405).send("NOT ALLOWED");
+})
+app.post(BASE_API_PATH+"oil-production-stats/:year", (req,res)=>{
+    console.log("NEW POST ...../oil-production-stats/country/year");
+    res.status(405).send("NOT ALLOWED");
+})
+app.post(BASE_API_PATH+"oil-production-stats/:production", (req,res)=>{
+    console.log("NEW POST ...../oil-production-stats/country/year");
+    res.status(405).send("NOT ALLOWED");
+})
+app.post(BASE_API_PATH+"oil-production-stats/:exportation", (req,res)=>{
+    console.log("NEW POST ...../oil-production-stats/country/year");
+    res.status(405).send("NOT ALLOWED");
+})
+app.post(BASE_API_PATH+"oil-production-stats/:distribution", (req,res)=>{
+    console.log("NEW POST ...../oil-production-stats/country/year");
+    res.status(405).send("NOT ALLOWED");
+})
+app.post(BASE_API_PATH+"oil-production-stats/:country/:year", (req,res)=>{
+    console.log("NEW POST ...../oil-production-stats/country/year");
+    res.status(405).send("NOT ALLOWED");
+});
 
+//PUT a lista error
+app.put(BASE_API_PATH+"oil-production-stats", (req,res)=>{
+    console.log("NEW PUT ...../oil-production-stats");
+    res.status(405).send("NOT ALLOWED");
+})
 
-
-
-
+// DELETE a lista
+app.delete(BASE_API_PATH+"oil-production-stats", (req,res)=>{
+	console.log("NEW DELETE ...../oil-production-stats");
+	oilstats = [];
+	console.log("Data removed");
+	res.sendStatus(200).send("Tabla eliminada");
+});
 //=========================================== AFB =========================================================
 var winestats = [];
 var winestatsInitial= [
