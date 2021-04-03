@@ -129,6 +129,26 @@ app.delete(BASE_API_PATH+"nuts-production-stats/:country/:year", (req,res)=>{
 	}
 });
 
+// PUT a country/year
+app.put(BASE_API_PATH +"/nuts-production-stats/:country/:year",(req,res)=>{
+    console.log("NEW PUT ...../nuts-production-stats/country/year");
+	var country=req.params.country;
+    var year=req.params.year;
+    var data=req.body;
+    
+    if(country!=data.country||year!=data.year){
+        res.sendStatus(400).send("BAD Request");
+    }else{
+		for(var i=0;i<nutsstats.length;i++){
+			if((String(nutsstats[i].country) === reqcountry) && (nutsstats[i].year === reqyear)){
+				//nutsstats.splice(i,1);
+				nutsstats[i] = data;
+				res.sendStatus(200).send("DATA UPDATED");
+			}
+		}
+	}
+});
+
 //=========================================== JMGD =========================================================
 var oilstatsInitial = [
     {
