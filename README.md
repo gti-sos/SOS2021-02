@@ -23,12 +23,12 @@
 		<li>
 			<a href="https://sos2021-02.herokuapp.com/api/v1/oil-production-stats">      
 				[https://sos2021-02.herokuapp.com/api/v1/oil-production-stats]</a>
-				<a> Fuente </a>(developed by <a href="https://github.com/marinantonioj">José Manuel González Domínguez)	</a>
+				<a> Fuente </a>(developed by <a href="https://github.com/jgonzalezal37">José Manuel González Domínguez)	</a>
 		</li>
 		 <li>
 			<a href="https://sos2021-02.herokuapp.com/api/v1/wine-production-stats">   
 				[https://sos2021-02.herokuapp.com/api/v1/wine-production-stats]</a>
-				<a> Fuente </a>(developed by <a href="https://github.com/marinantonioj">Alejandro Fernandez Baena)	</a>
+				<a> Fuente </a>(developed by <a href="https://github.com/alefdz98">Alejandro Fernandez Baena)	</a>
 		</li>
 	</body>
 </html>

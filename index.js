@@ -438,6 +438,87 @@ app.post(BASE_API_PATH+"wine-production-stats", (req, res) =>{
 	res.sendStatus(201);
 });
 
+//DELETE a /country/year
+app.delete(BASE_API_PATH+"wine-production-stats/:country/:year", (req,res)=>{
+	console.log("NEW DELETE ...../wine-production-stats/country/year");
+	var reqcountry = req.params.country;
+	var reqyear = parseInt(req.params.year);
+	var found = winestats.find(e => (e.country === reqcountry) && (e.year === reqyear));
+	if(!found){
+		console.log("DATA NOT FOUND");
+		res.sendStatus(404);
+	}else{
+		for(var i=0; i<winestats.length; i++) {
+			if((String(winestats[i].country) === reqcountry) && (winestats[i].year === reqyear)){
+				winestats.splice(i,1);
+				console.log("DATA REMOVED");
+				res.sendStatus(200);
+			}
+		}
+	}
+});
+
+// PUT a country/year
+app.put(BASE_API_PATH +"wine-production-stats/:country/:year",(req,res)=>{
+    console.log("NEW PUT ...../wine-production-stats/country/year");
+	var reqcountry=req.params.country;
+    var reqyear=parseInt(req.params.year);
+    var data=req.body;
+    
+    if(reqcountry!=data.country||reqyear!=data.year){
+        res.sendStatus(400).send("BAD Request");
+    }else{
+		for(var i=0;i<winestats.length ;i++){
+			if((String(winestats[i].country) === reqcountry) && (winestats[i].year === reqyear)){
+				winestats[i] = data;
+				res.sendStatus(200).send("DATA UPDATED");
+			}
+		}
+	}
+});
+
+// POST a country/year error
+app.post(BASE_API_PATH+"wine-production-stats/:country", (req,res)=>{
+    console.log("NEW POST ...../wine-production-stats/country/year");
+    res.status(405).send("NOT ALLOWED");
+})
+app.post(BASE_API_PATH+"wine-production-stats/:year", (req,res)=>{
+    console.log("NEW POST ...../wine-production-stats/country/year");
+    res.status(405).send("NOT ALLOWED");
+})
+app.post(BASE_API_PATH+"wine-production-stats/:production", (req,res)=>{
+    console.log("NEW POST ...../wine-production-stats/country/year");
+    res.status(405).send("NOT ALLOWED");
+})
+app.post(BASE_API_PATH+"wine-production-stats/:exportation", (req,res)=>{
+    console.log("NEW POST ...../wine-production-stats/country/year");
+    res.status(405).send("NOT ALLOWED");
+})
+app.post(BASE_API_PATH+"wine-production-stats/:distribution", (req,res)=>{
+    console.log("NEW POST ...../wine-production-stats/country/year");
+    res.status(405).send("NOT ALLOWED");
+})
+app.post(BASE_API_PATH+"wine-production-stats/:country/:year", (req,res)=>{
+    console.log("NEW POST ...../wine-production-stats/country/year");
+    res.status(405).send("NOT ALLOWED");
+});
+//PUT a lista error
+app.put(BASE_API_PATH+"wine-production-stats", (req,res)=>{
+    console.log("NEW PUT ...../wine-production-stats");
+    res.status(405).send("NOT ALLOWED");
+})
+
+// DELETE a lista
+app.delete(BASE_API_PATH+"wine-production-stats", (req,res)=>{
+	console.log("NEW DELETE ...../wine-production-stats");
+	oilstats = [];
+	console.log("Data removed");
+	res.sendStatus(200).send("Tabla eliminada");
+});
+
+
+
+
 
 
 
