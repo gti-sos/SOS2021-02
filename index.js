@@ -511,7 +511,7 @@ app.put(BASE_API_PATH+"wine-production-stats", (req,res)=>{
 // DELETE a lista
 app.delete(BASE_API_PATH+"wine-production-stats", (req,res)=>{
 	console.log("NEW DELETE ...../wine-production-stats");
-	oilstats = [];
+	winestats = [];
 	console.log("Data removed");
 	res.sendStatus(200).send("Tabla eliminada");
 });
