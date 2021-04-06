@@ -422,7 +422,7 @@ app.get(BASE_API_PATH+"wine-production-stats/:country/:year", (req, res) =>{
 	var reqcountry = req.params.country;
 	var reqyear = req.params.year;
 	var sendData = [];
-	for(var i=0; i<winestats.length-1; i++) {
+	for(var i=0; i<winestats.length; i++) {
 		if((String(winestats[i].country) === reqcountry) && (winestats[i].year === parseInt(reqyear))){
 			sendData.push(winestats[i]);
 		}
