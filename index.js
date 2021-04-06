@@ -257,7 +257,7 @@ app.get(BASE_API_PATH+"oil-production-stats/:country/:year", (req, res) =>{
 	var reqcountry = req.params.country;
 	var reqyear = req.params.year;
 	var sendData = [];
-	for(var i=0; i<oilstats.length-1; i++) {
+	for(var i=0; i<oilstats.length; i++) {
 		if((String(oilstats[i].country) === reqcountry) && (oilstats[i].year === parseInt(reqyear))){
 			sendData.push(oilstats[i]);
 		}
