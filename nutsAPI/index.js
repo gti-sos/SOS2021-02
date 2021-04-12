@@ -1,7 +1,7 @@
 var BASE_NUTS_API_PATH = "/api/v1/";
 
 var nutsstats = [];
-
+//prueba push
 module.exports.register = (app) => {
 
     //Get al info (tabla)
