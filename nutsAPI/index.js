@@ -63,7 +63,50 @@ module.exports.register = (app) => {
     });
 
     //GET a toda la lista de recursos
-    app.get(BASE_NUTS_API_PATH+"oil-production-stats", (req, res) =>{
+    app.get(BASE_NUTS_API_PATH+"nuts-production-stats", (req, res) =>{
+        
+        var query = req.query;
+        var offset = query.offset;
+        var limit = query.limit;
+        delete query.offset;
+        delete query.limit;
+
+        //Pasamos los atributos de la query a Int
+        if(query.hasOwnProperty("year")){
+            query.year = parseInt(query.year);
+        }
+        if(query.hasOwnProperty("almond")){
+            query.almond = parseInt(query.almond);
+        }
+        if(query.hasOwnProperty("walnut")){
+            query.walnut = parseInt(query.walnut);
+        }
+        if(query.hasOwnProperty("pistachio")){
+            query.pistachio = parseInt(pistachio);
+        }
+
+        db.find(query).skip(offset).limit(limit).exec((err, nutsInDB) => {
+            if(err){
+                console.error("ERROR accesing DB in GET");
+                res.sendStatus(500);
+            }
+            else{
+                if(nutsInDB.length == 0){
+                    console.error("No data found");
+                    res.sendStatus(404);
+                }
+                else{
+                    var dataToSend = nutsInDB.map((c)=>{
+                        return {country : c.country, year : c.year, almond : c.almond, walnut : c.walnut, pistachio : c.pistachio};
+                    })
+                    res.send(JSON.stringify(dataToSend, null, 2));
+                    console.log("Data sent:"+JSON.stringify(dataToSend, null, 2));
+                 }
+            }
+        });
+        
+        
+        /*
         db.find({}, (err, nutsinDB)=>{
             if(err){
                 console.error("ERROR accessing DB in GET " + err);
@@ -75,7 +118,7 @@ module.exports.register = (app) => {
                 res.send(JSON.stringify(dataToSend,null,2));
             }
         });
-
+        */
 
     });
 
