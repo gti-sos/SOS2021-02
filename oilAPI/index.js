@@ -1,5 +1,6 @@
 var BASE_OIL_API_PATH = "/api/v1/";
-
+var DataStore = require("nedb");
+var db = new DataStore();
 var oilstats = [];
 
 module.exports.register = (app) => {
@@ -48,9 +49,11 @@ module.exports.register = (app) => {
         response.send("<html><body><h1>En esta tabla se muestra la producción, distribución y exportación de aceite en distintos paises del mundo</h1><table border><tr><th>country</th><th>year</th><th>production</th><th>exportation</th><th>distribution</th></tr><tr><th>Spain</th><th>2011</th><th>669,1</th><th>48,36</th><th>18,61</th></tr><tr><th>Italy</th><th>2011</th><th>735</th><th>28,74</th><th>22,12</th></tr><tr><th>Greece</th><th>2011</th><th>420</th><th>5,48</th><th>7,71</th></tr><tr><th>Turkey</th><th>2011</th><th>160</th><th>1.26</th><th>3.85</th></tr><tr><th>USA</th><th>2011</th><th>3</th><th>0.38</th><th>9.22</th></tr></table></body></html>");
         console.log("New request to /info/oil-production-stats has arrived");
     });
+
+
     //GET loadInitialData
     app.get(BASE_OIL_API_PATH+"oil-production-stats/loadInitialData", (req, res) =>{
-        if(oilstats.length>0){
+        /*if(oilstats.length>0){
             for(var j=0;j<oilstats.length;j++){
                 oilstats.splice(j);
             }
@@ -58,11 +61,33 @@ module.exports.register = (app) => {
         for(var i=0;i<oilstatsInitial.length;i++){
             oilstats.push(oilstatsInitial[i]);
         }
-        res.send(JSON.stringify(oilstats, null, 2));
+        res.send(JSON.stringify(oilstats, null, 2));*/
+
+        //Borrar db y cargar los datos iniciales
+    db.remove({},{multi:true},function(err,numRemoved){});
+    db.insert(oilstatsInitial);
+    res.sendStatus(200);
+    console.log("Initial data loaded:"+JSON.stringify(oilstats,null,2));
     });
+
+
+    
     //GET a toda la lista de recursos
     app.get(BASE_OIL_API_PATH+"oil-production-stats", (req, res) =>{
-        res.send(JSON.stringify(oilstats, null, 2));
+        /*res.send(JSON.stringify(oilstats, null, 2));*/
+        db.find({}, (err, oilinDB)=>{
+            if(err){
+                console.error("ERROR accessing DB in GET " + err);
+                res.sendStatus(500);
+            }else{
+                var dataToSend = oilinDB.map((c)=>{
+                    return {country : c.country, year : c.year, production : c.production, exportation : c.exportation, distribution : c.distribution};
+                })
+                res.send(JSON.stringify(dataToSend,null,2));
+            }
+        });
+
+
     });
     
     //GET a un recurso
@@ -82,39 +107,54 @@ module.exports.register = (app) => {
     app.post(BASE_OIL_API_PATH+"oil-production-stats", (req, res) =>{
         var newCountry = req.body;
         console.log(`new country to be added:	<${JSON.stringify(newCountry,null,2)}>`);
-        oilstats.push(newCountry);
-        res.sendStatus(201);
+        /*oilstats.push(newCountry);
+        res.sendStatus(201);*/
+
+        db.find({name : newCountry.country}, (err, oilinDB)=>{
+            if(err){
+                console.error("ERROR accessing DB in GET " + err);
+                res.sendStatus(500);
+            }else{
+                if(oilinDB.length == 0){
+                    console.log("Inserting newContact in DB" + JSON.stringify(newCountry,null,2));
+                    db.insert(newCountry);
+                    res.sendStatus(201); // CREATED
+                }else{
+                    res.sendStatus(409);//CONFLICT
+                }
+    
+            }
+        });
+    
+
     });
     
     //DELETE a /country/year
     app.delete(BASE_OIL_API_PATH+"oil-production-stats/:country/:year", (req,res)=>{
-        console.log("NEW DELETE ...../oil-production-stats/country/year");
-        var reqcountry = req.params.country;
-        var reqyear = parseInt(req.params.year);
-        var found = oilstats.find(e => (e.country === reqcountry) && (e.year === reqyear));
-        if(!found){
-            console.log("DATA NOT FOUND");
-            res.sendStatus(404);
-        }else{
-            for(var i=0; i<oilstats.length; i++) {
-                if((String(oilstats[i].country) === reqcountry) && (oilstats[i].year === reqyear)){
-                    oilstats.splice(i,1);
-                    console.log("DATA REMOVED");
-                    res.sendStatus(200);
-                }
-            }
-        }
-    });
+		console.log("NEW DELETE .....oil-production-stats/:country/:year");
+			var reqcountry = req.params.country;
+			var reqyear = parseInt(req.params.year);
+			db.remove({country:reqcountry,year:reqyear},{multi:true}, (err, salida) => {
+				if(salida==1){
+					console.log("DATA REMOVED");
+					res.sendStatus(200);
+				}else{
+					console.log("DATA NOT FOUND");
+					res.sendStatus(404);
+				}
+			});
+	});
+
     
     
     // PUT a country/year
-    app.put(BASE_OIL_API_PATH +"oil-production-stats/:country/:year",(req,res)=>{
+    app.put(BASE_OIL_API_PATH +"oil-production-stats/:country/:year", (req,res)=>{
         console.log("NEW PUT ...../oil-production-stats/country/year");
         var reqcountry=req.params.country;
         var reqyear=parseInt(req.params.year);
         var data=req.body;
         
-        if(reqcountry!=data.country||reqyear!=data.year){
+        /*if(reqcountry!=data.country||reqyear!=data.year){
             res.sendStatus(400).send("BAD Request");
         }else{
             for(var i=0;i<oilstats.length ;i++){
@@ -123,7 +163,16 @@ module.exports.register = (app) => {
                     res.sendStatus(200).send("DATA UPDATED");
                 }
             }
-        }
+        }*/
+        if(reqcountry!=data.country||reqyear!=data.year){
+			res.status(400).send("BAD DATA");
+		}else{
+			db.remove({country: reqcountry, year: reqyear}, { multi: true }, function (err, salida) {});
+			db.insert(data);
+			res.sendStatus(200);
+				
+			
+		}
     });
     
     // POST a country/year error

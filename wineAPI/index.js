@@ -1,4 +1,6 @@
 var BASE_WINE_API_PATH = "/api/v1/";
+var DataStore = require("nedb");
+var db = new DataStore();
 
 var winestats = [];
 //prueba heroku
@@ -50,16 +52,25 @@ module.exports.register = (app) => {
     //GET loadInitialData
     
     app.get(BASE_WINE_API_PATH+"wine-production-stats/loadInitialData", (req, res) =>{
-        if(winestats.length>0){
+        /*if(winestats.length>0){
             for(var j=0;j<winestats.length;j++){
                 winestats.splice(j);
             }
         }
         for(var i=0;i<winestatsInitial.length;i++){
-            winestats.push(winestatsInitial[i]);
+            oilstats.push(winestatsInitial[i]);
         }
-        res.send(JSON.stringify(winestats, null, 2));
+        res.send(JSON.stringify(winestats, null, 2));*/
+
+        //Borrar db y cargar los datos iniciales
+    db.remove({},{multi:true},function(err,numRemoved){});
+    db.insert(winestatsInitial);
+    res.sendStatus(200);
+    console.log("Initial data loaded:"+JSON.stringify(winestats,null,2));
     });
+    
+
+
     
     
     //GET a toda la lista de recursos
@@ -160,9 +171,19 @@ module.exports.register = (app) => {
     
     // DELETE a lista
     app.delete(BASE_WINE_API_PATH+"wine-production-stats", (req,res)=>{
-        console.log("NEW DELETE ...../wine-production-stats");
-        winestats = [];
-        console.log("Data removed");
-        res.sendStatus(200).send("Tabla eliminada");
+        db.remove({}, {multi:true}, function (err,numRemoved) {
+            if (err) {
+                console.error("ERROR deleting DB contacts in DELETE");
+                res.sendStatus(500);
+            }else{
+                if(numRemoved == 0){
+                    console.error("ERROR wine-stats not found");
+                    res.sendStatus(404);
+                } else {
+                    res.sendStatus(200);
+                }
+            }
+        });
+        
     });
-};
+}
