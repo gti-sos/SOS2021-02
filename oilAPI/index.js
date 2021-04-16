@@ -63,22 +63,47 @@ module.exports.register = (app) => {
     
     //GET a toda la lista de recursos
     app.get(BASE_OIL_API_PATH+"oil-production-stats", (req, res) =>{
-        /*res.send(JSON.stringify(oilstats, null, 2));*/
-        db.find({}, (err, oilinDB)=>{
+        
+        var query = req.query;
+        var offset = query.offset;
+        var limit = query.limit;
+        delete query.offset;
+        delete query.limit;
+
+        //Pasamos los atributos de la query a Int
+        if(query.hasOwnProperty("year")){
+            query.year = parseInt(query.year);
+        }
+        if(query.hasOwnProperty("production")){
+            query.production = parseFloat(query.production);
+        }
+        if(query.hasOwnProperty("exportation")){
+            query.exportation = parseFloat(query.exportation);
+        }
+        if(query.hasOwnProperty("distribution")){
+            query.distribution = parseFloat(distribution);
+        }
+
+        db.find(query).skip(offset).limit(limit).exec((err, oilInDB) => {
             if(err){
-                console.error("ERROR accessing DB in GET " + err);
+                console.error("ERROR accesing DB in GET");
                 res.sendStatus(500);
-            }else{
-                var dataToSend = oilinDB.map((c)=>{
-                    return {country : c.country, year : c.year, production : c.production, exportation : c.exportation, distribution : c.distribution};
-                })
-                res.send(JSON.stringify(dataToSend,null,2));
+            }
+            else{
+                if(oilInDB.length == 0){
+                    console.error("No data found");
+                    res.sendStatus(404);
+                }
+                else{
+                    var dataToSend = oilInDB.map((c)=>{
+                        return {country : c.country, year : c.year, production : c.production, exportation : c.exportation, distribution : c.distribution};
+                    })
+                    res.send(JSON.stringify(dataToSend, null, 2));
+                    console.log("Data sent:"+JSON.stringify(dataToSend, null, 2));
+                 }
             }
         });
-
-
     });
-    
     //GET a un recurso
     app.get(BASE_OIL_API_PATH+"oil-production-stats/:country/:year", (req, res) => {
         var reqCountry = req.params.country;
