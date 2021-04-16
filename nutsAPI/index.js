@@ -1,4 +1,6 @@
 var BASE_NUTS_API_PATH = "/api/v1/";
+var DataStore = require("nedb");
+var db = new DataStore();
 
 var nutsstats = [];
 
@@ -52,7 +54,7 @@ module.exports.register = (app) => {
                 "pistachio-prod": 201395
             }
         ];
-
+        /*    
         if(nutsstats.length>0){
             for(var j=0;j<nutsstats.length;j++){
                 nutsstats.splice(j);
@@ -62,6 +64,12 @@ module.exports.register = (app) => {
             nutsstats.push(nutsstatsInitial[i]);
         }
         res.send(JSON.stringify(nutsstats, null, 2));
+        */
+       //Borrar db y cargar los datos iniciales
+        db.remove({},{multi:true},function(err,numRemoved){});
+        db.insert(nutsstatsInitial);
+        res.sendStatus(200);
+        console.log("Initial data loaded:"+JSON.stringify(oilstats,null,2));
     });
 
     //GET a toda la lista de recursos
@@ -69,9 +77,10 @@ module.exports.register = (app) => {
         console.log("NEW GET .../nuts-production-stats");
         res.send(JSON.stringify(nutsstats, null, 2));
     });
-
+/*
     //GET a un recurso
     app.get(BASE_NUTS_API_PATH+"nuts-production-stats/:country/:year", (req, res) =>{
+        
         console.log("NEW GET .../nuts-production-stats/country/year");
         var reqcountry = req.params.country;
         var reqyear = req.params.year;
@@ -82,6 +91,44 @@ module.exports.register = (app) => {
             }
         }
         res.send(JSON.stringify(sendData, null, 2));
+    
+        console.log("NEW GET ...../exports_imports_stats/country/year");
+		var reqcountry = req.params.country;
+		var reqyear = parseInt(req.params.year);
+
+        db.find({country: reqcountry, year: reqyear}, (err, dataInDB)=>{
+            if(err){
+                console.error("ERROR accessing DB in GET " + err);
+                res.sendStatus(500);
+            }else{
+                var dataToSend = dataInDB.map( c => {//
+                    return {country : c.country, year : c.year, "almond-prod" : c.almond, "walnut-prod" : c.walnut, "pistachio-prod" : c.pistachio};
+                });
+                res.send(JSON.stringify(dataToSend,null,2));
+            }
+        });
+        
+            
+    });*/
+
+    app.get(BASE_NUTS_API_PATH+"nuts-production-stats/:country/:year", (req, res) => {
+        var reqCountry = req.params.country;
+        var reqYear = parseInt(req.params.year);
+
+        db.find({ country: reqCountry, year: reqYear }, { _id: 0 }, function (err, data) {
+            if (err) {
+                console.error("ERROR in GET");
+                res.sendStatus(500);
+            } else {
+                if (data.length == 0) {
+                    console.error("No data found");
+                    res.sendStatus(404);
+                } else {
+                    console.log(`NEW GET to <${reqCountry}>, <${reqYear}>`);
+                    res.status(200).send(JSON.stringify(data, null, 2));
+                }
+            }
+        });
     });
 
     //POST para crear un nuevo recurso en nuestra lista
