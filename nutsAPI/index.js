@@ -21,50 +21,40 @@ module.exports.register = (app) => {
             {
                 "country": "Spain",
                 "year": 2011,
-                "almond-prod": 208800,
-                "walnut-prod": 13815,
-                "pistachio-prod": 2708
+                "almond": 208800,
+                "walnut": 13815,
+                "pistachio": 2708
             },
             {
                 "country": "Italy",
                 "year": 2011,
-                "almond-prod": 104790,
-                "walnut-prod": 10500,
-                "pistachio-prod": 3079
+                "almond": 104790,
+                "walnut": 10500,
+                "pistachio": 3079
             },
             {
                 "country": "Greece",
                 "year": 2011,
-                "almond-prod": 29800,
-                "walnut-prod": 29800,
-                "pistachio-prod": 7791
+                "almond": 29800,
+                "walnut": 29800,
+                "pistachio": 7791
             },
             {
                 "country": "Turkey",
                 "year": 2011,
-                "almond-prod": 69838,
-                "walnut-prod": 203212,
-                "pistachio-prod": 112000
+                "almond": 69838,
+                "walnut": 203212,
+                "pistachio": 112000
             },
             {
                 "country": "USA",
                 "year": 2011,
-                "almond-prod": 1655000,
-                "walnut-prod": 418212,
-                "pistachio-prod": 201395
+                "almond": 1655000,
+                "walnut": 418212,
+                "pistachio": 201395
             }
         ];
-        /*    
-        if(nutsstats.length>0){
-            for(var j=0;j<nutsstats.length;j++){
-                nutsstats.splice(j);
-            }
-        }
-        for(var i=0;i<nutsstatsInitial.length;i++){
-            nutsstats.push(nutsstatsInitial[i]);
-        }
-        res.send(JSON.stringify(nutsstats, null, 2));
-        */
+        
        //Borrar db y cargar los datos iniciales
         db.remove({},{multi:true},function(err,numRemoved){});
         db.insert(nutsstatsInitial);
@@ -73,49 +63,28 @@ module.exports.register = (app) => {
     });
 
     //GET a toda la lista de recursos
-    app.get(BASE_NUTS_API_PATH+"nuts-production-stats", (req, res) =>{
-        console.log("NEW GET .../nuts-production-stats");
-        res.send(JSON.stringify(nutsstats, null, 2));
-    });
-/*
-    //GET a un recurso
-    app.get(BASE_NUTS_API_PATH+"nuts-production-stats/:country/:year", (req, res) =>{
-        
-        console.log("NEW GET .../nuts-production-stats/country/year");
-        var reqcountry = req.params.country;
-        var reqyear = req.params.year;
-        var sendData = [];
-        for(var i=0; i<nutsstats.length; i++) {
-            if((String(nutsstats[i].country) === reqcountry) && (nutsstats[i].year === parseInt(reqyear))){
-                sendData.push(nutsstats[i]);
-            }
-        }
-        res.send(JSON.stringify(sendData, null, 2));
-    
-        console.log("NEW GET ...../exports_imports_stats/country/year");
-		var reqcountry = req.params.country;
-		var reqyear = parseInt(req.params.year);
-
-        db.find({country: reqcountry, year: reqyear}, (err, dataInDB)=>{
+    app.get(BASE_NUTS_API_PATH+"oil-production-stats", (req, res) =>{
+        db.find({}, (err, nutsinDB)=>{
             if(err){
                 console.error("ERROR accessing DB in GET " + err);
                 res.sendStatus(500);
             }else{
-                var dataToSend = dataInDB.map( c => {//
-                    return {country : c.country, year : c.year, "almond-prod" : c.almond, "walnut-prod" : c.walnut, "pistachio-prod" : c.pistachio};
-                });
+                var dataToSend = nutsinDB.map((c)=>{
+                    return {country : c.country, year : c.year, almond : c.almond, walnut : c.walnut, pistachio : c.pistachio};
+                })
                 res.send(JSON.stringify(dataToSend,null,2));
             }
         });
-        
-            
-    });*/
 
+
+    });
+
+    //GET a un recurso concreto
     app.get(BASE_NUTS_API_PATH+"nuts-production-stats/:country/:year", (req, res) => {
         var reqCountry = req.params.country;
         var reqYear = parseInt(req.params.year);
 
-        db.find({ country: reqCountry, year: reqYear }, { _id: 0 }, function (err, data) {
+        db.find({country: reqCountry, year: reqYear}, {_id: 0}, function (err, data) {
             if (err) {
                 console.error("ERROR in GET");
                 res.sendStatus(500);
@@ -134,48 +103,59 @@ module.exports.register = (app) => {
     //POST para crear un nuevo recurso en nuestra lista
     app.post(BASE_NUTS_API_PATH+"nuts-production-stats", (req, res) =>{
         var newCountry = req.body;
-        console.log(`NEW POST ... country to be added:	<${JSON.stringify(newCountry,null,2)}>`);
-        nutsstats.push(newCountry);
-        res.sendStatus(201);
+        console.log(`new country to be added:	<${JSON.stringify(newCountry,null,2)}>`);
+
+        db.find({name : newCountry.country}, (err, nutsinDB)=>{
+            if(err){
+                console.error("ERROR accessing DB in GET " + err);
+                res.sendStatus(500);
+            }else{
+                if(nutsinDB.length == 0){
+                    console.log("Inserting newCountry in DB" + JSON.stringify(newCountry,null,2));
+                    db.insert(newCountry);
+                    res.sendStatus(201); // CREATED
+                }else{
+                    res.sendStatus(409);//CONFLICT
+                }
+    
+            }
+        });
+    
+
     });
 
     //DELETE a /country/year
     app.delete(BASE_NUTS_API_PATH+"nuts-production-stats/:country/:year", (req,res)=>{
-        console.log("NEW DELETE ...../nuts-production-stats/country/year");
-        var reqcountry = req.params.country;
-        var reqyear = parseInt(req.params.year);
-        var found = nutsstats.find(e => (e.country === reqcountry) && (e.year === reqyear));
-        if(!found){
-            console.log("DATA NOT FOUND");
-            res.sendStatus(404);
-        }else{
-            for(var i=0; i<nutsstats.length; i++) {
-                if((String(nutsstats[i].country) === reqcountry) && (nutsstats[i].year === reqyear)){
-                    nutsstats.splice(i,1);
-                    console.log("DATA REMOVED");
-                    res.sendStatus(200);
-                }
-            }
-        }
-    });
+		console.log("NEW DELETE .....nuts-production-stats/:country/:year");
+			var reqcountry = req.params.country;
+			var reqyear = parseInt(req.params.year);
+			db.remove({country:reqcountry,year:reqyear},{multi:true}, (err, salida) => {
+				if(salida==1){
+					console.log("DATA REMOVED");
+					res.sendStatus(200);
+				}else{
+					console.log("DATA NOT FOUND");
+					res.sendStatus(404);
+				}
+			});
+	});
 
     // PUT a country/year
-    app.put(BASE_NUTS_API_PATH +"nuts-production-stats/:country/:year",(req,res)=>{
+    app.put(BASE_NUTS_API_PATH +"nuts-production-stats/:country/:year", (req,res)=>{
         console.log("NEW PUT ...../nuts-production-stats/country/year");
         var reqcountry=req.params.country;
         var reqyear=parseInt(req.params.year);
         var data=req.body;
         
         if(reqcountry!=data.country||reqyear!=data.year){
-            res.sendStatus(400).send("BAD Request");
-        }else{
-            for(var i=0;i<nutsstats.length ;i++){
-                if((String(nutsstats[i].country) === reqcountry) && (nutsstats[i].year === reqyear)){
-                    nutsstats[i] = data;
-                    res.sendStatus(200).send("DATA UPDATED");
-                }
-            }
-        }
+			res.status(400).send("BAD DATA");
+		}else{
+			db.remove({country: reqcountry, year: reqyear}, { multi: true }, function (err, salida) {});
+			db.insert(data);
+			res.sendStatus(200);
+				
+			
+		}
     });
 
     // POST a country/year error
@@ -212,10 +192,20 @@ module.exports.register = (app) => {
 
     // DELETE a lista
     app.delete(BASE_NUTS_API_PATH+"nuts-production-stats", (req,res)=>{
-        console.log("NEW DELETE ...../nuts-production-stats");
-        nutsstats = [];
-        console.log("Data removed");
-        res.sendStatus(200).send("Tabla eliminada");
+        db.remove({}, {multi:true}, function (err,numRemoved) {
+            if (err) {
+                console.error("ERROR deleting DB contacts in DELETE");
+                res.sendStatus(500);
+            }else{
+                if(numRemoved == 0){
+                    console.error("ERROR nuts-stats not found");
+                    res.sendStatus(404);
+                } else {
+                    res.sendStatus(200);
+                }
+            }
+        });
+        
     });
 
 }
