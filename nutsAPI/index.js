@@ -59,7 +59,7 @@ module.exports.register = (app) => {
         db.remove({},{multi:true},function(err,numRemoved){});
         db.insert(nutsstatsInitial);
         res.sendStatus(200);
-        console.log("Initial data loaded:"+JSON.stringify(oilstats,null,2));
+        console.log("Initial data loaded:"+JSON.stringify(nutsstatsInitial,null,2));
     });
 
     //GET a toda la lista de recursos
@@ -82,7 +82,7 @@ module.exports.register = (app) => {
             query.walnut = parseInt(query.walnut);
         }
         if(query.hasOwnProperty("pistachio")){
-            query.pistachio = parseInt(pistachio);
+            query.pistachio = parseInt(query.pistachio);
         }
 
         db.find(query).skip(offset).limit(limit).exec((err, nutsInDB) => {
