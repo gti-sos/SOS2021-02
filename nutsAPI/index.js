@@ -184,22 +184,31 @@ module.exports.register = (app) => {
 	});
 
     // PUT a country/year
-    app.put(BASE_NUTS_API_PATH +"nuts-production-stats/:country/:year", (req,res)=>{
-        console.log("NEW PUT ...../nuts-production-stats/country/year");
-        var reqcountry = req.params.country;
-        var reqyear = parseInt(req.params.year);
-        var data = req.body;
-        
-        if(data.country!=reqcountry||data.year!=reqyear||!data.country||!data.year||!data['almond']||!data['walnut']||!data['pistachio']){
-			res.status(400).send("BAD DATA - Los datos que ha introducido no son correctos");
-		}else{
-			db.remove({country: reqcountry, year: reqyear}, { multi: true }, function (err, salida) {});
-			db.insert(data);
-			res.sendStatus(200).send("PUT realizado correctamente");
+    app.put(BASE_NUTS_API_PATH+"nuts-production-stats/:country/:year", (req,res) => {
 				
+		var country = req.params.country;
+		var year = parseInt(req.params.year);
+		var body = req.body;
+		
+		db.find({"country":country, "year":year}, (err, dataFound) => {
+            var almond= body["almond"];
+            var walnut= body["walnut"];
+            var pistachio= body["pistachio"];
 			
-		}
-    });
+			if(dataFound.length == 0) {
+				res.sendStatus(404, "DATA NOT FOUND");
+				console.log("Data not found");
+			} else if(body.country != country || body.year != year || !body.country || !body.year || !body["almond"] || !body["walnut"] || !body["pistachio"] || Object.keys(body).length != 5){
+				res.sendStatus(400, "FORMAT NOT VALID");
+				console.log("The format is not valid" + almond + walnut + pistachio);
+			} else {
+				db.update({"country":country,"year":year}, {$set:body});
+				res.sendStatus(200);
+				console.log("Data updated");
+			}
+		});
+		
+	});
 
     // POST a country/year error
     app.post(BASE_NUTS_API_PATH+"nuts-production-stats/:country", (req,res)=>{
