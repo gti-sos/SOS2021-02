@@ -1,7 +1,8 @@
 {
 	"info": {
 		"_postman_id": "d0efb840-32e2-49f6-b086-e4d981f440f5",
-		"name": "SOS2021",
+		"name": "API de SOS2021-02",
+		"description": "oilstats API management",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -49,7 +50,7 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
+									"pm.test(\"Status code is 201\", function () {\r",
 									"    pm.response.to.have.status(201);\r",
 									"});"
 								],
@@ -112,6 +113,174 @@
 								"api",
 								"v1",
 								"oil-production-stats"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "paginacion limit y offset",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}:{{PORT}}/api/v1/oil-production-stats?limit=2&offset=0",
+							"host": [
+								"{{HOST}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"api",
+								"v1",
+								"oil-production-stats"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "2"
+								},
+								{
+									"key": "offset",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "busqueda por pais",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}:{{PORT}}/api/v1/oil-production-stats?country=Spain",
+							"host": [
+								"{{HOST}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"api",
+								"v1",
+								"oil-production-stats"
+							],
+							"query": [
+								{
+									"key": "country",
+									"value": "Spain"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "busqueda por atributos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}:{{PORT}}/api/v1/oil-production-stats?production=160&exportation=1.26&distribution=3.85",
+							"host": [
+								"{{HOST}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"api",
+								"v1",
+								"oil-production-stats"
+							],
+							"query": [
+								{
+									"key": "production",
+									"value": "160"
+								},
+								{
+									"key": "exportation",
+									"value": "1.26"
+								},
+								{
+									"key": "distribution",
+									"value": "3.85"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "busqueda por production",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}:{{PORT}}/api/v1/oil-production-stats?production=669.1",
+							"host": [
+								"{{HOST}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"api",
+								"v1",
+								"oil-production-stats"
+							],
+							"query": [
+								{
+									"key": "production",
+									"value": "669.1"
+								}
 							]
 						}
 					},
@@ -207,7 +376,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\"country\": \"Spain\",\r\n\"year\": 2011,\r\n\"production\": 0,\r\n\"exportation\": 0,\r\n\"distribution\": 0\r\n}",
+							"raw": "{\r\n        \"country\": \"Spain\",\r\n        \"year\": 2011,\r\n\t\t\"production\": 3,\r\n\t\t\"exportation\": 1,\r\n\t\t\"distribution\": 1\r\n    }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -238,7 +407,7 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
+									"pm.test(\"Status code is 405\", function () {\r",
 									"    pm.response.to.have.status(405);\r",
 									"});"
 								],
@@ -282,7 +451,7 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
+									"pm.test(\"Status code is 405\", function () {\r",
 									"    pm.response.to.have.status(405);\r",
 									"});"
 								],
@@ -346,14 +515,16 @@
 	],
 	"variable": [
 		{
-			"id": "9cd17a9d-dc13-4a74-963c-d915d90d9ac5",
 			"key": "HOST",
 			"value": "localhost"
 		},
 		{
-			"id": "6cddf437-9425-4bd7-963a-e343b1b6805f",
 			"key": "PORT",
 			"value": "10000"
+		},
+		{
+			"key": "HEROKU",
+			"value": "https://sos2021-02.herokuapp.com"
 		}
 	]
 }
