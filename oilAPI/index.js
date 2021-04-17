@@ -56,7 +56,7 @@ module.exports.register = (app) => {
     db.remove({},{multi:true},function(err,numRemoved){});
     db.insert(oilstatsInitial);
     res.sendStatus(200);
-    console.log("Initial data loaded:"+JSON.stringify(oilstats,null,2));
+    console.log("Initial data loaded:"+JSON.stringify(oilstatsInitial,null,2));
     });
 
 
@@ -81,7 +81,7 @@ module.exports.register = (app) => {
             query.exportation = parseFloat(query.exportation);
         }
         if(query.hasOwnProperty("distribution")){
-            query.distribution = parseFloat(distribution);
+            query.distribution = parseFloat(query.distribution);
         }
 
         db.find(query).skip(offset).limit(limit).exec((err, oilInDB) => {
