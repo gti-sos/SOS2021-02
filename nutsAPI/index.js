@@ -186,16 +186,16 @@ module.exports.register = (app) => {
     // PUT a country/year
     app.put(BASE_NUTS_API_PATH +"nuts-production-stats/:country/:year", (req,res)=>{
         console.log("NEW PUT ...../nuts-production-stats/country/year");
-        var reqcountry=req.params.country;
-        var reqyear=parseInt(req.params.year);
-        var data=req.body;
+        var reqcountry = req.params.country;
+        var reqyear = parseInt(req.params.year);
+        var data = req.body;
         
-        if(reqcountry!=data.country||reqyear!=data.year){
-			res.status(400).send("BAD DATA");
+        if(data.country!=reqcountry||data.year!=reqyear||!data.country||!data.year||!data['almond']||!data['walnut']||!data['pistachio']){
+			res.status(400).send("BAD DATA - Los datos que ha introducido no son correctos");
 		}else{
 			db.remove({country: reqcountry, year: reqyear}, { multi: true }, function (err, salida) {});
 			db.insert(data);
-			res.sendStatus(200);
+			res.sendStatus(200).send("PUT realizado correctamente");
 				
 			
 		}
