@@ -218,7 +218,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"country\": \"Prueba\",\r\n    \"year\":2011,\r\n    \"production-wine\": 5,\r\n    \"wine-import\": 6,\r\n    \"wine-export\": 7\r\n}",
+					"raw": "{\r\n    \"country\": \"Prueba\",\r\n    \"year\":2011,\r\n    \"production\": 5,\r\n    \"import\": 6,\r\n    \"export\": 7\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"

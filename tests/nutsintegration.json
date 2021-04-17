@@ -60,7 +60,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n        \"country\": \"Prueba\",\r\n        \"year\": 2011,\r\n\t\t\"almond-prod\": 1,\r\n\t\t\"walnut-prod\": 2,\r\n\t\t\"pistachio-prod\": 3\r\n}",
+					"raw": "{\r\n        \"country\": \"Prueba\",\r\n        \"year\": 2011,\r\n\t\t\"almond\": 1,\r\n\t\t\"walnut\": 2,\r\n\t\t\"pistachio\": 3\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -382,7 +382,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n        \"country\": \"Prueba\",\r\n        \"year\": 2011,\r\n\t\t\"almond-prod\": 1,\r\n\t\t\"walnut-prod\": 2,\r\n\t\t\"pistachio-prod\": 3\r\n}",
+					"raw": "{\r\n        \"country\": \"Prueba\",\r\n        \"year\": 2011,\r\n\t\t\"almond\": 1,\r\n\t\t\"walnut\": 2,\r\n\t\t\"pistachio\": 3\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -426,7 +426,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n        \"country\": \"Italy\",\r\n        \"year\": 2011,\r\n\t\t\"almond-prod\": 0,\r\n\t\t\"walnut-prod\": 0,\r\n\t\t\"pistachio-prod\": 0\r\n}",
+					"raw": "{\r\n        \"country\": \"Italy\",\r\n        \"year\": 2011,\r\n\t\t\"almond\": 1,\r\n\t\t\"walnut\": 1,\r\n\t\t\"pistachio\": 1\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
