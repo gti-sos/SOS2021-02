@@ -144,27 +144,37 @@ module.exports.register = (app) => {
     });
 
     //POST para crear un nuevo recurso en nuestra lista
-    app.post(BASE_NUTS_API_PATH+"nuts-production-stats", (req, res) =>{
-        var newCountry = req.body;
-        console.log(`new country to be added:	<${JSON.stringify(newCountry,null,2)}>`);
-
-        db.find({name : newCountry.country}, (err, nutsinDB)=>{
+    app.post(BASE_NUTS_API_PATH+"nuts-production-stats", (req, res) => {
+        console.log("New POST .../nuts-production-stats");
+        var newData = req.body;
+        var country = req.body.country;
+        var year = parseInt(req.body.year);
+        db.find({"country":country, "year":year}).exec((err, data)=>{
             if(err){
-                console.error("ERROR accessing DB in GET " + err);
+                console.error("ERROR in GET");
                 res.sendStatus(500);
-            }else{
-                if(nutsinDB.length == 0){
-                    console.log("Inserting newCountry in DB" + JSON.stringify(newCountry,null,2));
-                    db.insert(newCountry);
-                    res.sendStatus(201); // CREATED
+            }else {
+                if(data.length == 0){
+                    if (!newData.country 
+                        || !newData.year 
+                        || !newData['almond'] 
+                        || !newData['walnut'] 
+                        || !newData['pistachio']
+                        || Object.keys(newData).length != 5){
+                        console.log("The data is not correct");
+                        return res.sendStatus(400);
+                    }else{
+                        console.log("Data imput:"+JSON.stringify(newData, null, 2));
+                        db.insert(newData);
+                        res.sendStatus(201);
+                    }
+
                 }else{
-                    res.sendStatus(409);//CONFLICT
+                    res.sendStatus(409);
+                    console.log("the data already exist");
                 }
-    
             }
         });
-    
-
     });
 
     //DELETE a /country/year
@@ -191,16 +201,13 @@ module.exports.register = (app) => {
 		var body = req.body;
 		
 		db.find({"country":country, "year":year}, (err, dataFound) => {
-            var almond= body["almond"];
-            var walnut= body["walnut"];
-            var pistachio= body["pistachio"];
 			
 			if(dataFound.length == 0) {
 				res.sendStatus(404, "DATA NOT FOUND");
 				console.log("Data not found");
 			} else if(body.country != country || body.year != year || !body.country || !body.year || !body["almond"] || !body["walnut"] || !body["pistachio"] || Object.keys(body).length != 5){
 				res.sendStatus(400, "FORMAT NOT VALID");
-				console.log("The format is not valid" + almond + walnut + pistachio);
+				console.log("The format is not valid");
 			} else {
 				db.update({"country":country,"year":year}, {$set:body});
 				res.sendStatus(200);
