@@ -51,9 +51,10 @@ module.exports.register = (app) => {
     
     //GET loadInitialData
     
-    app.get(BASE_WINE_API_PATH+"wine-production-stats/loadInitialData", (req, res) =>{
+    
        
         //Borrar db y cargar los datos iniciales
+    app.get(BASE_WINE_API_PATH+"wine-production-stats/loadInitialData", (req, res) =>{
     db.remove({},{multi:true},function(err,numRemoved){});
     db.insert(winestatsInitial);
     res.sendStatus(200);
@@ -131,27 +132,44 @@ module.exports.register = (app) => {
     });
     //POST para crear un nuevo recurso en nuestra lista
     app.post(BASE_WINE_API_PATH+"wine-production-stats", (req, res) =>{
-        var newCountry = req.body;
-        console.log(`new country to be added:	<${JSON.stringify(newCountry,null,2)}>`);
-
-        db.find({name : newCountry.country}, (err, oilinDB)=>{
+        console.log("New POST .../wine-production-stats");
+        var newData = req.body;
+        var country = req.body.country;
+        var year = parseInt(req.body.year);
+        db.find({"country":country, "year":year}).exec((err, data)=>{
             if(err){
-                console.error("ERROR accessing DB in GET " + err);
+                console.error("ERROR in GET");
                 res.sendStatus(500);
-            }else{
-                if(oilinDB.length == 0){
-                    console.log("Inserting newContact in DB" + JSON.stringify(newCountry,null,2));
-                    db.insert(newCountry);
-                    res.sendStatus(201); // CREATED
-                }else{
-                    res.sendStatus(409);//CONFLICT
-                }
-    
-            }
-        });
-    
+            }else {
+                if(data.length == 0){
+                    if (!newData.country 
+                        || !newData.year 
+                        || !newData['production'] 
+                        || !newData['import'] 
+                        || !newData['export']
+                        || Object.keys(newData).length != 5){
+                        console.log("The data is not correct");
+                        return res.sendStatus(400);
+                    }else{
+                        console.log("Data imput:"+JSON.stringify(newData, null, 2));
+                        db.insert(newData);
+                        res.sendStatus(201);
+                    }
 
+                }else{
+                    res.sendStatus(409);
+                    console.log("the data already exist");
+                }
+            }
+
+
+
+
+        });
+
+        
     });
+    
     //DELETE a /country/year
     app.delete(BASE_WINE_API_PATH+"wine-production-stats/:country/:year", (req,res)=>{
     	console.log("NEW DELETE .....wine-production-stats/:country/:year");
@@ -173,19 +191,39 @@ module.exports.register = (app) => {
     // PUT a country/year
     app.put(BASE_WINE_API_PATH +"wine-production-stats/:country/:year",(req,res)=>{
         console.log("NEW PUT ...../wine-production-stats/country/year");
-        var reqcountry=req.params.country;
-        var reqyear=parseInt(req.params.year);
-        var data=req.body;
+        var country = req.params.country;
+	    var year = req.params.year;
+	    var newData = req.body;
+	    var query = {"country":country, "year":parseInt(year)};
+        if (!newData.country 
+            || !newData.year 
+            || !newData['production'] 
+            || !newData['import'] 
+            || !newData['export']
+            || Object.keys(newData).length != 5){
+            console.log("The data is not correct");
+            return res.sendStatus(400);
+        }
         
-        if(reqcountry!=data.country||reqyear!=data.year){
-			res.status(400).send("BAD DATA");
-		}else{
-			db.remove({country: reqcountry, year: reqyear}, { multi: true }, function (err, salida) {});
-			db.insert(data);
-			res.sendStatus(200);
-				
-			
-		}
+        else {
+            db.update(query,newData,(err,numReplaced) =>{
+                if(err){
+                    console.error("ERROR in PUT");
+                    res.sendStatus(500);
+                }
+                else{
+                    if(numReplaced == 0){
+                        res.sendStatus(404);
+                        console.log("The data dont exist in the Database");
+    
+                    }
+                    else{
+                        res.sendStatus(200);
+                        console.log("Database updated!");
+                    }
+                }
+            });
+        }
     });
     
     // POST a country/year error

@@ -1,7 +1,8 @@
 {
 	"info": {
 		"_postman_id": "43d9d8fa-699c-4239-9984-5a63a780aa26",
-		"name": "sos2021-02-nuts-production-stats",
+		"name": "Pruebas SOS2021-02 NUTS",
+		"description": "Nuts management API.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -115,6 +116,139 @@
 			"response": []
 		},
 		{
+			"name": "Get a la lista con busqueda",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST}}:{{PORT}}/api/v1/nuts-production-stats?country=Spain&year=2011",
+					"host": [
+						"{{HOST}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"api",
+						"v1",
+						"nuts-production-stats"
+					],
+					"query": [
+						{
+							"key": "country",
+							"value": "Spain"
+						},
+						{
+							"key": "year",
+							"value": "2011"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get a la lista con busqueda de propiedades",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST}}:{{PORT}}/api/v1/nuts-production-stats?almond=29800&walnut=29800&pistachio=7791",
+					"host": [
+						"{{HOST}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"api",
+						"v1",
+						"nuts-production-stats"
+					],
+					"query": [
+						{
+							"key": "almond",
+							"value": "29800"
+						},
+						{
+							"key": "walnut",
+							"value": "29800"
+						},
+						{
+							"key": "pistachio",
+							"value": "7791"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get a la lista con paginación",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST}}:{{PORT}}/api/v1/nuts-production-stats?limit=3&offset=2",
+					"host": [
+						"{{HOST}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"api",
+						"v1",
+						"nuts-production-stats"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "3"
+						},
+						{
+							"key": "offset",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Get a /coutry/year",
 			"event": [
 				{
@@ -133,7 +267,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{HOST}}:{{PORT}}/api/v1/nuts-production-stats/Prueba/2011",
+					"raw": "{{HOST}}:{{PORT}}/api/v1/nuts-production-stats/Spain/2011",
 					"host": [
 						"{{HOST}}"
 					],
@@ -142,7 +276,7 @@
 						"api",
 						"v1",
 						"nuts-production-stats",
-						"Prueba",
+						"Spain",
 						"2011"
 					]
 				}
@@ -204,7 +338,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n        \"country\": \"Spain\",\r\n        \"year\": 2011,\r\n\t\t\"almond-prod\": 0,\r\n\t\t\"walnut-prod\": 0,\r\n\t\t\"pistachio-prod\": 0\r\n}",
+					"raw": "{\r\n        \"country\": \"Spain\",\r\n        \"year\": 2011,\r\n\t\t\"almond\": 1,\r\n\t\t\"walnut\": 2,\r\n\t\t\"pistachio\": 3\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -350,14 +484,16 @@
 	],
 	"variable": [
 		{
-			"id": "3ad12622-0ce9-4770-803a-10ec835e8417",
 			"key": "HOST",
 			"value": "localhost"
 		},
 		{
-			"id": "01011153-330f-4530-ba2c-f2795c9f9722",
 			"key": "PORT",
 			"value": "10000"
+		},
+		{
+			"key": "HEROKU",
+			"value": "https://sos2021-02.herokuapp.com"
 		}
 	]
 }
