@@ -99,8 +99,15 @@ module.exports.register = (app) => {
                     var dataToSend = oilInDB.map((c)=>{
                         return {country : c.country, year : c.year, production : c.production, exportation : c.exportation, distribution : c.distribution};
                     })
-                    res.send(JSON.stringify(dataToSend, null, 2));
-                    console.log("Data sent:"+JSON.stringify(dataToSend, null, 2));
+                    if(dataToSend.length==1){
+                        var objectToSend = dataToSend[0];
+                        res.send(JSON.stringify(objectToSend, null, 2));
+                        console.log("Data sent:"+JSON.stringify(objectToSend, null, 2));
+                    }else{
+                        res.send(JSON.stringify(dataToSend, null, 2));
+                        console.log("Data sent:"+JSON.stringify(dataToSend, null, 2));
+                    }
+                    
                  }
             }
         });
@@ -109,8 +116,8 @@ module.exports.register = (app) => {
     app.get(BASE_OIL_API_PATH+"oil-production-stats/:country/:year", (req, res) => {
         var reqCountry = req.params.country;
         var reqYear = parseInt(req.params.year);
-
-        db.find({ country: reqCountry, year: reqYear }, { _id: 0 }, function (err, data) {
+        
+        db.find({country: reqCountry, year: reqYear}, {_id: 0}, function (err, data) {
             if (err) {
                 console.error("ERROR in GET");
                 res.sendStatus(500);
@@ -119,13 +126,21 @@ module.exports.register = (app) => {
                     console.error("No data found");
                     res.sendStatus(404);
                 } else {
+                    var send = data[0];
                     console.log(`NEW GET to <${reqCountry}>, <${reqYear}>`);
-                    res.status(200).send(JSON.stringify(data, null, 2));
+                    res.status(200).send(JSON.stringify(send, null, 2));
                 }
             }
         });
     });
     
+    //GET a un recurso concreto ERROR 1
+    app.get(BASE_OIL_API_PATH+"oil-production-stats/:data", (req, res) => {
+        console.error("BAD REQUEST");
+        res.sendStatus(400).send("Incorrect fields");
+    });
+
+
     //POST para crear un nuevo recurso en nuestra lista
 
     app.post(BASE_OIL_API_PATH+"oil-production-stats", (req, res) => {
