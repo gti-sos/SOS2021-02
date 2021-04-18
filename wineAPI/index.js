@@ -58,7 +58,7 @@ module.exports.register = (app) => {
     db.remove({},{multi:true},function(err,numRemoved){});
     db.insert(winestatsInitial);
     res.sendStatus(200);
-    console.log("Initial data loaded:"+JSON.stringify(winestats,null,2));
+    console.log("Initial data loaded:"+JSON.stringify(winestatsInitial,null,2));
     });
     
 
@@ -89,18 +89,18 @@ module.exports.register = (app) => {
             query.export = parseFloat(query.export);
         }
 
-        db.find(query).skip(offset).limit(limit).exec((err, oilInDB) => {
+        db.find(query).skip(offset).limit(limit).exec((err, wineInDB) => {
             if(err){
                 console.error("ERROR accesing DB in GET");
                 res.sendStatus(500);
             }
             else{
-                if(oilInDB.length == 0){
+                if(wineInDB.length == 0){
                     console.error("No data found");
                     res.sendStatus(404);
                 }
                 else{
-                    var dataToSend = oilInDB.map((c)=>{
+                    var dataToSend = wineInDB.map((c)=>{
                         return {country : c.country, year : c.year, production : c.production, import : c.import, export : c.export};
                     })
                     res.send(JSON.stringify(dataToSend, null, 2));
@@ -124,12 +124,19 @@ module.exports.register = (app) => {
                     console.error("No data found");
                     res.sendStatus(404);
                 } else {
+                    var send = data[0];
                     console.log(`NEW GET to <${reqCountry}>, <${reqYear}>`);
-                    res.status(200).send(JSON.stringify(data, null, 2));
+                    res.status(200).send(JSON.stringify(send, null, 2));
                 }
             }
         });
     });
+    //GET a un recurso concreto ERROR 1
+    app.get(BASE_WINE_API_PATH+"wine-production-stats/:data", (req, res) => {
+        console.error("BAD REQUEST");
+        res.sendStatus(400).send("Incorrect fields");
+    });
+
     //POST para crear un nuevo recurso en nuestra lista
     app.post(BASE_WINE_API_PATH+"wine-production-stats", (req, res) =>{
         console.log("New POST .../wine-production-stats");
