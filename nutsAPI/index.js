@@ -99,34 +99,25 @@ module.exports.register = (app) => {
                     var dataToSend = nutsInDB.map((c)=>{
                         return {country : c.country, year : c.year, almond : c.almond, walnut : c.walnut, pistachio : c.pistachio};
                     })
-                    res.send(JSON.stringify(dataToSend, null, 2));
-                    console.log("Data sent:"+JSON.stringify(dataToSend, null, 2));
+                    if(dataToSend.length==1){
+                        var objectToSend = dataToSend[0];
+                        res.send(JSON.stringify(objectToSend, null, 2));
+                        console.log("Data sent:"+JSON.stringify(objectToSend, null, 2));
+                    }else{
+                        res.send(JSON.stringify(dataToSend, null, 2));
+                        console.log("Data sent:"+JSON.stringify(dataToSend, null, 2));
+                    }
+                    
                  }
             }
         });
-        
-        
-        /*
-        db.find({}, (err, nutsinDB)=>{
-            if(err){
-                console.error("ERROR accessing DB in GET " + err);
-                res.sendStatus(500);
-            }else{
-                var dataToSend = nutsinDB.map((c)=>{
-                    return {country : c.country, year : c.year, almond : c.almond, walnut : c.walnut, pistachio : c.pistachio};
-                })
-                res.send(JSON.stringify(dataToSend,null,2));
-            }
-        });
-        */
-
     });
 
     //GET a un recurso concreto
     app.get(BASE_NUTS_API_PATH+"nuts-production-stats/:country/:year", (req, res) => {
         var reqCountry = req.params.country;
         var reqYear = parseInt(req.params.year);
-
+        
         db.find({country: reqCountry, year: reqYear}, {_id: 0}, function (err, data) {
             if (err) {
                 console.error("ERROR in GET");
@@ -136,11 +127,18 @@ module.exports.register = (app) => {
                     console.error("No data found");
                     res.sendStatus(404);
                 } else {
+                    var send = data[0];
                     console.log(`NEW GET to <${reqCountry}>, <${reqYear}>`);
-                    res.status(200).send(JSON.stringify(data, null, 2));
+                    res.status(200).send(JSON.stringify(send, null, 2));
                 }
             }
         });
+    });
+
+    //GET a un recurso concreto ERROR 1
+    app.get(BASE_NUTS_API_PATH+"nuts-production-stats/:data", (req, res) => {
+        console.error("BAD REQUEST");
+        res.sendStatus(400).send("Incorrect fields");
     });
 
     //POST para crear un nuevo recurso en nuestra lista
