@@ -136,8 +136,9 @@ module.exports.register = (app) => {
                     console.error("No data found");
                     res.sendStatus(404);
                 } else {
+                    var send = data[0];
                     console.log(`NEW GET to <${reqCountry}>, <${reqYear}>`);
-                    res.status(200).send(JSON.stringify(data, null, 2));
+                    res.status(200).send(JSON.stringify(send, null, 2));
                 }
             }
         });
