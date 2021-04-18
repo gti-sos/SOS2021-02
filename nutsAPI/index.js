@@ -8,7 +8,7 @@ module.exports.register = (app) => {
 
     //Get al info (tabla)
     app.get("/info/nuts-production-stats", (request,response) => {
-        response.send("<html><body><h1>En esta tabla se muestran los datos de la producción de almendras, nueces y pistachos en los diferentes países que más rendimiento sacan de ello</h1><table border><tr><th>country</th><th>year</th><th>almond-prod</th><th>walnut-prod</th><th>pistachio-prod</th></tr><tr><th>Spain</th><th>2011</th><th>208800</th><th>13815</th><th>2708</th></tr><tr><th>Italy</th><th>2011</th><th>104790</th><th>10500</th><th>3079</th></tr><tr><th>Greece</th><th>2011</th><th>29800</th><th>29800</th><th>7791</th></tr><tr><th>Turkey</th><th>2011</th><th>69838</th><th>203212</th><th>112000</th></tr><tr><th>USA</th><th>2011</th><th>1655000</th><th>418212</th><th>201395</th></tr></table></body></html>");
+        response.send("<html><body><h1>En esta tabla se muestran los datos de la producción de almendras, nueces y pistachos en los diferentes países que más rendimiento sacan de ello</h1><table border><tr><th>country</th><th>year</th><th>almond</th><th>walnut</th><th>pistachio</th></tr><tr><th>Spain</th><th>2011</th><th>208800</th><th>13815</th><th>2708</th></tr><tr><th>Italy</th><th>2011</th><th>104790</th><th>10500</th><th>3079</th></tr><tr><th>Greece</th><th>2011</th><th>29800</th><th>29800</th><th>7791</th></tr><tr><th>Turkey</th><th>2011</th><th>69838</th><th>203212</th><th>112000</th></tr><tr><th>USA</th><th>2011</th><th>1655000</th><th>418212</th><th>201395</th></tr></table></body></html>");
         console.log("New request to /info/nuts-production-stats has arrived");
     });
 
@@ -99,34 +99,25 @@ module.exports.register = (app) => {
                     var dataToSend = nutsInDB.map((c)=>{
                         return {country : c.country, year : c.year, almond : c.almond, walnut : c.walnut, pistachio : c.pistachio};
                     })
-                    res.send(JSON.stringify(dataToSend, null, 2));
-                    console.log("Data sent:"+JSON.stringify(dataToSend, null, 2));
+                    if(dataToSend.length==1){
+                        var objectToSend = dataToSend[0];
+                        res.send(JSON.stringify(objectToSend, null, 2));
+                        console.log("Data sent:"+JSON.stringify(objectToSend, null, 2));
+                    }else{
+                        res.send(JSON.stringify(dataToSend, null, 2));
+                        console.log("Data sent:"+JSON.stringify(dataToSend, null, 2));
+                    }
+                    
                  }
             }
         });
-        
-        
-        /*
-        db.find({}, (err, nutsinDB)=>{
-            if(err){
-                console.error("ERROR accessing DB in GET " + err);
-                res.sendStatus(500);
-            }else{
-                var dataToSend = nutsinDB.map((c)=>{
-                    return {country : c.country, year : c.year, almond : c.almond, walnut : c.walnut, pistachio : c.pistachio};
-                })
-                res.send(JSON.stringify(dataToSend,null,2));
-            }
-        });
-        */
-
     });
 
     //GET a un recurso concreto
     app.get(BASE_NUTS_API_PATH+"nuts-production-stats/:country/:year", (req, res) => {
         var reqCountry = req.params.country;
         var reqYear = parseInt(req.params.year);
-
+        
         db.find({country: reqCountry, year: reqYear}, {_id: 0}, function (err, data) {
             if (err) {
                 console.error("ERROR in GET");
@@ -142,6 +133,12 @@ module.exports.register = (app) => {
                 }
             }
         });
+    });
+
+    //GET a un recurso concreto ERROR 1
+    app.get(BASE_NUTS_API_PATH+"nuts-production-stats/:data", (req, res) => {
+        console.error("BAD REQUEST");
+        res.sendStatus(400).send("Incorrect fields");
     });
 
     //POST para crear un nuevo recurso en nuestra lista
