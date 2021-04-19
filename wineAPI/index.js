@@ -103,9 +103,15 @@ module.exports.register = (app) => {
                     var dataToSend = wineInDB.map((c)=>{
                         return {country : c.country, year : c.year, production : c.production, import : c.import, export : c.export};
                     })
-                    res.send(JSON.stringify(dataToSend, null, 2));
-                    console.log("Data sent:"+JSON.stringify(dataToSend, null, 2));
+                    if(dataToSend.length==1){
+                        var objectToSend = dataToSend[0];
+                        res.send(JSON.stringify(objectToSend, null, 2));
+                        console.log("Data sent:"+JSON.stringify(objectToSend, null, 2));
+                    }else{
+                        res.send(JSON.stringify(dataToSend, null, 2));
+                        console.log("Data sent:"+JSON.stringify(dataToSend, null, 2));
                  }
+              }
             }
         });
     });
