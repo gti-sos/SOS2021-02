@@ -3,7 +3,7 @@ var DataStore = require("nedb");
 var db = new DataStore();
 
 var nutsstats = [];
-
+//
 module.exports.register = (app) => {
 
     //Get al info (tabla)
