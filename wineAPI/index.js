@@ -1,6 +1,7 @@
 var BASE_WINE_API_PATH = "/api/v1/";
-var DataStore = require("nedb");
-var db = new DataStore();
+var Datastore = require('nedb');
+var dat = require ('path');
+var db = new Datastore({ filename: dat.join(__dirname, 'wine-stats.db'), autoload: true});
 var winestats = [];
 
 
