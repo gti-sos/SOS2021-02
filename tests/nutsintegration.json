@@ -25,11 +25,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{HOST}}:{{PORT}}/api/v1/nuts-production-stats/loadInitialData",
+					"raw": "{{HEROKU}}/api/v1/nuts-production-stats/loadInitialData",
 					"host": [
-						"{{HOST}}"
+						"{{HEROKU}}"
 					],
-					"port": "{{PORT}}",
 					"path": [
 						"api",
 						"v1",
@@ -49,6 +48,48 @@
 						"exec": [
 							"pm.test(\"Status code is 201\", function () {\r",
 							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"country\": \"Prueba\",\r\n        \"year\": 2011,\r\n\t\t\"almond\": 1,\r\n\t\t\"walnut\": 2,\r\n\t\t\"pistachio\": 3\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{HEROKU}}/api/v1/nuts-production-stats",
+					"host": [
+						"{{HEROKU}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"nuts-production-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crea nuevo recurso dato repetido ERROR",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 409\", function () {\r",
+							"    pm.response.to.have.status(409);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -68,11 +109,51 @@
 					}
 				},
 				"url": {
-					"raw": "{{HOST}}:{{PORT}}/api/v1/nuts-production-stats",
+					"raw": "{{HEROKU}}/api/v1/nuts-production-stats",
 					"host": [
-						"{{HOST}}"
+						"{{HEROKU}}"
 					],
-					"port": "{{PORT}}",
+					"path": [
+						"api",
+						"v1",
+						"nuts-production-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crea nuevo recurso json mal compuesto ERROR",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"country\": \"Prueba2\",\r\n        \"year\": 2011,\r\n\t\t\"almond\": 1,\r\n\t\t\"walnut\": 2,\r\n\t\t\"mal\": 3\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{HEROKU}}/api/v1/nuts-production-stats",
+					"host": [
+						"{{HEROKU}}"
+					],
 					"path": [
 						"api",
 						"v1",
@@ -101,11 +182,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{HOST}}:{{PORT}}/api/v1/nuts-production-stats",
+					"raw": "{{HEROKU}}/api/v1/nuts-production-stats",
 					"host": [
-						"{{HOST}}"
+						"{{HEROKU}}"
 					],
-					"port": "{{PORT}}",
 					"path": [
 						"api",
 						"v1",
@@ -124,6 +204,14 @@
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Searching for Spain\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.country).to.eql(\"Spain\");\r",
+							"});\r",
+							"pm.test(\"Searching for 2011\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.year).to.eql(2011);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -134,11 +222,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{HOST}}:{{PORT}}/api/v1/nuts-production-stats?country=Spain&year=2011",
+					"raw": "{{HEROKU}}/api/v1/nuts-production-stats?country=Spain&year=2011",
 					"host": [
-						"{{HOST}}"
+						"{{HEROKU}}"
 					],
-					"port": "{{PORT}}",
 					"path": [
 						"api",
 						"v1",
@@ -167,6 +254,14 @@
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Searching for specific almond\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.almond).to.eql(29800);\r",
+							"});\r",
+							"pm.test(\"Searching for specific walnut\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.walnut).to.eql(29800);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -177,11 +272,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{HOST}}:{{PORT}}/api/v1/nuts-production-stats?almond=29800&walnut=29800&pistachio=7791",
+					"raw": "{{HEROKU}}/api/v1/nuts-production-stats?almond=29800&walnut=29800&pistachio=7791",
 					"host": [
-						"{{HOST}}"
+						"{{HEROKU}}"
 					],
-					"port": "{{PORT}}",
 					"path": [
 						"api",
 						"v1",
@@ -206,6 +300,53 @@
 			"response": []
 		},
 		{
+			"name": "Get a la lista con busqueda de propiedades ERROR",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HEROKU}}/api/v1/nuts-production-stats?almond=29800&walnut=29800&pistachoMAL=7791",
+					"host": [
+						"{{HEROKU}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"nuts-production-stats"
+					],
+					"query": [
+						{
+							"key": "almond",
+							"value": "29800"
+						},
+						{
+							"key": "walnut",
+							"value": "29800"
+						},
+						{
+							"key": "pistachoMAL",
+							"value": "7791"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Get a la lista con paginación",
 			"event": [
 				{
@@ -214,6 +355,10 @@
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"There are 3 objects\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.length).to.eql(3);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -224,11 +369,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{HOST}}:{{PORT}}/api/v1/nuts-production-stats?limit=3&offset=2",
+					"raw": "{{HEROKU}}/api/v1/nuts-production-stats?limit=3&offset=2",
 					"host": [
-						"{{HOST}}"
+						"{{HEROKU}}"
 					],
-					"port": "{{PORT}}",
 					"path": [
 						"api",
 						"v1",
@@ -257,6 +401,14 @@
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Searching for Spain\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.country).to.eql(\"Spain\");\r",
+							"});\r",
+							"pm.test(\"Searching for 2011\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.year).to.eql(2011);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -267,17 +419,85 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{HOST}}:{{PORT}}/api/v1/nuts-production-stats/Spain/2011",
+					"raw": "{{HEROKU}}/api/v1/nuts-production-stats/Spain/2011",
 					"host": [
-						"{{HOST}}"
+						"{{HEROKU}}"
 					],
-					"port": "{{PORT}}",
 					"path": [
 						"api",
 						"v1",
 						"nuts-production-stats",
 						"Spain",
 						"2011"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get a /coutry/year ERROR",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HEROKU}}/api/v1/nuts-production-stats/Mal/2011",
+					"host": [
+						"{{HEROKU}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"nuts-production-stats",
+						"Mal",
+						"2011"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get a /coutry/year ERROR",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HEROKU}}/api/v1/nuts-production-stats/Spain",
+					"host": [
+						"{{HEROKU}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"nuts-production-stats",
+						"Spain"
 					]
 				}
 			},
@@ -302,16 +522,49 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{HOST}}:{{PORT}}/api/v1/nuts-production-stats/Prueba/2011",
+					"raw": "{{HEROKU}}/api/v1/nuts-production-stats/Prueba/2011",
 					"host": [
-						"{{HOST}}"
+						"{{HEROKU}}"
 					],
-					"port": "{{PORT}}",
 					"path": [
 						"api",
 						"v1",
 						"nuts-production-stats",
 						"Prueba",
+						"2011"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete /country/year ERROR",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{HEROKU}}/api/v1/nuts-production-stats/PruebaMAL/2011",
+					"host": [
+						"{{HEROKU}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"nuts-production-stats",
+						"PruebaMAL",
 						"2011"
 					]
 				}
@@ -346,16 +599,273 @@
 					}
 				},
 				"url": {
-					"raw": "{{HOST}}:{{PORT}}/api/v1/nuts-production-stats/Spain/2011",
+					"raw": "{{HEROKU}}/api/v1/nuts-production-stats/Spain/2011",
 					"host": [
-						"{{HOST}}"
+						"{{HEROKU}}"
 					],
-					"port": "{{PORT}}",
 					"path": [
 						"api",
 						"v1",
 						"nuts-production-stats",
 						"Spain",
+						"2011"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put a country/year ERROR 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"country\": \"Spain\",\r\n        \"year\": 2011,\r\n\t\t\"almond\": 1,\r\n\t\t\"walnut\": 2,\r\n\t\t\"ejemplo\": 3\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{HEROKU}}/api/v1/nuts-production-stats/Spain/2011",
+					"host": [
+						"{{HEROKU}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"nuts-production-stats",
+						"Spain",
+						"2011"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put a country/year ERROR 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"country\": \"Spain\",\r\n        \"year\": 2011,\r\n\t\t\"almond\": 1,\r\n\t\t\"walnut\": 2,\r\n\t\t\"pistachio\": 3\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{HEROKU}}/api/v1/nuts-production-stats/Spain/2020",
+					"host": [
+						"{{HEROKU}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"nuts-production-stats",
+						"Spain",
+						"2020"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{HEROKU}}/api/v1/nuts-production-stats/Spain/2011",
+					"host": [
+						"{{HEROKU}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"nuts-production-stats",
+						"Spain",
+						"2011"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{HEROKU}}/api/v1/nuts-production-stats/Turkey/2011",
+					"host": [
+						"{{HEROKU}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"nuts-production-stats",
+						"Turkey",
+						"2011"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE 3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{HEROKU}}/api/v1/nuts-production-stats/Greece/2011",
+					"host": [
+						"{{HEROKU}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"nuts-production-stats",
+						"Greece",
+						"2011"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE 4",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{HEROKU}}/api/v1/nuts-production-stats/USA/2011",
+					"host": [
+						"{{HEROKU}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"nuts-production-stats",
+						"USA",
 						"2011"
 					]
 				}
@@ -390,11 +900,10 @@
 					}
 				},
 				"url": {
-					"raw": "{{HOST}}:{{PORT}}/api/v1/nuts-production-stats/Italy/2011",
+					"raw": "{{HEROKU}}/api/v1/nuts-production-stats/Italy/2011",
 					"host": [
-						"{{HOST}}"
+						"{{HEROKU}}"
 					],
-					"port": "{{PORT}}",
 					"path": [
 						"api",
 						"v1",
@@ -434,11 +943,10 @@
 					}
 				},
 				"url": {
-					"raw": "{{HOST}}:{{PORT}}/api/v1/nuts-production-stats",
+					"raw": "{{HEROKU}}/api/v1/nuts-production-stats",
 					"host": [
-						"{{HOST}}"
+						"{{HEROKU}}"
 					],
-					"port": "{{PORT}}",
 					"path": [
 						"api",
 						"v1",
@@ -467,11 +975,10 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{HOST}}:{{PORT}}/api/v1/nuts-production-stats",
+					"raw": "{{HEROKU}}/api/v1/nuts-production-stats",
 					"host": [
-						"{{HOST}}"
+						"{{HEROKU}}"
 					],
-					"port": "{{PORT}}",
 					"path": [
 						"api",
 						"v1",

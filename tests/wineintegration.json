@@ -25,174 +25,18 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:10000/api/v1/wine-production-stats/loadInitialData",
+					"raw": "https://sos2021-02.herokuapp.com/api/v1/wine-production-stats/loadInitialData",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"sos2021-02",
+						"herokuapp",
+						"com"
 					],
-					"port": "10000",
 					"path": [
 						"api",
 						"v1",
 						"wine-production-stats",
 						"loadInitialData"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get a la lista completa",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:10000/api/v1/wine-production-stats",
-					"host": [
-						"localhost"
-					],
-					"port": "10000",
-					"path": [
-						"api",
-						"v1",
-						"wine-production-stats"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get a /country/year",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:10000/api/v1/wine-production-stats/Spain/2011",
-					"host": [
-						"localhost"
-					],
-					"port": "10000",
-					"path": [
-						"api",
-						"v1",
-						"wine-production-stats",
-						"Spain",
-						"2011"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "GET paginacion",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:10000/api/v1/wine-production-stats?limit=2&offset=0",
-					"host": [
-						"localhost"
-					],
-					"port": "10000",
-					"path": [
-						"api",
-						"v1",
-						"wine-production-stats"
-					],
-					"query": [
-						{
-							"key": "limit",
-							"value": "2"
-						},
-						{
-							"key": "offset",
-							"value": "0"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get busqueda paises",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:10000/api/v1/wine-production-stats?country=Spain",
-					"host": [
-						"localhost"
-					],
-					"port": "10000",
-					"path": [
-						"api",
-						"v1",
-						"wine-production-stats"
-					],
-					"query": [
-						{
-							"key": "country",
-							"value": "Spain"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get atributos",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:10000/api/v1/wine-production-stats?production=42772&import=2412&export=23238",
-					"host": [
-						"localhost"
-					],
-					"port": "10000",
-					"path": [
-						"api",
-						"v1",
-						"wine-production-stats"
-					],
-					"query": [
-						{
-							"key": "production",
-							"value": "42772"
-						},
-						{
-							"key": "import",
-							"value": "2412"
-						},
-						{
-							"key": "export",
-							"value": "23238"
-						}
 					]
 				}
 			},
@@ -226,15 +70,239 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:10000/api/v1/wine-production-stats",
+					"raw": "https://sos2021-02.herokuapp.com/api/v1/wine-production-stats",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"sos2021-02",
+						"herokuapp",
+						"com"
 					],
-					"port": "10000",
 					"path": [
 						"api",
 						"v1",
 						"wine-production-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get a la lista completa",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://sos2021-02.herokuapp.com/api/v1/wine-production-stats",
+					"protocol": "https",
+					"host": [
+						"sos2021-02",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"wine-production-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get a /country/year",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://sos2021-02.herokuapp.com/api/v1/wine-production-stats/Spain/2011",
+					"protocol": "https",
+					"host": [
+						"sos2021-02",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"wine-production-stats",
+						"Spain",
+						"2011"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET paginacion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function (){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"There is 2 countries\", function() {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.length).to.eql(2);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://sos2021-02.herokuapp.com/api/v1/wine-production-stats?limit=2&offset=1",
+					"protocol": "https",
+					"host": [
+						"sos2021-02",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"wine-production-stats"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "2"
+						},
+						{
+							"key": "offset",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get busqueda paises",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function (){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"There is only 1 country with that name\", function() {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.country).to.eql(\"Spain\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://sos2021-02.herokuapp.com/api/v1/wine-production-stats?country=Spain",
+					"protocol": "https",
+					"host": [
+						"sos2021-02",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"wine-production-stats"
+					],
+					"query": [
+						{
+							"key": "country",
+							"value": "Spain"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get atributos",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function (){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"All the fields are correct\", function() {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData[\"production\"]).to.eql(42772);\r",
+							"    pm.expect(jsonData[\"import\"]).to.eql(2412);\r",
+							"    pm.expect(jsonData[\"export\"]).to.eql(23238);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://sos2021-02.herokuapp.com/api/v1/wine-production-stats?production=42772&import=2412&export=23238",
+					"protocol": "https",
+					"host": [
+						"sos2021-02",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"wine-production-stats"
+					],
+					"query": [
+						{
+							"key": "production",
+							"value": "42772"
+						},
+						{
+							"key": "import",
+							"value": "2412"
+						},
+						{
+							"key": "export",
+							"value": "23238"
+						}
 					]
 				}
 			},
@@ -259,16 +327,18 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "localhost:10000/api/v1/wine-production-stats/Spain/2011",
+					"raw": "https://sos2021-02.herokuapp.com/api/v1/wine-production-stats/Italy/2011",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"sos2021-02",
+						"herokuapp",
+						"com"
 					],
-					"port": "10000",
 					"path": [
 						"api",
 						"v1",
 						"wine-production-stats",
-						"Spain",
+						"Italy",
 						"2011"
 					]
 				}
@@ -303,11 +373,13 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:10000/api/v1/wine-production-stats/USA/2011",
+					"raw": "https://sos2021-02.herokuapp.com/api/v1/wine-production-stats/USA/2011",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"sos2021-02",
+						"herokuapp",
+						"com"
 					],
-					"port": "10000",
 					"path": [
 						"api",
 						"v1",
@@ -320,14 +392,14 @@
 			"response": []
 		},
 		{
-			"name": "Post a/country/year",
+			"name": "Comprobacion 409",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Status code is 405\", function () {\r",
-							"    pm.response.to.have.status(405);\r",
+							"pm.test(\"Status code is 409\", function () {\r",
+							"    pm.response.to.have.status(409);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -339,7 +411,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"country\": \"Prueba2\",\r\n    \"year\":2011,\r\n    \"production-wine\": 5,\r\n    \"wine-import\": 6,\r\n    \"wine-export\": 7\r\n}",
+					"raw": "{\r\n    \"country\": \"Spain\",\r\n    \"year\":2011,\r\n    \"production\": 5,\r\n    \"import\": 6,\r\n    \"export\": 7\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -347,17 +419,17 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:10000/api/v1/wine-production-stats/USA/2011",
+					"raw": "https://sos2021-02.herokuapp.com/api/v1/wine-production-stats",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"sos2021-02",
+						"herokuapp",
+						"com"
 					],
-					"port": "10000",
 					"path": [
 						"api",
 						"v1",
-						"wine-production-stats",
-						"USA",
-						"2011"
+						"wine-production-stats"
 					]
 				}
 			},
@@ -382,15 +454,292 @@
 				"method": "PUT",
 				"header": [],
 				"url": {
-					"raw": "localhost:10000/api/v1/wine-production-stats",
+					"raw": "https://sos2021-02.herokuapp.com/api/v1/wine-production-stats",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"sos2021-02",
+						"herokuapp",
+						"com"
 					],
-					"port": "10000",
 					"path": [
 						"api",
 						"v1",
 						"wine-production-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Comprobacion 400",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"country\": \"Prueba2\",\r\n    \"year\":2011,\r\n    \"production\": 5,\r\n    \"imported\": 6,\r\n    \"export\": 7\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://sos2021-02.herokuapp.com/api/v1/wine-production-stats",
+					"protocol": "https",
+					"host": [
+						"sos2021-02",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"wine-production-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET 404",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://sos2021-02.herokuapp.com/api/v1/wine-production-stats/Suecia/2012",
+					"protocol": "https",
+					"host": [
+						"sos2021-02",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"wine-production-stats",
+						"Suecia",
+						"2012"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post a/country/year (405)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 405\", function () {\r",
+							"    pm.response.to.have.status(405);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"country\": \"Prueba2\",\r\n    \"year\":2011,\r\n    \"production\": 5,\r\n    \"import\": 6,\r\n    \"export\": 7\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://sos2021-02.herokuapp.com/api/v1/wine-production-stats/USA/2011",
+					"protocol": "https",
+					"host": [
+						"sos2021-02",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"wine-production-stats",
+						"USA",
+						"2011"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a /country/year Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://sos2021-02.herokuapp.com/api/v1/wine-production-stats/Spain/2011",
+					"protocol": "https",
+					"host": [
+						"sos2021-02",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"wine-production-stats",
+						"Spain",
+						"2011"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a /country/year Copy 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://sos2021-02.herokuapp.com/api/v1/wine-production-stats/USA/2011",
+					"protocol": "https",
+					"host": [
+						"sos2021-02",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"wine-production-stats",
+						"USA",
+						"2011"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a /country/year Copy 3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://sos2021-02.herokuapp.com/api/v1/wine-production-stats/Greece/2011",
+					"protocol": "https",
+					"host": [
+						"sos2021-02",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"wine-production-stats",
+						"Greece",
+						"2011"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a /country/year Copy 4",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://sos2021-02.herokuapp.com/api/v1/wine-production-stats/Turkey/2011",
+					"protocol": "https",
+					"host": [
+						"sos2021-02",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"wine-production-stats",
+						"Turkey",
+						"2011"
 					]
 				}
 			},
@@ -415,11 +764,13 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "localhost:10000/api/v1/wine-production-stats",
+					"raw": "https://sos2021-02.herokuapp.com/api/v1/wine-production-stats",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"sos2021-02",
+						"herokuapp",
+						"com"
 					],
-					"port": "10000",
 					"path": [
 						"api",
 						"v1",
