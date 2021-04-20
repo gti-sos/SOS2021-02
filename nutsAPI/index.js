@@ -1,9 +1,10 @@
 var BASE_NUTS_API_PATH = "/api/v1/";
 var DataStore = require("nedb");
-var db = new DataStore();
+var dat = require ('path');
+var db = new DataStore({ filename: dat.join(__dirname, 'nuts-stats.db'), autoload: true});
 
 var nutsstats = [];
-//
+
 module.exports.register = (app) => {
 
     //Get al info (tabla)
