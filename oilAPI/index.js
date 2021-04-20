@@ -1,6 +1,7 @@
 var BASE_OIL_API_PATH = "/api/v1/";
 var DataStore = require("nedb");
-var db = new DataStore();
+var dat = require ('path');
+var db = new DataStore({ filename: dat.join(__dirname, 'oil-stats.db'), autoload: true});
 var oilstats = [];
 
 module.exports.register = (app) => {
