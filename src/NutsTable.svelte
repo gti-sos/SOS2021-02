@@ -41,11 +41,11 @@
     <Table bordered>
         <thead>
             <tr>
-                <td>country</td>
-                <td>year</td>
-                <td>almond</td>
-                <td>walnut</td>
-                <td>pistachio</td>
+                <th>country</th>
+                <th>year</th>
+                <th>almond</th>
+                <th>walnut</th>
+                <th>pistachio</th>
                 
             </tr>
         </thead>

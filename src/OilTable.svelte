@@ -41,11 +41,11 @@
     <Table bordered>
         <thead>
             <tr>
-                <td>country</td>
-                <td>year</td>
-                <td>production</td>
-                <td>exportation</td>
-                <td>distribution</td>
+                <th>country</th>
+                <th>year</th>
+                <th>production</th>
+                <th>exportation</th>
+                <th>distribution</th>
                 
             </tr>
         </thead>
