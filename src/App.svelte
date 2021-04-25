@@ -1,14 +1,14 @@
 <script>
 	import OilTable from './OilTable.svelte'
-	
+	import WineTable from './WineTable.svelte';
 	import {
     Button,
     
   } from "sveltestrap";
-import WineTable from './WineTable.svelte';
 
-import Router from 'svelte-spa-router';
-const routes = {
+  import Router from 'svelte-spa-router';
+
+  const routes = {
 		
 		"/oil-production-stats": OilTable,
 		"/wine-production-stats": WineTable};
@@ -16,18 +16,20 @@ const routes = {
 </script>
 
 <main>
-	<h1>Hello!</h1>
+	<h1>SOS2021-02</h1>
 	<a href="old_index_static.html"> View the components info</a>
-	<p>API de oilstats</p>
-	<a href="/#/oil-production-stats">Ver datos de oiltable</a>
 
+		<p>API de oilstats</p>
+		<a href="/#/oil-production-stats"
+            ><Button color="primary">oilAPI</Button></a
+          >
 
+		<p>API de winestats</p>
+		<a href="/#/wine-production-stats"
+            ><Button color="primary">wineAPI</Button></a
+          >
+		<Router {routes}> </Router>
 	
-	
-	
-	<p>API de winestats</p>
-	<a href="/wine-production-stats.html">Ver datos de winetable</a>
-	<Router {routes}> </Router>
 </main>
 
 
