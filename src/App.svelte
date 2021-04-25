@@ -20,6 +20,9 @@ import WineTable from './WineTable.svelte';
 	<p>API de oilstats</p>
 	<!--<a href="/oil-production-stats">Ver datos de oiltable</a>-->
 	<OilTable/>
+	<p>API de winestats</p>
+	<a href="/wine-production-stats.html">Ver datos de winetable</a>
+	<WineTable/>
 </main>
 
 

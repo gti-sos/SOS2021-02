@@ -6,6 +6,18 @@
     import Table from "sveltestrap/src/Table.svelte";
  
     let winestats = [];
+    async function loadData(){
+        console.log("Loading winestats...");
+        const res = await fetch("/api/v1/wine-production-stats/loadInitialData");
+
+        if(res.ok){
+            console.log("Ok.");
+            getData();
+            
+        }else{
+            console.log("Error!");
+        }
+    }   
 
     async function getData(){
         console.log("Fetching winestats...");
