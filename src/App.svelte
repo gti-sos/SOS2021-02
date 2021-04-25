@@ -10,7 +10,8 @@ import WineTable from './WineTable.svelte';
 import Router from 'svelte-spa-router';
 const routes = {
 		
-		"/oil-production-stats": OilTable};
+		"/oil-production-stats": OilTable,
+		"/wine-production-stats": WineTable};
 	
 </script>
 
@@ -19,11 +20,14 @@ const routes = {
 	<a href="old_index_static.html"> View the components info</a>
 	<p>API de oilstats</p>
 	<a href="/#/oil-production-stats">Ver datos de oiltable</a>
-	<a href="/#/wine-production-stats">Ver datos de oiltable</a>
 
 
-	<Router {routes}> </Router>
 	
+	
+	
+	<p>API de winestats</p>
+	<a href="/wine-production-stats.html">Ver datos de winetable</a>
+	<Router {routes}> </Router>
 </main>
 
 
