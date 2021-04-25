@@ -1,6 +1,7 @@
 <script>
-	import OilTable from './OilTable.svelte'
+	import OilTable from './OilTable.svelte';
 	import WineTable from './WineTable.svelte';
+	import NutsTable from './NutsTable.svelte';
 	import {
     Button,
     
@@ -11,6 +12,7 @@
   const routes = {
 		
 		"/oil-production-stats": OilTable,
+		"/nuts-production-stats": NutsTable,
 		"/wine-production-stats": WineTable};
 	
 </script>
@@ -19,7 +21,7 @@
 	<h1>SOS2021-02</h1>
 	<a href="old_index_static.html"> Ver la información de los componentes del grupo</a>
 
-		<p>API de oilstats</p>
+		<p>API DATOS ACEITE</p>
 		<a href="/#/oil-production-stats"
             ><Button color="primary">Datos aceite</Button></a
           >
@@ -27,13 +29,21 @@
             ><Button color="primary">Documentación de Postman</Button></a
           >
 
-		<p>API de winestats</p>
+		<p>API DATOS VINO</p>
 		<a href="/#/wine-production-stats"
             ><Button color="primary">Datos vino</Button></a
           >
 		  <a href="https://documenter.getpostman.com/view/14969253/TzJoDfre"
 		  ><Button color="primary">Documentación de Postman</Button></a
 		>
+
+		<p>API DATOS FRUTOS SECOS</p>
+		<a href="/#/nuts-production-stats"
+            ><Button color="primary">Datos frutos secos</Button></a
+          >
+		  <a href="https://documenter.getpostman.com/view/10637366/TzJoDfrf"
+            ><Button color="primary">Documentación de Postman</Button></a
+          >
 
 		<Router {routes}> </Router>
 	
