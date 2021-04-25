@@ -18,8 +18,8 @@ import WineTable from './WineTable.svelte';
 	<h1>Hello!</h1>
 	<a href="old_index_static.html"> View the components info</a>
 	<p>API de oilstats</p>
-	<a href="/oil-production-stats">Ver datos de oiltable</a>
-	<WineTable/>
+	<!--<a href="/oil-production-stats">Ver datos de oiltable</a>-->
+	<OilTable/>
 </main>
 
 

@@ -7,6 +7,19 @@
  
     let oilstats = [];
 
+    async function loadData(){
+        console.log("Loading oilstats...");
+        const res = await fetch("/api/v1/oil-production-stats/loadInitialData");
+
+        if(res.ok){
+            console.log("Ok.");
+            getData();
+            
+        }else{
+            console.log("Error!");
+        }
+    }   
+
     async function getData(){
         console.log("Fetching oilstats...");
         const res = await fetch("/api/v1/oil-production-stats");
