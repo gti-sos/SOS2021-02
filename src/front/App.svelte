@@ -3,6 +3,7 @@
 	import Landing from './Landing.svelte';
 	import OilTable from './oilAPI/OilTable.svelte';
 	import NutsTable from './nutsAPI/NutsTable.svelte';
+	import NutsEdit from './nutsAPI/NutsTableEdit.svelte';
 	import WineTable from './wineAPI/WineTable.svelte';
 	import NotFound from './NotFound.svelte';
 
@@ -11,6 +12,7 @@
 		"/": Landing,
 		"/oil-production-stats": OilTable,
 		"/nuts-production-stats": NutsTable,
+		"/nuts-production-stats/:country/:year": NutsEdit,
 		"/wine-production-stats": WineTable,
 		"*": NotFound
 	};
