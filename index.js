@@ -20,15 +20,15 @@ app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());
 //=========================================== AJMR =========================================================
 
-var nutsAPI =  require("./nutsAPI");
+var nutsAPI =  require("./src/back/nutsAPI");
 nutsAPI.register(app);
 
 
 //=========================================== JMGD =========================================================
-var oilAPI =  require("./oilAPI");
+var oilAPI =  require("./src/back/oilAPI");
 oilAPI.register(app);
 //=========================================== AFB =========================================================
-var wineAPI =  require("./wineAPI");
+var wineAPI =  require("./src/back/wineAPI");
 wineAPI.register(app);
 
 // =======================================Codigo de grupo===========================
