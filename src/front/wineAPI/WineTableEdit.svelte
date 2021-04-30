@@ -18,7 +18,7 @@
     let updateExport = 9999;
     let errorMsg = "";
 
-    
+    onMount(getData);
 
     async function getData(){
         console.log("Fetching data..." + params.country + " " + params.year);
@@ -65,7 +65,7 @@
         });
 
 
-    outMount(getData);    
+        
     }
 
 </script>

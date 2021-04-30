@@ -3,7 +3,3 @@
 {"country":"USA","year":2011,"production":19187,"import":10155,"export":4210,"_id":"3wWSJirndXG4yA53"}
 {"country":"Prueba","year":2011,"production":5,"import":6,"export":7,"_id":"G3ypDY211YovfSRA"}
 {"country":"Turkey","year":2011,"production":596,"import":80,"export":25,"_id":"OjtLvf1gKjZ4lN5e"}
-{"country":"Greece","year":2011,"production":9132,"import":203,"export":376,"_id":"htIonFIdNO2nZ7vV"}
-{"country":"China","year":2011,"production":34,"import":5454,"export":45,"_id":"X58JgDT614akC64J"}
-{"$$deleted":true,"_id":"X58JgDT614akC64J"}
-{"$$deleted":true,"_id":"htIonFIdNO2nZ7vV"}

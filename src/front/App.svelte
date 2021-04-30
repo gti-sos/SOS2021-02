@@ -5,6 +5,7 @@
 	import NutsTable from './nutsAPI/NutsTable.svelte';
 	import NutsEdit from './nutsAPI/NutsTableEdit.svelte';
 	import WineTable from './wineAPI/WineTable.svelte';
+	import WineEdit from './wineAPI/WineTableEdit.svelte';
 	import NotFound from './NotFound.svelte';
 
 
@@ -14,6 +15,7 @@
 		"/nuts-production-stats": NutsTable,
 		"/nuts-production-stats/:country/:year": NutsEdit,
 		"/wine-production-stats": WineTable,
+		"/wine-production-stats/:country/:year": WineEdit,
 		"*": NotFound
 	};
 </script>
