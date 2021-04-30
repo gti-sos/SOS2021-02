@@ -9,6 +9,7 @@
     import Table from "sveltestrap/src/Table.svelte";
     import Button from "sveltestrap/src/Button.svelte";
     export let params = {};
+    const BASE_NUTS_API_PATH = "/api/v1/";
     let data = {};
     let updateCountry = "XXXX";
     let updateYear = 9999;
@@ -20,8 +21,8 @@
     onMount(getData);
 
     async function getData(){
-        console.log("Fetching nutsstats...");
-        const res = await fetch(BASE_NUTS_API_PATH+"nuts-production-stats" + params.CountryName + "/" + params.CountryYear);
+        console.log("Fetching nutsstats..." + params.country + " " + params.year);
+        const res = await fetch(BASE_NUTS_API_PATH+"nuts-production-stats/" + params.country + "/" + params.year);
 
         if(res.ok){
             console.log("Ok.");
@@ -29,13 +30,13 @@
             data = json;
             updateCountry = data.country;
             updateYear = data.year;
-            updateAlmond= data["Almond"];
-            updateWalnut= data["Walnut"];
-            updatePistachio= data["Pistachio"];
+            updateAlmond= data["almond"];
+            updateWalnut= data["walnut"];
+            updatePistachio= data["pistachio"];
             
 
 
-            console.log(`We have received ${nutsstats.length} countries.`);
+            console.log(`We have received ${data.length} countries.`);
         }else{
             errorMsg = res.status + ": " + res.statusText;
             console.log("ERROR!" + errorMsg);
@@ -45,16 +46,16 @@
 
     async function updateData() {
 
-        console.log("Updating country..." + JSON.stringify(params.countryName)+JSON.stringify(params.countryYear));
+        console.log("Updating country..." + JSON.stringify(params.country)+JSON.stringify(params.year));
 
-        const res = await fetch("/api/v1/nuts-production-stats/" + params.countryName + "/" + params.countryYear, {
+        const res = await fetch("/api/v1/nuts-production-stats/" + params.country + "/" + params.year, {
             method: "PUT",
             body: JSON.stringify({
-                country: params.countryName,
-                year: params.countryYear,
+                country: params.country,
+                year: params.year,
                 "Almond": parseInt(updateAlmond),
-                "Walnut": parseFloat(updateWalnut),
-                "Pistachio": parseFloat(updatePistachio),
+                "Walnut": parseInt(updateWalnut),
+                "Pistachio": parseInt(updatePistachio),
             }),
             headers: {
                 "Content-Type": "application/json"
