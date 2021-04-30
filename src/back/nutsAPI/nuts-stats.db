@@ -3,3 +3,8 @@
 {"country":"Italy","year":2011,"almond":104790,"walnut":10500,"pistachio":3079,"_id":"lktKx4xb2C2Qjmyb"}
 {"country":"Spain","year":2011,"almond":208800,"walnut":13815,"pistachio":2708,"_id":"mc4CCZzm2kYQQzTV"}
 {"country":"USA","year":2011,"almond":1655000,"walnut":418212,"pistachio":201395,"_id":"xkLMzY8XnVOYXJor"}
+{"$$deleted":true,"_id":"xkLMzY8XnVOYXJor"}
+{"$$deleted":true,"_id":"0ZXxwGndTm71FyNJ"}
+{"$$deleted":true,"_id":"lktKx4xb2C2Qjmyb"}
+{"country":"Prueba","year":2011,"almond":1,"walnut":1,"pistachio":1,"_id":"ZF47tT1xvm7IYHTR"}
+{"$$deleted":true,"_id":"ZF47tT1xvm7IYHTR"}
