@@ -9,6 +9,7 @@
     import Table from "sveltestrap/src/Table.svelte";
     import Button from "sveltestrap/src/Button.svelte";
     export let params = {};
+    //ruda de v2
     const BASE_OIL_API_PATH = "/api/v2/";
     let data = {};
     let updateCountry = "XXXX";
