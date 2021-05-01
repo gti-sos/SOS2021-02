@@ -16,6 +16,9 @@
         <a href="https://documenter.getpostman.com/view/10673756/TzJoDfUb"
               ><Button color="primary">Documentación de Postman</Button></a
             >
+        <a href="https://documenter.getpostman.com/view/10673756/TzRLkqi1"
+              ><Button color="primary">Documentación de Postman v2</Button></a
+            >
   
       <p>API DATOS VINO</p>
       <a href="#/wine-production-stats"
