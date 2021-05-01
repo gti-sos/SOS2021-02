@@ -8,7 +8,7 @@
 
     import Table from "sveltestrap/src/Table.svelte";
     import Button from "sveltestrap/src/Button.svelte";
-    var BASE_OIL_API_PATH = "/api/v1/";
+    var BASE_OIL_API_PATH = "/api/v2/";
     let oilstats = [];
     let newCountry = {
         country: "",
@@ -17,6 +17,9 @@
         "exportation": "",
         "distribution": "",
     }
+
+    let errorMsg = "";
+    let okMsg = "";
     async function loadData(){
         console.log("Loading oilstats...");
         const res = await fetch(BASE_OIL_API_PATH+"oil-production-stats/loadInitialData");
@@ -78,6 +81,31 @@
                             getData();
                            })
     }
+
+    async function deleteAllCountries(){
+        console.log("Deleting all countries ");
+
+        const res = await fetch(BASE_OIL_API_PATH+"oil-production-stats/",
+                            {
+                                method: "DELETE",
+                            }
+                           ).then(function (res) {
+                                if (res.ok) {
+                                    console.log("OK");
+                                    oilstats = [];
+                                    errorMsg = "";
+                                    okMsg = "Operación realizada correctamente";
+                                } else {
+                                    if(res.status===404){
+                                    errorMsg = "No existen datos que borrar";
+                                    }else if(res.status ===500){
+                                    errorMsg = "No se han podido acceder a la base de datos";
+                                    }        
+                                    okMsg = "";
+                                    console.log("ERROR!" + errorMsg);
+                                }
+                                });
+  }
     onMount(getData);
 </script>
 
@@ -120,5 +148,6 @@
     </Table>
     <Button outline color="secondary" on:click="{pop}">Atrás</Button>
     <Button outline color="primary" on:click="{loadData}">Cargar datos iniciales</Button>
+    <Button outline color="danger" on:click="{deleteAllCountries}">Borrar todos los datos</Button>
 </main>
 

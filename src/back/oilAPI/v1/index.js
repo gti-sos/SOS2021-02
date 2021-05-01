@@ -213,8 +213,6 @@ module.exports.register = (app) => {
             || !newData['production'] 
             || !newData['exportation'] 
             || !newData['distribution']
-            || country != newData.country
-            || year != newData.year
             || Object.keys(newData).length != 5){
             console.log("The data is not correct");
             return res.sendStatus(400);

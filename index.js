@@ -25,7 +25,7 @@ nutsAPI.register(app);
 
 
 //=========================================== JMGD =========================================================
-var oilAPI =  require("./src/back/oilAPI");
+var oilAPI =  require("./src/back/oilAPI/v2");
 oilAPI.register(app);
 //=========================================== AFB =========================================================
 var wineAPI =  require("./src/back/wineAPI");
