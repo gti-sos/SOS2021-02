@@ -121,13 +121,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{HEROKU}}/api/v1/oil-production-stats",
+							"raw": "{{HEROKU}}/api/v2/oil-production-stats",
 							"host": [
 								"{{HEROKU}}"
 							],
 							"path": [
 								"api",
-								"v1",
+								"v2",
 								"oil-production-stats"
 							]
 						}
@@ -162,13 +162,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{HEROKU}}/api/v1/oil-production-stats",
+							"raw": "{{HEROKU}}/api/v2/oil-production-stats",
 							"host": [
 								"{{HEROKU}}"
 							],
 							"path": [
 								"api",
-								"v1",
+								"v2",
 								"oil-production-stats"
 							]
 						}
@@ -826,6 +826,12 @@
 					"response": []
 				}
 			]
+		}
+	],
+	"variable": [
+		{
+			"key": "HEROKU",
+			"value": "http://sos2021-02.herokuapp.com"
 		}
 	]
 }
