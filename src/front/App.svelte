@@ -2,7 +2,7 @@
 	import Router from 'svelte-spa-router';
 	import Landing from './Landing.svelte';
 	import OilTable from './oilAPI/OilTable.svelte';
-	import OilEdit from './OilAPI/OilTableEdit.svelte';
+	import OilEdit from './oilAPI/OilTableEdit.svelte';
 	import NutsTable from './nutsAPI/NutsTable.svelte';
 	import NutsEdit from './nutsAPI/NutsTableEdit.svelte';
 	import WineTable from './wineAPI/WineTable.svelte';
