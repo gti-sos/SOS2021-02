@@ -67,10 +67,10 @@
                            })
     }
 
-    async function deleteCountry(countryName, countryYear){
-        console.log("Deleting country "+ countryName+ countryYear);
+    async function deleteCountry(country, year){
+        console.log("Deleting country "+ country+ year);
 
-        const res = await fetch(BASE_OIL_API_PATH+"oil-production-stats/"+countryName + "/" + countryYear,
+        const res = await fetch(BASE_OIL_API_PATH+"oil-production-stats/"+country + "/" + year,
                             {
                                 method: "DELETE",
                             }
@@ -93,7 +93,7 @@
                 <th>Produccion</th>
                 <th>Exportacion</th>
                 <th>Distribucion</th>
-                <th>Actions</th>
+                <th>Acciones</th>
                 
             </tr>
         </thead>
@@ -104,7 +104,7 @@
                 <td><input bind:value="{newCountry['production']}"></td>
                 <td><input bind:value="{newCountry['exportation']}"></td>
                 <td><input bind:value="{newCountry['distribution']}"></td>
-                <td><Button on:click={insertCountry}>Insert</Button></td>
+                <td><Button on:click={insertCountry}>Insertar</Button></td>
             </tr>
             {#each oilstats as data}
                 <tr>
@@ -113,11 +113,12 @@
                     <td>{data["production"]}</td>
                     <td>{data["exportation"]}</td>
                     <td>{data["distribution"]}</td>
-                    <td><Button on:click={deleteCountry(data.country, data.year)}>Delete</Button></td>
+                    <td><Button on:click={deleteCountry(data.country, data.year)}>Borrar</Button></td>
                 </tr>
             {/each}
         </tbody>
     </Table>
-    <Button outline color="secondary" on:click="{pop}">Back</Button>
+    <Button outline color="secondary" on:click="{pop}">Atrás</Button>
+    <Button outline color="primary" on:click="{loadData}">Cargar datos iniciales</Button>
 </main>
 

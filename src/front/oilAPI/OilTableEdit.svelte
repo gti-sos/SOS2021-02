@@ -9,6 +9,7 @@
     import Table from "sveltestrap/src/Table.svelte";
     import Button from "sveltestrap/src/Button.svelte";
     export let params = {};
+    const BASE_OIL_API_PATH = "/api/v1/";
     let data = {};
     let updateCountry = "XXXX";
     let updateYear = 9999;
@@ -16,12 +17,13 @@
     let updateDistribution = 9999;
     let updateExportation = 9999;
     let errorMsg = "";
+    let okMsg = "";
 
     onMount(getData);
 
     async function getData(){
         console.log("Fetching oilstats...");
-        const res = await fetch(BASE_OIL_API_PATH+"oil-production-stats" + params.CountryName + "/" + params.CountryYear);
+        const res = await fetch(BASE_OIL_API_PATH+"oil-production-stats/" + params.country + "/" + params.year);
 
         if(res.ok){
             console.log("Ok.");
@@ -35,7 +37,7 @@
             
 
 
-            console.log(`We have received ${oilstats.length} countries.`);
+            console.log(`Data received`);
         }else{
             errorMsg = res.status + ": " + res.statusText;
             console.log("ERROR!" + errorMsg);
@@ -45,13 +47,13 @@
 
     async function updateData() {
 
-        console.log("Updating country..." + JSON.stringify(params.countryName)+JSON.stringify(params.countryYear));
+        console.log("Updating country..." + JSON.stringify(params.country)+JSON.stringify(params.year));
 
-        const res = await fetch("/api/v1/oil-production-stats/" + params.countryName + "/" + params.countryYear, {
+        const res = await fetch("/api/v1/oil-production-stats/" + params.country + "/" + params.year, {
             method: "PUT",
             body: JSON.stringify({
-                country: params.countryName,
-                year: params.countryYear,
+                "country": params.country,
+                "year": parseInt(params.year),
                 "Production": parseFloat(updateProduction),
                 "Exportation": parseFloat(updateExportation),
                 "Distribution": parseFloat(updateDistribution),
@@ -60,18 +62,25 @@
                 "Content-Type": "application/json"
             }
         }).then(function (res) {
-            getData();
-        });
-
-
-
+        if (res.ok) {
+          console.log("OK");
+          getData();
+          errorMsg = "";
+          okMsg = "Dato actualizado";
+        } else {
+          errorMsg = res.status + ": " + res.statusText;
+          getData();
+          console.log("ERROR!" + errorMsg);
+        }
+      });
     }
-
+    
+    onMount(getData);
 </script>
 
 <main>
     <h1>
-        oilAPI
+        Edit <strong>{params.country}</strong>
     </h1>
     <Table bordered>
         <thead>
@@ -87,8 +96,8 @@
         </thead>
         <tbody>
             <tr>
-                <td><input bind:value="{updateCountry}"></td>
-                <td><input bind:value="{updateYear}"></td>
+                <td>{updateCountry}</td>
+                <td>{updateYear}</td>
                 <td><input bind:value="{updateProduction}"></td>
                 <td><input bind:value="{updateExportation}"></td>
                 <td><input bind:value="{updateDistribution}"></td>
