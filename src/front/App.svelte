@@ -8,6 +8,7 @@
 	import WineTable from './wineAPI/WineTable.svelte';
 	import WineEdit from './wineAPI/WineTableEdit.svelte';
 	import NotFound from './NotFound.svelte';
+	import Info from './Info.svelte';
 
 
 	const routes = {
@@ -18,6 +19,7 @@
 		"/nuts-production-stats/:country/:year": NutsEdit,
 		"/wine-production-stats": WineTable,
 		"/wine-production-stats/:country/:year": WineEdit,
+		"/info": Info,
 		"*": NotFound
 	};
 </script>

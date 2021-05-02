@@ -21,7 +21,7 @@
 				<a> Fuente </a>(developed by <a href="https://github.com/marinantonioj">Antonio José Marín Rodríguez)	</a>
 		</li>
 		<li>
-			<a href="https://sos2021-02.herokuapp.com/api/v1/oil-production-stats">      
+			<a href="https://sos2021-02.herokuapp.com/api/v2/oil-production-stats">      
 				[https://sos2021-02.herokuapp.com/api/v1/oil-production-stats]</a>
 				<a> Fuente </a>(developed by <a href="https://github.com/jgonzalezal37">José Manuel González Domínguez)	</a>
 		</li>
