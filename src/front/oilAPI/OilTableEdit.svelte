@@ -81,7 +81,7 @@
 
 <main>
     <h1>
-        Edit <strong>{params.country}</strong>
+        Editar <strong>{params.country}</strong>
     </h1>
     <Table bordered>
         <thead>

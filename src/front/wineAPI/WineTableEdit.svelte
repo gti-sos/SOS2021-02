@@ -82,7 +82,7 @@
 
 <main>
     <h1>
-        wineAPI
+        Editar <strong>{params.country}</strong>
     </h1>
     <Table bordered>
         <thead>
