@@ -124,9 +124,8 @@ module.exports.register = (app) => {
                 res.sendStatus(500);
             } else {
                 if (data.length == 0) {
-                    var send = [];
-                    console.log(`NEW GET to empty list`);
-                    res.status(200).send(JSON.stringify(send, null, 2));
+                    console.error("No data found");
+                    res.sendStatus(404);
                 } else {
                     var send = data[0];
                     console.log(`NEW GET to <${reqCountry}>, <${reqYear}>`);
