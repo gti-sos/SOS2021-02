@@ -23,7 +23,7 @@
 
     async function getData(){
         console.log("Fetching winestats...");
-        const res = await fetch(BASE_WINE_API_PATH+"wine-production-stats" + params.country + "/" + params.year);
+        const res = await fetch(BASE_WINE_API_PATH+"wine-production-stats/" + params.country + "/" + params.year);
 
         if(res.ok){
             console.log("Ok.");
@@ -53,7 +53,7 @@
             method: "PUT",
             body: JSON.stringify({
                 "country": params.country,
-                "year": params.year,
+                "year": parseInt(params.year),
                 "production": parseFloat(updateProduction),
                 "import": parseFloat(updateImport),
                 "export": parseFloat(updateExport),
@@ -98,8 +98,8 @@
         </thead>
         <tbody>
             <tr>
-                <td>{updateCountry}></td>
-                <td>{updateYear}></td>
+                <td>{updateCountry}</td>
+                <td>{updateYear}</td>
                 <td><input bind:value="{updateProduction}"></td>
                 <td><input bind:value="{updateImport}"></td>
                 <td><input bind:value="{updateExport}"></td>
