@@ -92,8 +92,9 @@ module.exports.register = (app) => {
             }
             else{
                 if(oilInDB.length == 0){
-                    console.error("No data found");
-                    res.sendStatus(404);
+                    var send = [];
+                    console.log(`NEW GET to empty list`);
+                    res.status(200).send(JSON.stringify(send, null, 2));
                 }
                 else{
                     var dataToSend = oilInDB.map((c)=>{
@@ -123,8 +124,9 @@ module.exports.register = (app) => {
                 res.sendStatus(500);
             } else {
                 if (data.length == 0) {
-                    console.error("No data found");
-                    res.sendStatus(404);
+                    var send = [];
+                    console.log(`NEW GET to empty list`);
+                    res.status(200).send(JSON.stringify(send, null, 2));
                 } else {
                     var send = data[0];
                     console.log(`NEW GET to <${reqCountry}>, <${reqYear}>`);

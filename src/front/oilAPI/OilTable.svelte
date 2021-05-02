@@ -71,16 +71,14 @@
     }
 
     async function deleteCountry(country, year){
-        console.log("Deleting country "+ country+ year);
+        console.log("Deleting country "+ country+"/"+ year);
 
         const res = await fetch(BASE_OIL_API_PATH+"oil-production-stats/"+country + "/" + year,
                             {
                                 method: "DELETE",
                             }
                            ).then( (res) => {
-                               if(oilstats.length===1){
-                                    oilstats= [];
-                               }
+                               
                                
                             getData();
                            })
