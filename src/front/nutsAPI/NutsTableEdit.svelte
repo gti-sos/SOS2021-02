@@ -73,7 +73,7 @@
 
 <main>
     <h1>
-        nutsAPI
+        Edit <strong>{params.country}</strong>
     </h1>
     <Table bordered>
         <thead>
@@ -89,8 +89,8 @@
         </thead>
         <tbody>
             <tr>
-                <td><input bind:value="{updateCountry}"></td>
-                <td><input bind:value="{updateYear}"></td>
+                <td>{updateCountry}</td>
+                <td>{updateYear}</td>
                 <td><input bind:value="{updateAlmond}"></td>
                 <td><input bind:value="{updateWalnut}"></td>
                 <td><input bind:value="{updatePistachio}"></td>
