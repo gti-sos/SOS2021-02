@@ -17,11 +17,12 @@
     let updateImport = 9999;
     let updateExport = 9999;
     let errorMsg = "";
+    let okMsg = "";
 
     onMount(getData);
 
     async function getData(){
-        console.log("Fetching data..." + params.country + " " + params.year);
+        console.log("Fetching winestats...");
         const res = await fetch(BASE_WINE_API_PATH+"wine-production-stats" + params.country + "/" + params.year);
 
         if(res.ok){
@@ -30,13 +31,13 @@
             data = json;
             updateCountry = data.country;
             updateYear = data.year;
-            updateProduction= data["Production"];
-            updateImport= data["Import"];
-            updateExport= data["Export"];
+            updateProduction= data["production"];
+            updateImport= data["import"];
+            updateExport= data["export"];
             
 
 
-            console.log(`We have received ${date.length} countries.`);
+            console.log(`Data received`);
         }else{
             errorMsg = res.status + ": " + res.statusText;
             console.log("ERROR!" + errorMsg);
@@ -51,23 +52,32 @@
         const res = await fetch("/api/v1/wine-production-stats/" + params.country + "/" + params.year, {
             method: "PUT",
             body: JSON.stringify({
-                country: params.country,
-                year: params.year,
-                "Production": parseFloat(updateProduction),
-                "Import": parseFloat(updateImport),
-                "Export": parseFloat(updateExport),
+                "country": params.country,
+                "year": params.year,
+                "production": parseFloat(updateProduction),
+                "import": parseFloat(updateImport),
+                "export": parseFloat(updateExport),
             }),
             headers: {
                 "Content-Type": "application/json",
             }
         }).then(function (res) {
-            getData();
-        });
+        if (res.ok) {
+          console.log("OK");
+          getData();
+          errorMsg = "";
+          okMsg = "Dato actualizado";
+        } else {
+          errorMsg = res.status + ": " + res.statusText;
+          getData();
+          console.log("ERROR!" + errorMsg);
+        }
+      });
 
 
         
     }
-
+    onMount(getData);
 </script>
 
 <main>
@@ -88,8 +98,8 @@
         </thead>
         <tbody>
             <tr>
-                <td><input bind:value="{updateCountry}"></td>
-                <td><input bind:value="{updateYear}"></td>
+                <td>{updateCountry}></td>
+                <td>{updateYear}></td>
                 <td><input bind:value="{updateProduction}"></td>
                 <td><input bind:value="{updateImport}"></td>
                 <td><input bind:value="{updateExport}"></td>
