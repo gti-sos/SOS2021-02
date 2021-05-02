@@ -78,6 +78,10 @@
                                 method: "DELETE",
                             }
                            ).then( (res) => {
+                               if(oilstats.length===1){
+                                    oilstats= [];
+                               }
+                               
                             getData();
                            })
     }
