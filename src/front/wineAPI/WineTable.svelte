@@ -90,7 +90,7 @@
                            ).then(function (res) {
                                 if (res.ok) {
                                     console.log("OK");
-                                    oilstats = [];
+                                    winestats = [];
                                     errorMsg = "";
                                     okMsg = "Operación realizada correctamente";
                                 } else {
