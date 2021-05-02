@@ -1,11 +1,5 @@
-{"country":"Greece","year":"2011","almond":1,"walnut":29800,"pistachio":7791,"_id":"EkjxYnC1cYUasyST"}
-{"country":"Spain","year":2011,"almond":208800,"walnut":13815,"pistachio":2708,"_id":"mc4CCZzm2kYQQzTV"}
-{"country":"Spain","year":"2011","almond":208800,"walnut":13815,"pistachio":1,"_id":"mc4CCZzm2kYQQzTV"}
-{"$$deleted":true,"_id":"EkjxYnC1cYUasyST"}
-{"$$deleted":true,"_id":"mc4CCZzm2kYQQzTV"}
-{"country":"Spain","year":2011,"almond":208800,"walnut":13815,"pistachio":2708,"_id":"48yAWVKEftBiEtIr"}
-{"country":"Italy","year":2011,"almond":104790,"walnut":10500,"pistachio":3079,"_id":"0YImiRQUU2JHJM3J"}
-{"country":"Greece","year":2011,"almond":29800,"walnut":29800,"pistachio":7791,"_id":"vuHSfZSLIGnSJQvM"}
-{"country":"Turkey","year":2011,"almond":69838,"walnut":203212,"pistachio":112000,"_id":"fwL4v0Yc6O3Xmt4B"}
-{"country":"USA","year":2011,"almond":1655000,"walnut":418212,"pistachio":201395,"_id":"Q0tJEU4VEVRN3JbN"}
 {"country":"Italy","year":2011,"almond":104790,"walnut":10500,"pistachio":1,"_id":"0YImiRQUU2JHJM3J"}
+{"country":"Spain","year":2011,"almond":208800,"walnut":13815,"pistachio":2708,"_id":"48yAWVKEftBiEtIr"}
+{"country":"USA","year":2011,"almond":1655000,"walnut":418212,"pistachio":201395,"_id":"Q0tJEU4VEVRN3JbN"}
+{"country":"Turkey","year":2011,"almond":69838,"walnut":203212,"pistachio":112000,"_id":"fwL4v0Yc6O3Xmt4B"}
+{"country":"Greece","year":2011,"almond":29800,"walnut":29800,"pistachio":7791,"_id":"vuHSfZSLIGnSJQvM"}

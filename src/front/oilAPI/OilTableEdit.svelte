@@ -32,9 +32,9 @@
             data = json;
             updateCountry = data.country;
             updateYear = data.year;
-            updateProduction= data["Production"];
-            updateExportation= data["Exportation"];
-            updateDistribution= data["Distribution"];
+            updateProduction= data["production"];
+            updateExportation= data["exportation"];
+            updateDistribution= data["distribution"];
             
 
 
@@ -50,14 +50,14 @@
 
         console.log("Updating country..." + JSON.stringify(params.country)+JSON.stringify(params.year));
 
-        const res = await fetch("/api/v1/oil-production-stats/" + params.country + "/" + params.year, {
+        const res = await fetch("/api/v2/oil-production-stats/" + params.country + "/" + params.year, {
             method: "PUT",
             body: JSON.stringify({
                 "country": params.country,
                 "year": parseInt(params.year),
-                "Production": parseFloat(updateProduction),
-                "Exportation": parseFloat(updateExportation),
-                "Distribution": parseFloat(updateDistribution),
+                "production": parseFloat(updateProduction),
+                "exportation": parseFloat(updateExportation),
+                "distribution": parseFloat(updateDistribution),
             }),
             headers: {
                 "Content-Type": "application/json"
