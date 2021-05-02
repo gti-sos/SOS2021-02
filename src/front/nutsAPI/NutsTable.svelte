@@ -17,6 +17,9 @@
         "walnut": "",
         "pistachio": "",
     }
+    let errorMsg = "";
+    let okMsg = "";
+
     async function loadData(){
         console.log("Loading nutsstats...");
         const res = await fetch(BASE_NUTS_PATH+"nuts-production-stats/loadInitialData");
@@ -78,6 +81,31 @@
                             getData();
                            })
     }
+
+    async function deleteAllCountries(){
+        console.log("Deleting all countries ");
+
+        const res = await fetch(BASE_NUTS_PATH+"nuts-production-stats/",
+            {
+                    method: "DELETE",
+            }
+            ).then(function (res) {
+                    if (res.ok) {
+                        console.log("OK");
+                        nutsstats = [];
+                        errorMsg = "";
+                        okMsg = "Operación realizada correctamente";
+                    } else {
+                        if(res.status===404){
+                         errorMsg = "No existen datos que borrar";
+                        }else if(res.status ===500){
+                        errorMsg = "No se han podido acceder a la base de datos";
+                        }        
+                        okMsg = "";
+                        console.log("ERROR!" + errorMsg);
+                    }
+            });
+    }
     onMount(getData);
 </script>
 
@@ -120,4 +148,5 @@
     </Table>
     <Button outline color="secondary" on:click="{pop}">Retroceder</Button>
     <Button outline color="primary" on:click="{loadData}">Cargar datos iniciales</Button>
+    <Button outline color="danger" on:click="{deleteAllCountries}">Borrar todos los datos</Button>
 </main>
