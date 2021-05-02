@@ -119,4 +119,5 @@
         </tbody>
     </Table>
     <Button outline color="secondary" on:click="{pop}">Retroceder</Button>
+    <Button outline color="primary" on:click="{loadData}">Cargar datos iniciales</Button>
 </main>

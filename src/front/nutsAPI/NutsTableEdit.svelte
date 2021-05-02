@@ -21,7 +21,7 @@
     onMount(getData);
 
     async function getData(){
-        console.log("Fetching nutsstats..." + params.country + " " + params.year);
+        console.log("Fetching nutsstats..." + params.country + " " + params.year + " Link que llega: " + BASE_NUTS_API_PATH+"nuts-production-stats/" + params.country + "/" + params.year);
         const res = await fetch(BASE_NUTS_API_PATH+"nuts-production-stats/" + params.country + "/" + params.year);
 
         if(res.ok){
@@ -33,6 +33,7 @@
             updateAlmond= data["almond"];
             updateWalnut= data["walnut"];
             updatePistachio= data["pistachio"];
+            console.log(`Los datos actualizados son: ${updateCountry} ${updateYear} ${updateAlmond} ${updateWalnut} ${updatePistachio}`);
             
 
 
@@ -51,11 +52,11 @@
         const res = await fetch("/api/v1/nuts-production-stats/" + params.country + "/" + params.year, {
             method: "PUT",
             body: JSON.stringify({
-                country: params.country,
-                year: params.year,
-                "Almond": parseInt(updateAlmond),
-                "Walnut": parseInt(updateWalnut),
-                "Pistachio": parseInt(updatePistachio),
+                "country": params.country,
+                "year": parseInt(params.year),
+                "almond": parseInt(updateAlmond),
+                "walnut": parseInt(updateWalnut),
+                "pistachio": parseInt(updatePistachio),
             }),
             headers: {
                 "Content-Type": "application/json"
