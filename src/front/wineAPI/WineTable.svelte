@@ -17,6 +17,8 @@
         "import": "",
         "export": "",
     }
+    let errorMsg = "";
+    let okMsg = "";
     async function loadData(){
         console.log("Loading winestats...");
         const res = await fetch(BASE_WINE_API_PATH+"wine-production-stats/loadInitialData");
@@ -67,10 +69,10 @@
                            })
     }
 
-    async function deleteCountry(countryName, countryYear){
-        console.log("Deleting country "+ countryName+ countryYear);
+    async function deleteCountry(country, year){
+        console.log("Deleting country "+ country+ "/"+ year);
 
-        const res = await fetch(BASE_WINE_API_PATH+"wine-production-stats/"+countryName + "/" + countryYear,
+        const res = await fetch(BASE_WINE_API_PATH+"wine-production-stats/"+country + "/" + year,
                             {
                                 method: "DELETE",
                             }
@@ -78,6 +80,30 @@
                             getData();
                            })
     }
+    async function deleteAllCountries(){
+        console.log("Deleting all countries ");
+
+        const res = await fetch(BASE_WINE_API_PATH+"wine-production-stats/",
+                            {
+                                method: "DELETE",
+                            }
+                           ).then(function (res) {
+                                if (res.ok) {
+                                    console.log("OK");
+                                    winestats = [];
+                                    errorMsg = "";
+                                    okMsg = "Operación realizada correctamente";
+                                } else {
+                                    if(res.status===404){
+                                    errorMsg = "No existen datos que borrar";
+                                    }else if(res.status ===500){
+                                    errorMsg = "No se han podido acceder a la base de datos";
+                                    }        
+                                    okMsg = "";
+                                    console.log("ERROR!" + errorMsg);
+                                }
+                                });
+  }
     onMount(getData);
 </script>
 
@@ -113,11 +139,13 @@
                     <td>{data["production"]}</td>
                     <td>{data["import"]}</td>
                     <td>{data["export"]}</td>
-                    <td><Button on:click={deleteCountry(data.country, data.year)}>Delete</Button></td>
+                    <td><Button on:click={deleteCountry(data.country, data.year)}>Borrar</Button></td>
                 </tr>
             {/each}
         </tbody>
     </Table>
     <Button outline color="secondary" on:click="{pop}">Back</Button>
+    <Button outline color="primary" on:click="{loadData}">Cargar datos iniciales</Button>
+    <Button outline color="danger" on:click="{deleteAllCountries}">Borrar todos los datos</Button>
 </main>
 

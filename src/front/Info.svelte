@@ -69,7 +69,7 @@
   border: 1px solid black;
   
   margin-bottom: 25px;
-  margin-left: 750px;
+  margin-left: 43%;
   text-align: center;
 }
     ul {
