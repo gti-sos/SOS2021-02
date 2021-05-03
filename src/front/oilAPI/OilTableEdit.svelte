@@ -109,6 +109,6 @@
     {#if errorMsg}
         <p style="color: red">ERROR: {errorMsg}</p>
     {/if}
-    <Button outline color="secondary" on:click="{pop}">Back</Button>
+    <Button outline color="secondary" on:click="{pop}">Atrás</Button>
 </main>
 
