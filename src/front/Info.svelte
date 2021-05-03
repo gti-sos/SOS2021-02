@@ -47,14 +47,17 @@
         <a href="#/nuts-production-stats"
                 ><Button color="primary">Datos frutos secos</Button></a
               >
-        <a href="https://sos2021-02.herokuapp.com/api/v1/nuts-production-stats"
+        <a href="https://sos2021-02.herokuapp.com/api/v2/nuts-production-stats"
               ><Button color="primary">URL base (Backend)</Button></a
             >
         <a href="https://documenter.getpostman.com/view/10637366/TzJoDfrf"
-                ><Button color="primary">Documentación de Postman</Button></a
+                ><Button color="primary">Documentación de Postman v1</Button></a
+              >
+        <a href="https://documenter.getpostman.com/view/10637366/TzRNE9Zz"
+              ><Button color="primary">Documentación de Postman v2</Button></a
               >
         <ul>
-            <p1>Antonio José Marín Rodríguez. Fuente: <a href="https://sos2021-02.herokuapp.com/api/v1/nuts-production-stats"> nuts-production-stats</a></p1>
+            <p1>Antonio José Marín Rodríguez. Fuente: <a href="https://sos2021-02.herokuapp.com/api/v2/nuts-production-stats"> nuts-production-stats</a></p1>
         </ul>
     </Jumbotron>
 

@@ -141,7 +141,7 @@
                     <td>{data["almond"]}</td>
                     <td>{data["walnut"]}</td>
                     <td>{data["pistachio"]}</td>
-                    <td><Button on:click={deleteCountry(data.country, data.year)}>Delete</Button></td>
+                    <td><Button on:click={deleteCountry(data.country, data.year)}>Borrar</Button></td>
                 </tr>
             {/each}
         </tbody>

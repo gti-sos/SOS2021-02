@@ -130,7 +130,7 @@
                 <td><input bind:value="{newCountry['production']}"></td>
                 <td><input bind:value="{newCountry['import']}"></td>
                 <td><input bind:value="{newCountry['export']}"></td>
-                <td><Button on:click={insertCountry}>Insert</Button></td>
+                <td><Button on:click={insertCountry}>Insertar</Button></td>
             </tr>
             {#each winestats as data}
                 <tr>
@@ -144,7 +144,7 @@
             {/each}
         </tbody>
     </Table>
-    <Button outline color="secondary" on:click="{pop}">Back</Button>
+    <Button outline color="secondary" on:click="{pop}">Retroceder</Button>
     <Button outline color="primary" on:click="{loadData}">Cargar datos iniciales</Button>
     <Button outline color="danger" on:click="{deleteAllCountries}">Borrar todos los datos</Button>
 </main>
