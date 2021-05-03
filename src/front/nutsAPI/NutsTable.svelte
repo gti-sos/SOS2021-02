@@ -8,7 +8,7 @@
 
     import Table from "sveltestrap/src/Table.svelte";
     import Button from "sveltestrap/src/Button.svelte";
-    var BASE_NUTS_PATH = "/api/v1/";
+    var BASE_NUTS_PATH = "/api/v2/";
     let nutsstats = [];
     let newCountry = {
         country: "",

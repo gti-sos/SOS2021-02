@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());
 //=========================================== AJMR =========================================================
 
-var nutsAPI =  require("./src/back/nutsAPI");
+var nutsAPI =  require("./src/back/nutsAPI/v2");
 nutsAPI.register(app);
 
 

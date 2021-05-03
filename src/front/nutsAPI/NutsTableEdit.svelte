@@ -9,7 +9,7 @@
     import Table from "sveltestrap/src/Table.svelte";
     import Button from "sveltestrap/src/Button.svelte";
     export let params = {};
-    const BASE_NUTS_API_PATH = "/api/v1/";
+    const BASE_NUTS_API_PATH = "/api/v2/";
     let data = {};
     let updateCountry = "XXXX";
     let updateYear = 9999;
