@@ -3,3 +3,13 @@
 {"country":"Greece","year":2011,"production":9132,"import":203,"export":376,"_id":"TAfaQTnV0d2TkmGh"}
 {"country":"Turkey","year":2011,"production":596,"import":80,"export":25,"_id":"UkvJIGuXsMll8bGW"}
 {"country":"USA","year":2011,"production":19187,"import":10155,"export":4210,"_id":"tX782QZX0AsydDqs"}
+{"$$deleted":true,"_id":"tX782QZX0AsydDqs"}
+{"$$deleted":true,"_id":"UkvJIGuXsMll8bGW"}
+{"$$deleted":true,"_id":"0jxSycMu0Kw2DtbM"}
+{"$$deleted":true,"_id":"46MeB4wyw5NP1ByR"}
+{"$$deleted":true,"_id":"TAfaQTnV0d2TkmGh"}
+{"country":"Spain","year":2011,"production":33397,"import":703,"export":22430,"_id":"DhGscetDOwZRH1n2"}
+{"country":"Italy","year":2011,"production":42772,"import":2412,"export":23238,"_id":"npgen5QyKr4TvmAv"}
+{"country":"Greece","year":2011,"production":9132,"import":203,"export":376,"_id":"dLqeBsIkXBYjsvHZ"}
+{"country":"Turkey","year":2011,"production":596,"import":80,"export":25,"_id":"cUvyy45aLaIrnkwX"}
+{"country":"USA","year":2011,"production":19187,"import":10155,"export":4210,"_id":"NyRn31HfJ1dY4Or3"}
