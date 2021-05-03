@@ -100,14 +100,8 @@ module.exports.register = (app) => {
                     var dataToSend = oilInDB.map((c)=>{
                         return {country : c.country, year : c.year, production : c.production, exportation : c.exportation, distribution : c.distribution};
                     })
-                    if(dataToSend.length==1){
-                        var objectToSend = dataToSend[0];
-                        res.send(JSON.stringify(objectToSend, null, 2));
-                        console.log("Data sent:"+JSON.stringify(objectToSend, null, 2));
-                    }else{
-                        res.send(JSON.stringify(dataToSend, null, 2));
+                    res.send(JSON.stringify(dataToSend, null, 2));
                         console.log("Data sent:"+JSON.stringify(dataToSend, null, 2));
-                    }
                     
                  }
             }
