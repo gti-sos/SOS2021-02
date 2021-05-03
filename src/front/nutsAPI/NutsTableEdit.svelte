@@ -49,7 +49,7 @@
 
         console.log("Updating country..." + JSON.stringify(params.country)+JSON.stringify(params.year));
 
-        const res = await fetch("/api/v1/nuts-production-stats/" + params.country + "/" + params.year, {
+        const res = await fetch("/api/v2/nuts-production-stats/" + params.country + "/" + params.year, {
             method: "PUT",
             body: JSON.stringify({
                 "country": params.country,
