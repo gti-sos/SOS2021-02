@@ -32,12 +32,16 @@
         <a href="#/wine-production-stats"
                 ><Button color="primary">Datos vino</Button></a
               >
-        <a href="https://sos2021-02.herokuapp.com/api/v1/wine-production-stats"
+        <a href="https://sos2021-02.herokuapp.com/api/v2/wine-production-stats"
               ><Button color="primary">URL base (Backend)</Button></a
             >
         <a href="https://documenter.getpostman.com/view/14969253/TzJoDfre"
           ><Button color="primary">Documentación de Postman</Button></a
         >
+        <a href="https://documenter.getpostman.com/view/14969253/TzRNEpmA"
+          ><Button color="primary">Documentación de Postman v2</Button></a
+        >
+        
         <ul>
             <p1>Alejandro Fernández Baena. Fuente: <a href="https://sos2021-02.herokuapp.com/api/v2/wine-production-stats"> wine-production-stats</a></p1>
         </ul>

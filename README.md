@@ -30,9 +30,11 @@
 			<a href="https://documenter.getpostman.com/view/10673756/TzRLkqi1">Postman Doc v2</a>
 		</li>
 		 <li>
-			<a href="https://sos2021-02.herokuapp.com/api/v1/wine-production-stats">   
-				[https://sos2021-02.herokuapp.com/api/v1/wine-production-stats]</a>
+			<a href="https://sos2021-02.herokuapp.com/api/v2/wine-production-stats">   
+				[https://sos2021-02.herokuapp.com/api/v2/wine-production-stats]</a>
 				<a> Fuente </a>(developed by <a href="https://github.com/alefdz98">Alejandro Fernandez Baena)	</a>
+			<a href="https://documenter.getpostman.com/view/14969253/TzJoDfre">Postman Doc</a>
+			<a href="https://documenter.getpostman.com/view/14969253/TzRNEpmA">Postman Doc v2</a>
 		</li>
 	</body>
 </html>
