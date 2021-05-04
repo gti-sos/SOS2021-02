@@ -16,9 +16,11 @@
 		<h3>APIs:</h3>
 		<ul>
         <li>
-			<a href="https://sos2021-02.herokuapp.com/api/v1/nuts-production-stats">	  
-				[https://sos2021-02.herokuapp.com/api/v1/nuts-production-stats]</a>
-				<a> Fuente </a>(developed by <a href="https://github.com/marinantonioj">Antonio José Marín Rodríguez)	</a>
+			<a href="https://sos2021-02.herokuapp.com/api/v2/nuts-production-stats">	  
+				[https://sos2021-02.herokuapp.com/api/v2/nuts-production-stats]</a>
+			<a> Fuente </a>(developed by <a href="https://github.com/marinantonioj">Antonio José Marín Rodríguez)	</a>
+			<a href="https://documenter.getpostman.com/view/10637366/TzJoDfrf">Postman Doc</a>
+			<a href="https://documenter.getpostman.com/view/10637366/TzRNE9Zz">Postman Doc v2</a>
 		</li>
 		<li>
 			<a href="https://sos2021-02.herokuapp.com/api/v2/oil-production-stats">      
