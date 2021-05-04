@@ -1,69 +1,74 @@
-var BASE_OIL_API_PATH = "/api/v2/";
-var DataStore = require("nedb");
+var BASE_WINE_API_PATH = "/api/v2/";
+var Datastore = require('nedb');
 var dat = require ('path');
-var db = new DataStore({ filename: dat.join(__dirname, 'oil-stats.db'), autoload: true});
-var oilstats = [];
+var db = new Datastore({ filename: dat.join(__dirname, 'wine-stats.db'), autoload: true});
+var winestats = [];
+
 
 module.exports.register = (app) => {
-    var oilstatsInitial = [
+    
+    var winestatsInitial= [
         {
             "country": "Spain",
             "year": 2011,
-            "production": 669.1,
-            "exportation": 48.36,
-            "distribution": 18.61
+            "production": 33397,
+            "import": 703,
+            "export": 22430
         },
         {
             "country": "Italy",
             "year": 2011,
-            "production": 735,
-            "exportation": 28.74,
-            "distribution": 22.12
+            "production": 42772,
+            "import": 2412,
+            "export": 23238
         },
         {
             "country": "Greece",
             "year": 2011,
-            "production": 420,
-            "exportation": 5.48,
-            "distribution": 7.71
+            "production": 9132,
+            "import": 203,
+            "export": 376
         },
         {
             "country": "Turkey",
             "year": 2011,
-            "production": 160,
-            "exportation": 1.26,
-            "distribution": 3.85
+            "production": 596,
+            "import": 80,
+            "export": 25
         },
         {
             "country": "USA",
             "year": 2011,
-            "production": 3,
-            "exportation": 0.38,
-            "distribution": 9.22
+            "production": 19187,
+            "import": 10155,
+            "export": 4210
         }
     ];
-    
-    
-    //GET info (tabla)
-    
-    app.get("/info/oil-production-stats", (request,response) => {
-        response.send("<html><body><h1>En esta tabla se muestra la producción, distribución y exportación de aceite en distintos paises del mundo</h1><table border><tr><th>country</th><th>year</th><th>production</th><th>exportation</th><th>distribution</th></tr><tr><th>Spain</th><th>2011</th><th>669,1</th><th>48,36</th><th>18,61</th></tr><tr><th>Italy</th><th>2011</th><th>735</th><th>28,74</th><th>22,12</th></tr><tr><th>Greece</th><th>2011</th><th>420</th><th>5,48</th><th>7,71</th></tr><tr><th>Turkey</th><th>2011</th><th>160</th><th>1.26</th><th>3.85</th></tr><tr><th>USA</th><th>2011</th><th>3</th><th>0.38</th><th>9.22</th></tr></table></body></html>");
-        console.log("New request to /info/oil-production-stats has arrived");
+    //Get al info (tabla)
+    app.get("/info/wine-production-stats", (request,response) => {
+        response.send("<html><body><h1>Producción de vino a nivel mundial</h1><table border><tr><th>country</th><th>year</th><th>production</th><th>import</th><th>export</th></tr><tr><th>Spain</th><th>2011</th><th>33397</th><th>703</th><th>22430</th></tr><tr><th>Italy</th><th>2011</th><th>42772</th><th>2412</th><th>23238</th></tr><tr><th>Greece</th><th>2011</th><th>9132</th><th>203</th><th>376</th></tr><tr><th>Turkey</th><th>2011</th><th>596</th><th>80</th><th>25</th></tr><tr><th>USA</th><th>2011</th><th>19187</th><th>10155</th><th>4210</th></tr></table></body></html>");
+        console.log("New request to /info/wine-production-stats has arrived");
     });
-
-
+    
     //GET loadInitialData
-    app.get(BASE_OIL_API_PATH+"oil-production-stats/loadInitialData", (req, res) =>{
+    
+    
+       
+        //Borrar db y cargar los datos iniciales
+    app.get(BASE_WINE_API_PATH+"wine-production-stats/loadInitialData", (req, res) =>{
     db.remove({},{multi:true},function(err,numRemoved){});
-    db.insert(oilstatsInitial);
+    db.insert(winestatsInitial);
     res.sendStatus(200);
-    console.log("Initial data loaded:"+JSON.stringify(oilstatsInitial,null,2));
+    console.log("Initial data loaded:"+JSON.stringify(winestatsInitial,null,2));
     });
+    
 
 
+    
     
     //GET a toda la lista de recursos
-    app.get(BASE_OIL_API_PATH+"oil-production-stats", (req, res) =>{
+    
+    app.get(BASE_WINE_API_PATH+"wine-production-stats", (req, res) =>{
         
         var query = req.query;
         var offset = query.offset;
@@ -78,28 +83,28 @@ module.exports.register = (app) => {
         if(query.hasOwnProperty("production")){
             query.production = parseFloat(query.production);
         }
-        if(query.hasOwnProperty("exportation")){
-            query.exportation = parseFloat(query.exportation);
+        if(query.hasOwnProperty("import")){
+            query.import = parseFloat(query.import);
         }
-        if(query.hasOwnProperty("distribution")){
-            query.distribution = parseFloat(query.distribution);
+        if(query.hasOwnProperty("export")){
+            query.export = parseFloat(query.export);
         }
 
-        db.find(query).skip(offset).limit(limit).exec((err, oilInDB) => {
+        db.find(query).skip(offset).limit(limit).exec((err, wineInDB) => {
             if(err){
                 console.error("ERROR accesing DB in GET");
                 res.sendStatus(500);
             }
             else{
             
-                if(oilInDB.length == 0){
+                if(wineInDB.length == 0){
                     var send = [];
                     console.log(`NEW GET to empty list`);
                     res.status(200).send(JSON.stringify(send, null, 2));
                 }
                 else{
-                    var dataToSend = oilInDB.map((c)=>{
-                        return {country : c.country, year : c.year, production : c.production, exportation : c.exportation, distribution : c.distribution};
+                    var dataToSend = wineInDB.map((c)=>{
+                        return {country : c.country, year : c.year, production : c.production, import : c.import, export : c.export};
                     })
                     res.send(JSON.stringify(dataToSend, null, 2));
                         console.log("Data sent:"+JSON.stringify(dataToSend, null, 2));
@@ -108,12 +113,13 @@ module.exports.register = (app) => {
             }
         });
     });
+    
     //GET a un recurso
-    app.get(BASE_OIL_API_PATH+"oil-production-stats/:country/:year", (req, res) => {
+    app.get(BASE_WINE_API_PATH+"wine-production-stats/:country/:year", (req, res) =>{
         var reqCountry = req.params.country;
         var reqYear = parseInt(req.params.year);
-        
-        db.find({country: reqCountry, year: reqYear}, {_id: 0}, function (err, data) {
+
+        db.find({ country: reqCountry, year: reqYear }, { _id: 0 }, function (err, data) {
             if (err) {
                 console.error("ERROR in GET");
                 res.sendStatus(500);
@@ -129,18 +135,15 @@ module.exports.register = (app) => {
             }
         });
     });
-    
     //GET a un recurso concreto ERROR 1
-    app.get(BASE_OIL_API_PATH+"oil-production-stats/:data", (req, res) => {
+    app.get(BASE_WINE_API_PATH+"wine-production-stats/:data", (req, res) => {
         console.error("BAD REQUEST");
         res.sendStatus(400).send("Incorrect fields");
     });
 
-
     //POST para crear un nuevo recurso en nuestra lista
-
-    app.post(BASE_OIL_API_PATH+"oil-production-stats", (req, res) => {
-        console.log("New POST .../oil-production-stats");
+    app.post(BASE_WINE_API_PATH+"wine-production-stats", (req, res) =>{
+        console.log("New POST .../wine-production-stats");
         var newData = req.body;
         var country = req.body.country;
         var year = parseInt(req.body.year);
@@ -153,8 +156,8 @@ module.exports.register = (app) => {
                     if (!newData.country 
                         || !newData.year 
                         || !newData['production'] 
-                        || !newData['exportation'] 
-                        || !newData['distribution']
+                        || !newData['import'] 
+                        || !newData['export']
                         || Object.keys(newData).length != 5){
                         console.log("The data is not correct");
                         return res.sendStatus(400);
@@ -179,8 +182,8 @@ module.exports.register = (app) => {
     });
     
     //DELETE a /country/year
-    app.delete(BASE_OIL_API_PATH+"oil-production-stats/:country/:year", (req,res)=>{
-		console.log("NEW DELETE .....oil-production-stats/:country/:year");
+    app.delete(BASE_WINE_API_PATH+"wine-production-stats/:country/:year", (req,res)=>{
+    	console.log("NEW DELETE .....wine-production-stats/:country/:year");
 			var reqcountry = req.params.country;
 			var reqyear = parseInt(req.params.year);
 			db.remove({country:reqcountry,year:reqyear},{multi:true}, (err, salida) => {
@@ -197,8 +200,8 @@ module.exports.register = (app) => {
     
     
     // PUT a country/year
-    app.put(BASE_OIL_API_PATH +"oil-production-stats/:country/:year",(req,res)=>{
-        console.log("New PUT .../oil-production-stats/:country/:year");
+    app.put(BASE_WINE_API_PATH +"wine-production-stats/:country/:year",(req,res)=>{
+        console.log("NEW PUT ...../wine-production-stats/country/year");
         var country = req.params.country;
 	    var year = req.params.year;
 	    var newData = req.body;
@@ -206,10 +209,8 @@ module.exports.register = (app) => {
         if (!newData.country 
             || !newData.year 
             || !newData['production'] 
-            || !newData['exportation'] 
-            || !newData['distribution']
-            || country != newData.country
-            || year != newData.year
+            || !newData['import'] 
+            || !newData['export']
             || Object.keys(newData).length != 5){
             console.log("The data is not correct");
             return res.sendStatus(400);
@@ -237,46 +238,45 @@ module.exports.register = (app) => {
     });
     
     // POST a country/year error
-    app.post(BASE_OIL_API_PATH+"oil-production-stats/:country", (req,res)=>{
-        console.log("NEW POST ...../oil-production-stats/country/year");
+    app.post(BASE_WINE_API_PATH+"wine-production-stats/:country", (req,res)=>{
+        console.log("NEW POST ...../wine-production-stats/country/year");
         res.status(405).send("NOT ALLOWED");
     })
-    app.post(BASE_OIL_API_PATH+"oil-production-stats/:year", (req,res)=>{
-        console.log("NEW POST ...../oil-production-stats/country/year");
+    app.post(BASE_WINE_API_PATH+"wine-production-stats/:year", (req,res)=>{
+        console.log("NEW POST ...../wine-production-stats/country/year");
         res.status(405).send("NOT ALLOWED");
     })
-    app.post(BASE_OIL_API_PATH+"oil-production-stats/:production", (req,res)=>{
-        console.log("NEW POST ...../oil-production-stats/country/year");
+    app.post(BASE_WINE_API_PATH+"wine-production-stats/:production", (req,res)=>{
+        console.log("NEW POST ...../wine-production-stats/country/year");
         res.status(405).send("NOT ALLOWED");
     })
-    app.post(BASE_OIL_API_PATH+"oil-production-stats/:exportation", (req,res)=>{
-        console.log("NEW POST ...../oil-production-stats/country/year");
+    app.post(BASE_WINE_API_PATH+"wine-production-stats/:exportation", (req,res)=>{
+        console.log("NEW POST ...../wine-production-stats/country/year");
         res.status(405).send("NOT ALLOWED");
     })
-    app.post(BASE_OIL_API_PATH+"oil-production-stats/:distribution", (req,res)=>{
-        console.log("NEW POST ...../oil-production-stats/country/year");
+    app.post(BASE_WINE_API_PATH+"wine-production-stats/:distribution", (req,res)=>{
+        console.log("NEW POST ...../wine-production-stats/country/year");
         res.status(405).send("NOT ALLOWED");
     })
-    app.post(BASE_OIL_API_PATH+"oil-production-stats/:country/:year", (req,res)=>{
-        console.log("NEW POST ...../oil-production-stats/country/year");
+    app.post(BASE_WINE_API_PATH+"wine-production-stats/:country/:year", (req,res)=>{
+        console.log("NEW POST ...../wine-production-stats/country/year");
         res.status(405).send("NOT ALLOWED");
     });
-    
     //PUT a lista error
-    app.put(BASE_OIL_API_PATH+"oil-production-stats", (req,res)=>{
-        console.log("NEW PUT ...../oil-production-stats");
+    app.put(BASE_WINE_API_PATH+"wine-production-stats", (req,res)=>{
+        console.log("NEW PUT ...../wine-production-stats");
         res.status(405).send("NOT ALLOWED");
     })
     
     // DELETE a lista
-    app.delete(BASE_OIL_API_PATH+"oil-production-stats", (req,res)=>{
+    app.delete(BASE_WINE_API_PATH+"wine-production-stats", (req,res)=>{
         db.remove({}, {multi:true}, function (err,numRemoved) {
             if (err) {
-                console.error("ERROR deleting DB oilinDB in DELETE");
+                console.error("ERROR deleting DB contacts in DELETE");
                 res.sendStatus(500);
             }else{
                 if(numRemoved == 0){
-                    console.error("ERROR oil-stats not found");
+                    console.error("ERROR wine-stats not found");
                     res.sendStatus(404);
                 } else {
                     res.sendStatus(200);

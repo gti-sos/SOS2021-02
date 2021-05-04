@@ -39,7 +39,7 @@
           ><Button color="primary">Documentación de Postman</Button></a
         >
         <ul>
-            <p1>Alejandro Fernández Baena. Fuente: <a href="https://sos2021-02.herokuapp.com/api/v1/wine-production-stats"> wine-production-stats</a></p1>
+            <p1>Alejandro Fernández Baena. Fuente: <a href="https://sos2021-02.herokuapp.com/api/v2/wine-production-stats"> wine-production-stats</a></p1>
         </ul>
     </Jumbotron>
     <Jumbotron>

@@ -28,7 +28,7 @@ nutsAPI.register(app);
 var oilAPI =  require("./src/back/oilAPI/v2");
 oilAPI.register(app);
 //=========================================== AFB =========================================================
-var wineAPI =  require("./src/back/wineAPI");
+var wineAPI =  require("./src/back/wineAPI/v2");
 wineAPI.register(app);
 
 // =======================================Codigo de grupo===========================

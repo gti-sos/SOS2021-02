@@ -9,7 +9,7 @@
     import Table from "sveltestrap/src/Table.svelte";
     import Button from "sveltestrap/src/Button.svelte";
     export let params = {};
-    const BASE_WINE_API_PATH = "/api/v1/";
+    const BASE_WINE_API_PATH = "/api/v2/";
     let data = {};
     let updateCountry = "XXXX";
     let updateYear = 9999;
@@ -49,7 +49,7 @@
 
         console.log("Updating country..." + JSON.stringify(params.country)+JSON.stringify(params.year));
 
-        const res = await fetch("/api/v1/wine-production-stats/" + params.country + "/" + params.year, {
+        const res = await fetch("/api/v2/wine-production-stats/" + params.country + "/" + params.year, {
             method: "PUT",
             body: JSON.stringify({
                 "country": params.country,
