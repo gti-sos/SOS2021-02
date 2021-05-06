@@ -20,12 +20,18 @@
     let errorMsg = "";
     let okMsg = "";
 
+    let limit = 10;
+	let offset = 0;
+    let actual = 1;
+    let numData = 0;
+
     async function loadData(){
         console.log("Loading nutsstats...");
         const res = await fetch(BASE_NUTS_PATH+"nuts-production-stats/loadInitialData");
 
         if(res.ok){
             console.log("Ok.");
+            numData=5;
             getData();
             
         }else{
@@ -35,7 +41,8 @@
 
     async function getData(){
         console.log("Fetching nutsstats...");
-        const res = await fetch(BASE_NUTS_PATH+"nuts-production-stats");
+        var url = BASE_NUTS_PATH+"nuts-production-stats?limit="+limit+"&offset="+offset;//*limit);
+        const res = await fetch(url);
 
         if(res.ok){
             console.log("Ok.");
@@ -66,7 +73,8 @@
                                 }
                             }
                            ).then( (res) => {
-                            getData();
+                                numData++;
+                                getData();
                            })
     }
 
@@ -78,7 +86,8 @@
                                 method: "DELETE",
                             }
                            ).then( (res) => {
-                            getData();
+                                numData--;
+                                getData();
                            })
     }
 
@@ -106,6 +115,52 @@
                     }
             });
     }
+
+    async function nextPage() {
+        if (offset+10 > numData) {
+            if(numdata!=0){
+                offset += numData;
+            actual = 2;
+            }
+        } else {
+            offset +=10
+            actual = 2;
+        }
+        console.log("Offset: "+ offset);
+        const res = await fetch(BASE_NUTS_PATH+"nuts-production-stats?limit="+limit+"&offset="+offset);
+        if (res.ok) {
+            console.log("Ok:");
+            const json = await res.json();
+            nutsstats = json;
+            console.log("Received " + nutsstats.length + " data.");
+        } else {
+            console.log("ERROR!");
+        }
+    }
+
+    async function previousPage() {
+ 
+        if (offset-10>=1) {
+            offset -= 10; 
+            actual -= 1;
+        } else {
+            offset = 0
+            actual = 1;
+        }
+        console.log("Offset: " +offset);
+        const res = await fetch(BASE_NUTS_PATH+"nuts-production-stats?limit="+limit+"&offset="+offset);
+        if (res.ok) {
+            console.log("Ok:");
+            const json = await res.json();
+            nutsstats = json;
+            console.log("Received " + nutsstats.length + " data.");
+        } else {
+            console.log("ERROR!");
+        }
+    }
+
+
+
     onMount(getData);
 </script>
 
@@ -146,6 +201,9 @@
             {/each}
         </tbody>
     </Table>
+    <Button outline color="info" on:click="{previousPage}">Página anterior</Button>
+    <Button>{actual}</Button>
+    <Button outline color="info" on:click="{nextPage}">Siguiente Página</Button>
     <Button outline color="secondary" on:click="{pop}">Retroceder</Button>
     <Button outline color="primary" on:click="{loadData}">Cargar datos iniciales</Button>
     <Button outline color="danger" on:click="{deleteAllCountries}">Borrar todos los datos</Button>
