@@ -33,7 +33,9 @@
             console.log("Ok.");
             numData=5;
             getData();
+            errorMsg = "";
             okMsg = "Datos cargados correctamente."
+            
         }else{
             console.log("Error!");
         }

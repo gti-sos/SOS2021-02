@@ -5,6 +5,9 @@
     import {
         pop
     } from "svelte-spa-router";
+    import {
+        Modal
+    } from "sveltestrap";
 
     import Table from "sveltestrap/src/Table.svelte";
     import Button from "sveltestrap/src/Button.svelte";
@@ -18,6 +21,13 @@
         "distribution": "",
     }
 
+    let searchCountry = {
+        country: "",
+        year: "",
+        "production": "",
+        "exportation": "",
+        "distribution": "",
+    }
     let errorMsg = "";
     let okMsg = "";
 
@@ -25,6 +35,12 @@
 	let offset = 0;
     let actual = 1;
     let numData = 5;
+
+    let open = false;
+	
+	const toggle = () =>{
+		(open = !open);
+	}
 
     async function loadData(){
         console.log("Loading oilstats...");
@@ -34,6 +50,7 @@
             console.log("Ok.");
             getData();
             numData = 5;
+            errorMsg = "";
             okMsg = "Datos cargados correctamente."
         }else{
             console.log("Error!");
@@ -188,6 +205,47 @@
         }
     }
 
+    async function searchCountries(offset) {
+		let url = "/api/v2/oil-production-stats?limit=10&offset="+ offset;
+		console.log("Searching countries...");
+		let data = {
+			country: searchCountry.country,
+			year: parseInt(searchCountry.year),
+			production: parseFloat(searchCountry.production),
+			exportation: parseFloat(searchCountry.exportation),
+			distribution: parseFloat(searchCountry.distribution),
+			
+		};
+		Object.entries(data).forEach(([x,y]) => {
+			if(y){
+				url = url + "&" + x + "=" + y;
+			}
+		});
+		/*if(data.country){
+			url = url +"&country=" + data.country;
+		};*/
+		console.log("esta es la url:"+url);
+		const res = await fetch(url);
+		if (res.ok) {
+			console.log("Ok:");
+			const json = await res.json();
+			oilstats = json;
+			console.log("Received " + oilstats.length + " countries.");
+			if (oilstats.length > 0){
+				okMsg = "Se ha realizado la búsqueda.";
+				errorMsg = false;
+			}else{
+				okMsg = false;
+				errorMsg = "La búsqueda no ha obtenido resultados.";
+			};
+			
+		} else {
+			console.log("ERROR!");
+			okMsg = false;
+			errorMsg = "La búsqueda no ha obtenido resultados.";
+		};
+	};
+
     onMount(getData);
 </script>
 
@@ -203,6 +261,31 @@
       <p class="msgGreen" style="color: #155724">{okMsg}</p>
     {/if}
     </div>
+
+    <Table>
+        <thead>
+            <tr>
+                <th>Pais</th>
+                <th>Año</th>
+                <th>Produccion</th>
+                <th>Exportacion</th>
+                <th>Distribucion</th>
+                <th>Acciones</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                    <td><input bind:value="{searchCountry.country}"></td>
+                    <td><input bind:value="{searchCountry.year}"></td>
+                    <td><input bind:value="{searchCountry['production']}"></td>
+                    <td><input bind:value="{searchCountry['exportation']}"></td>
+                    <td><input bind:value="{searchCountry['distribution']}"></td>
+                    <td><Button on:click={searchCountries}>Buscar</Button></td>
+            </tr>
+        </tbody>
+        </Table>
+
     <Table bordered>
         <thead>
             <tr>
@@ -236,6 +319,38 @@
             {/each}
         </tbody>
     </Table>
+    <Button outline color="warning" on:click={toggle}>Buscar</Button>
+			  <Modal isOpen={open} {toggle} size = "">
+                <Table>
+                <thead>
+                    <tr>
+                        <th>Pais</th>
+                        <th>Año</th>
+                        <th>Produccion</th>
+                        <th>Exportacion</th>
+                        <th>Distribucion</th>
+                        <th>Acciones</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                            <td><input bind:value="{searchCountry.country}"></td>
+                            <td><input bind:value="{searchCountry.year}"></td>
+                            <td><input bind:value="{searchCountry['production']}"></td>
+                            <td><input bind:value="{searchCountry['exportation']}"></td>
+                            <td><input bind:value="{searchCountry['distribution']}"></td>
+                            <td><Button on:click={searchCountry}>Buscar</Button></td>
+                    </tr>
+                </tbody>
+                </Table>
+				
+				
+				  <Button color="secondary" on:click={toggle}>Cerrar</Button>
+				
+			  </Modal>
+    
+
     <Button outline color="info" on:click="{previousPage}">Página anterior</Button>
     <Button>{actual}</Button>
     <Button outline color="info" on:click="{nextPage}">Siguiente Página</Button>
