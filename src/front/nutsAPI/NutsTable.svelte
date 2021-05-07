@@ -23,7 +23,7 @@
     let limit = 10;
 	let offset = 0;
     let actual = 1;
-    let numData = 0;
+    let numData = 5;
 
     async function loadData(){
         console.log("Loading nutsstats...");
@@ -33,7 +33,7 @@
             console.log("Ok.");
             numData=5;
             getData();
-            
+            okMsg = "Datos cargados correctamente."
         }else{
             console.log("Error!");
         }
@@ -73,21 +73,45 @@
                                 }
                             }
                            ).then( (res) => {
+                                if(res.ok) {
                                 numData++;
+                                console.log("NUMDATA IS:" + numData);
                                 getData();
+                                okMsg = `${newCountry.country} ${newCountry.year} ha sido insertado correctamente.`
+                                errorMsg = "";
+                                }else{
+                                   if(res.status === 409){
+                                       okMsg = "";
+                                       errorMsg = `${newCountry.country} ${newCountry.year} ya se encuentra cargado.`
+                                   }
+                                console.log("ERROR!" + errorMsg);
+                               }
+                            
                            })
     }
 
-    async function deleteCountry(countryName, countryYear){
-        console.log("Deleting country "+ countryName+ countryYear);
+    async function deleteCountry(country, year){
+        console.log("Deleting country " + country + year);
 
-        const res = await fetch(BASE_NUTS_PATH+"nuts-production-stats/"+countryName + "/" + countryYear,
+        const res = await fetch(BASE_NUTS_PATH+"nuts-production-stats/"+country + "/" + year,
                             {
                                 method: "DELETE",
                             }
-                           ).then( (res) => {
+                            ).then( (res) => {
+                                if(res.ok) {
                                 numData--;
+                                console.log("NUMDATA IS:" + numData);
                                 getData();
+                                okMsg = `${country} ${year} ha sido eliminado correctamente.`
+                                errorMsg = "";
+                                }else{
+                                    if(res.status === 404){
+                                       okMsg = "";
+                                       errorMsg = `${country} ${year} no se encuentra en la base de datos.`
+                                    }
+                                console.log("ERROR!" + errorMsg);
+                               }
+                            
                            })
     }
 
@@ -102,16 +126,19 @@
                     if (res.ok) {
                         console.log("OK");
                         nutsstats = [];
+                        numData = 0;
                         errorMsg = "";
-                        okMsg = "Operación realizada correctamente";
+                        okMsg = "Datos borrados correctamente";
                     } else {
                         if(res.status===404){
-                         errorMsg = "No existen datos que borrar";
+                            okMsg = "";
+                            errorMsg = "No existen datos que borrar";
                         }else if(res.status ===500){
-                        errorMsg = "No se han podido acceder a la base de datos";
+                            okMsg = "";
+                            errorMsg = "No se han podido acceder a la base de datos";
                         }        
-                        okMsg = "";
-                        console.log("ERROR!" + errorMsg);
+                            okMsg = "";
+                            console.log("ERROR!" + errorMsg);
                     }
             });
     }
