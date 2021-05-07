@@ -193,8 +193,16 @@
 
 <main>
     <h1>
-        nutsAPI
+        Tabla Frutos Secos
     </h1>
+    <div>
+        {#if errorMsg}
+        <p class="msgRed" style="color: #9d1c24">ERROR: {errorMsg}</p>
+    {/if}
+        {#if okMsg}
+      <p class="msgGreen" style="color: #155724">{okMsg}</p>
+    {/if}
+    </div>
     <Table bordered>
         <thead>
             <tr>
@@ -235,3 +243,23 @@
     <Button outline color="primary" on:click="{loadData}">Cargar datos iniciales</Button>
     <Button outline color="danger" on:click="{deleteAllCountries}">Borrar todos los datos</Button>
 </main>
+
+<style>
+    p {
+    display: inline;
+  }
+
+  .msgRed {
+    padding: 8px;
+    background-color: #f8d7da;
+  }
+
+  .msgGreen {
+    padding: 8px;
+    background-color: #d4edda;
+  }
+
+  div{
+    margin-bottom: 15px;
+  }
+</style>
