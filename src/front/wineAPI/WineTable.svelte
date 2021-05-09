@@ -5,6 +5,10 @@
     import {
         pop
     } from "svelte-spa-router";
+    import {
+        Modal
+    } from "sveltestrap";
+
 
     import Table from "sveltestrap/src/Table.svelte";
     import Button from "sveltestrap/src/Button.svelte";
@@ -17,8 +21,26 @@
         "import": "",
         "export": "",
     }
+    let searchCountry = {
+        country: "",
+        year: "",
+        "production": "",
+        "exportation": "",
+        "distribution": "",
+    }
     let errorMsg = "";
     let okMsg = "";
+
+    let limit = 10;
+	let offset = 0;
+    let actual = 1;
+    let numData = 5;
+
+    let open = false;
+	
+	const toggle = () =>{
+		(open = !open);
+	}
     async function loadData(){
         console.log("Loading winestats...");
         const res = await fetch(BASE_WINE_API_PATH+"wine-production-stats/loadInitialData");
@@ -26,6 +48,10 @@
         if(res.ok){
             console.log("Ok.");
             getData();
+            numData = 5;
+            errorMsg = "";
+            okMsg = "Datos cargados correctamente."
+
             
         }else{
             console.log("Error!");
@@ -34,7 +60,8 @@
 
     async function getData(){
         console.log("Fetching winestats...");
-        const res = await fetch(BASE_WINE_API_PATH+"wine-production-stats");
+        var url = BASE_WINE_API_PATH+"wine-production-stats?limit="+limit+"&offset="+offset;//*limit);
+        const res = await fetch(url);
 
         if(res.ok){
             console.log("Ok.");
@@ -65,7 +92,20 @@
                                 }
                             }
                            ).then( (res) => {
+                            if(res.ok) {
+                                numData++;
+                                console.log("NUMDATA IS:" + numData);
                             getData();
+                            okMsg = `${newCountry.country} ${newCountry.year} ha sido insertado correctamente.`
+                            errorMsg = "";
+                               }else{
+                                   if(res.status === 409){
+                                       okMsg = "";
+                                       errorMsg = `${newCountry.country} ${newCountry.year} ya se encuentra cargado.`
+                                   }
+                                   console.log("ERROR!" + errorMsg);
+                               }
+                            
                            })
     }
 
@@ -77,7 +117,20 @@
                                 method: "DELETE",
                             }
                            ).then( (res) => {
+                            if(res.ok) {
+                                numData--;
+                                console.log("NUMDATA IS:" + numData);
                             getData();
+                            okMsg = `${country} ${year} ha sido eliminado correctamente.`
+                            errorMsg = "";
+                               }else{
+                                   if(res.status === 404){
+                                       okMsg = "";
+                                       errorMsg = `${country} ${year} no se encuentra en la base de datos.`
+                                   }
+                                   console.log("ERROR!" + errorMsg);
+                               }
+                            
                            })
     }
     async function deleteAllCountries(){
@@ -91,12 +144,15 @@
                                 if (res.ok) {
                                     console.log("OK");
                                     winestats = [];
+                                    numData = 0;
                                     errorMsg = "";
-                                    okMsg = "Operación realizada correctamente";
+                                    okMsg = "Datos borrados correctamente";
                                 } else {
                                     if(res.status===404){
+                                    okMsg ="";
                                     errorMsg = "No existen datos que borrar";
                                     }else if(res.status ===500){
+                                    okMsg = "";
                                     errorMsg = "No se han podido acceder a la base de datos";
                                     }        
                                     okMsg = "";
@@ -104,6 +160,89 @@
                                 }
                                 });
   }
+  async function nextPage() {
+        if (offset+10 > numData) {
+            if(numdata!=0){
+                offset += numData;
+            actual = 2;
+            }
+        } else {
+            offset +=10
+            actual = 2;
+        }
+        console.log("Offset: "+ offset);
+        const res = await fetch(BASE_WINE_API_PATH+"wine-production-stats?limit="+limit+"&offset="+offset);
+        if (res.ok) {
+            console.log("Ok:");
+            const json = await res.json();
+            winestats = json;
+            console.log("Received " + winestats.length + " data.");
+        } else {
+            console.log("ERROR!");
+        }
+    }
+
+    async function previousPage() {
+ 
+        if (offset-10>=1) {
+            offset -= 10; 
+            actual -= 1;
+        } else {
+            offset = 0
+            actual = 1;
+        }
+        console.log("Offset: " +offset);
+        const res = await fetch(BASE_WINE_API_PATH+"wine-production-stats?limit="+limit+"&offset="+offset);
+        if (res.ok) {
+            console.log("Ok:");
+            const json = await res.json();
+            oilstats = json;
+            console.log("Received " + winestats.length + " data.");
+        } else {
+            console.log("ERROR!");
+        }
+    }
+
+    async function searchCountries(offset) {
+		let url = "/api/v2/wine-production-stats?limit=10&offset="+ offset;
+		console.log("Searching countries...");
+		let data = {
+			country: searchCountry.country,
+			year: parseInt(searchCountry.year),
+			production: parseFloat(searchCountry.production),
+			import: parseFloat(searchCountry.import),
+			export: parseFloat(searchCountry.export),
+			
+		};
+		Object.entries(data).forEach(([x,y]) => {
+			if(y){
+				url = url + "&" + x + "=" + y;
+			}
+		});
+		/*if(data.country){
+			url = url +"&country=" + data.country;
+		};*/
+		console.log("esta es la url:"+url);
+		const res = await fetch(url);
+		if (res.ok) {
+			console.log("Ok:");
+			const json = await res.json();
+			winestats = json;
+			console.log("Received " + winestats.length + " countries.");
+			if (winestats.length > 0){
+				okMsg = "Se ha realizado la búsqueda.";
+				errorMsg = false;
+			}else{
+				okMsg = false;
+				errorMsg = "La búsqueda no ha obtenido resultados.";
+			};
+			
+		} else {
+			console.log("ERROR!");
+			okMsg = false;
+			errorMsg = "La búsqueda no ha obtenido resultados.";
+		};
+	};
     onMount(getData);
 </script>
 
@@ -111,7 +250,16 @@
     <h1>
         wineAPI
     </h1>
-    <Table bordered>
+    <div>
+        {#if errorMsg}
+        <p class="msgRed" style="color: #9d1c24">ERROR: {errorMsg}</p>
+    {/if}
+        {#if okMsg}
+      <p class="msgGreen" style="color: #155724">{okMsg}</p>
+    {/if}
+    </div>
+
+    <Table>
         <thead>
             <tr>
                 <th>Pais</th>
@@ -119,33 +267,113 @@
                 <th>Produccion</th>
                 <th>Importacion</th>
                 <th>Exportacion</th>
-                <th>Accion</th>
+                <th>Acciones</th>
                 
             </tr>
-        </thead>
+         </thead>
         <tbody>
             <tr>
-                <td><input bind:value="{newCountry.country}"></td>
-                <td><input bind:value="{newCountry.year}"></td>
-                <td><input bind:value="{newCountry['production']}"></td>
-                <td><input bind:value="{newCountry['import']}"></td>
-                <td><input bind:value="{newCountry['export']}"></td>
-                <td><Button on:click={insertCountry}>Insertar</Button></td>
+                    <td><input bind:value="{searchCountry.country}"></td>
+                    <td><input bind:value="{searchCountry.year}"></td>
+                    <td><input bind:value="{searchCountry['production']}"></td>
+                    <td><input bind:value="{searchCountry['import']}"></td>
+                    <td><input bind:value="{searchCountry['export']}"></td>
+                    <td><Button on:click={searchCountries}>Buscar</Button></td>
             </tr>
-            {#each winestats as data}
-                <tr>
-                    <td><a href="#/wine-production-stats/{data.country}/{data.year}">{data.country}</a></td>
-                    <td>{data.year}</td>
-                    <td>{data["production"]}</td>
-                    <td>{data["import"]}</td>
-                    <td>{data["export"]}</td>
-                    <td><Button on:click={deleteCountry(data.country, data.year)}>Borrar</Button></td>
-                </tr>
-            {/each}
         </tbody>
-    </Table>
-    <Button outline color="secondary" on:click="{pop}">Volver</Button>
-    <Button outline color="primary" on:click="{loadData}">Cargar datos iniciales</Button>
-    <Button outline color="danger" on:click="{deleteAllCountries}">Borrar todos los datos</Button>
-</main>
-
+        </Table>
+   
+        <Table bordered>
+            <thead>
+                <tr>
+                    <th>Pais</th>
+                    <th>Año</th>
+                    <th>Produccion</th>
+                    <th>Importacion</th>
+                    <th>Exportacion</th>
+                    <th>Acciones</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input bind:value="{newCountry.country}"></td>
+                    <td><input bind:value="{newCountry.year}"></td>
+                    <td><input bind:value="{newCountry['production']}"></td>
+                    <td><input bind:value="{newCountry['import']}"></td>
+                    <td><input bind:value="{newCountry['export']}"></td>
+                    <td><Button on:click={insertCountry}>Insertar</Button></td>
+                </tr>
+                {#each winestats as data}
+                    <tr>
+                        <td><a href="#/wine-production-stats/{data.country}/{data.year}">{data.country}</a></td>
+                        <td>{data.year}</td>
+                        <td>{data["production"]}</td>
+                        <td>{data["import"]}</td>
+                        <td>{data["export"]}</td>
+                        <td><Button on:click={deleteCountry(data.country, data.year)}>Borrar</Button></td>
+                    </tr>
+                {/each}
+            </tbody>
+        </Table>
+        <Button outline color="warning" on:click={toggle}>Buscar</Button>
+                  <Modal isOpen={open} {toggle} size = "">
+                    <Table>
+                    <thead>
+                        <tr>
+                            <th>Pais</th>
+                            <th>Año</th>
+                            <th>Produccion</th>
+                            <th>Importacion</th>
+                            <th>Exportacion</th>
+                            <th>Acciones</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                                <td><input bind:value="{searchCountry.country}"></td>
+                                <td><input bind:value="{searchCountry.year}"></td>
+                                <td><input bind:value="{searchCountry['production']}"></td>
+                                <td><input bind:value="{searchCountry['import']}"></td>
+                                <td><input bind:value="{searchCountry['export']}"></td>
+                                <td><Button on:click={searchCountry}>Buscar</Button></td>
+                        </tr>
+                    </tbody>
+                    </Table>
+                    
+                    
+                      <Button color="secondary" on:click={toggle}>Cerrar</Button>
+                    
+                  </Modal>
+        
+    
+        <Button outline color="info" on:click="{previousPage}">Página anterior</Button>
+        <Button>{actual}</Button>
+        <Button outline color="info" on:click="{nextPage}">Siguiente Página</Button>
+        <Button outline color="secondary" on:click="{pop}">Atrás</Button>
+        <Button outline color="primary" on:click="{loadData}">Cargar datos iniciales</Button>
+        <Button outline color="danger" on:click="{deleteAllCountries}">Borrar todos los datos</Button>
+    </main>
+    
+    <style>
+        p {
+        display: inline;
+      }
+    
+      .msgRed {
+        padding: 8px;
+        background-color: #f8d7da;
+      }
+    
+      .msgGreen {
+        padding: 8px;
+        background-color: #d4edda;
+      }
+    
+      div{
+        margin-bottom: 15px;
+      }
+    </style>
+    
+    

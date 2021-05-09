@@ -84,6 +84,14 @@
     <h1>
         Editar <strong>{params.country}</strong>
     </h1>
+    <div>
+        {#if errorMsg}
+        <p class="msgRed" style="color: #9d1c24">ERROR: {errorMsg}</p>
+    {/if}
+        {#if okMsg}
+      <p class="msgGreen" style="color: #155724">{okMsg}</p>
+    {/if}
+    </div>
     <Table bordered>
         <thead>
             <tr>
@@ -107,9 +115,28 @@
             </tr>
         </tbody>
     </Table>
-    {#if errorMsg}
-        <p style="color: red">ERROR: {errorMsg}</p>
-    {/if}
     <Button outline color="secondary" on:click="{pop}">Volver</Button>
 </main>
+
+<style>
+    p {
+    display: inline;
+  }
+
+  .msgRed {
+    padding: 4px;
+    background-color: #f8d7da;
+  }
+
+  .msgGreen {
+    padding: 4px;
+    background-color: #d4edda;
+  }
+
+  div{
+    margin-bottom: 15px;
+  }
+</style>
+
+
 
