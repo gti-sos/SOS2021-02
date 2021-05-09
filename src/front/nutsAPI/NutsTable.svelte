@@ -17,6 +17,13 @@
         "walnut": "",
         "pistachio": "",
     }
+    let searchCountry = {
+        country: "",
+        year: "",
+        "almond": "",
+        "walnut": "",
+        "pistachio": "",
+    }
     let errorMsg = "";
     let okMsg = "";
 
@@ -188,6 +195,45 @@
         }
     }
 
+    async function searchCountries(offset) {
+		let url = "/api/v2/nuts-production-stats?limit=10&offset="+ offset;
+		console.log("Searching countries...");
+		let data = {
+			country: searchCountry.country,
+			year: parseInt(searchCountry.year),
+			almond: parseInt(searchCountry.almond),
+			walnut: parseInt(searchCountry.walnut),
+			pistachio: parseInt(searchCountry.pistachio),
+			
+		};
+		Object.entries(data).forEach(([x,y]) => {
+			if(y){
+				url = url + "&" + x + "=" + y;
+			}
+		});
+	
+		console.log("esta es la url:"+ url);
+		const res = await fetch(url);
+		if (res.ok) {
+			console.log("Ok:");
+			const json = await res.json();
+			nutsstats = json;
+			console.log("Received " + nutsstats.length + " countries.");
+			if (nutsstats.length > 0){
+				okMsg = "Se ha realizado la búsqueda.";
+				errorMsg = false;
+			}else{
+				okMsg = false;
+				errorMsg = "La búsqueda no ha obtenido resultados.";
+			};
+			
+		} else {
+			console.log("ERROR!");
+			okMsg = false;
+			errorMsg = "La búsqueda no ha obtenido resultados.";
+		};
+	};
+
 
 
     onMount(getData);
@@ -205,6 +251,30 @@
       <p class="msgGreen" style="color: #155724">{okMsg}</p>
     {/if}
     </div>
+
+    <Table>
+        <thead>
+            <tr>
+                <th>Pais</th>
+                <th>Año</th>
+                <th>Almendra</th>
+                <th>Nuez</th>
+                <th>Pistacho</th>
+                <th>Acciones</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input bind:value="{searchCountry.country}"></td>
+                <td><input bind:value="{searchCountry.year}"></td>
+                <td><input bind:value="{searchCountry['almond']}"></td>
+                <td><input bind:value="{searchCountry['walnut']}"></td>
+                <td><input bind:value="{searchCountry['pistachio']}"></td>
+                <td><Button on:click={searchCountries}>Buscar</Button></td>
+            </tr>
+        </tbody>
+    </Table>
     <Table bordered>
         <thead>
             <tr>
