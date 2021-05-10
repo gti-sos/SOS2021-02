@@ -282,7 +282,7 @@
                     <td><input bind:value="{searchCountry['production']}"></td>
                     <td><input bind:value="{searchCountry['exportation']}"></td>
                     <td><input bind:value="{searchCountry['distribution']}"></td>
-                    <td><Button outline on:click={searchCountries}>Buscar</Button></td>
+                    <td><Button outline color= "warning" on:click={searchCountries}>Buscar</Button></td>
             </tr>
         </tbody>
         </Table>
@@ -320,26 +320,7 @@
             {/each}
         </tbody>
     </Table>
-                <Button outline color="warning" on:click={toggle}>Buscar</Button>
-                <Modal isOpen={open} {toggle} {size}>
-                    <ModalHeader>
-                        Buscar un dato
-                    </ModalHeader>
-                    <ModalBody>
-                        <tr>
-                        <p>Pais</p>
-                        <input bind:value="{searchCountry.country}">
-                        </tr>
-                        <tr>
-                        <p>Año</p>
-                        <input bind:value="{searchCountry.year}">
-                    </tr>
-                    </ModalBody>
-                <ModalFooter>
-                    <Button color="primary" on:click={searchCountry}>Buscar</Button>
-                    <Button color="secondary" on:click={toggle}>Cerrar</Button>
-                </ModalFooter>
-                </Modal>
+                
     
 
     <Button outline color="info" on:click="{previousPage}">Página anterior</Button>
