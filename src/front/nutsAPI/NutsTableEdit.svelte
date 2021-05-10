@@ -17,6 +17,7 @@
     let updateWalnut = 9999;
     let updatePistachio = 9999;
     let errorMsg = "";
+    let okMsg = "";
 
     onMount(getData);
 
@@ -62,12 +63,20 @@
                 "Content-Type": "application/json"
             }
         }).then(function (res) {
-            getData();
-        });
-
-
-
+        if (res.ok) {
+          console.log("OK");
+          getData();
+          errorMsg = "";
+          okMsg = "Dato actualizado";
+        } else {
+          errorMsg = res.status + ": " + res.statusText;
+          getData();
+          console.log("ERROR!" + errorMsg);
+        }
+      });
     }
+    
+    onMount(getData);
 
 </script>
 
@@ -75,6 +84,16 @@
     <h1>
         Editar <strong>{params.country}</strong>
     </h1>
+
+    <div>
+        {#if errorMsg}
+        <p class="msgRed" style="color: #9d1c24">ERROR: {errorMsg}</p>
+    {/if}
+        {#if okMsg}
+      <p class="msgGreen" style="color: #155724">{okMsg}</p>
+    {/if}
+    </div>
+
     <Table bordered>
         <thead>
             <tr>
@@ -104,3 +123,22 @@
     <Button outline color="secondary" on:click="{pop}">Retroceder</Button>
 </main>
 
+<style>
+    p {
+    display: inline;
+  }
+
+  .msgRed {
+    padding: 4px;
+    background-color: #f8d7da;
+  }
+
+  .msgGreen {
+    padding: 4px;
+    background-color: #d4edda;
+  }
+
+  div{
+    margin-bottom: 15px;
+  }
+</style>
