@@ -271,7 +271,7 @@
                 <td><input bind:value="{searchCountry['almond']}"></td>
                 <td><input bind:value="{searchCountry['walnut']}"></td>
                 <td><input bind:value="{searchCountry['pistachio']}"></td>
-                <td><Button on:click={searchCountries}>Buscar</Button></td>
+                <td><Button outline color="warning" on:click={searchCountries}>Buscar</Button></td>
             </tr>
         </tbody>
     </Table>
@@ -294,7 +294,7 @@
                 <td><input bind:value="{newCountry['almond']}"></td>
                 <td><input bind:value="{newCountry['walnut']}"></td>
                 <td><input bind:value="{newCountry['pistachio']}"></td>
-                <td><Button on:click={insertCountry}>Insertar</Button></td>
+                <td><Button outline color="primary" on:click={insertCountry}>Insertar</Button></td>
             </tr>
             {#each nutsstats as data}
                 <tr>
@@ -303,7 +303,7 @@
                     <td>{data["almond"]}</td>
                     <td>{data["walnut"]}</td>
                     <td>{data["pistachio"]}</td>
-                    <td><Button on:click={deleteCountry(data.country, data.year)}>Borrar</Button></td>
+                    <td><Button outline color="danger" on:click={deleteCountry(data.country, data.year)}>Borrar</Button></td>
                 </tr>
             {/each}
         </tbody>
