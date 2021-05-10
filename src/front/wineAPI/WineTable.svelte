@@ -196,7 +196,7 @@
         if (res.ok) {
             console.log("Ok:");
             const json = await res.json();
-            oilstats = json;
+            winestats = json;
             console.log("Received " + winestats.length + " data.");
         } else {
             console.log("ERROR!");
