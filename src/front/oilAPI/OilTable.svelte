@@ -6,7 +6,7 @@
         pop
     } from "svelte-spa-router";
     import {
-        Modal
+        Modal, ModalBody, ModalFooter, ModalHeader
     } from "sveltestrap";
 
     import Table from "sveltestrap/src/Table.svelte";
@@ -37,9 +37,10 @@
     let numData = 5;
 
     let open = false;
-	
+	let size = "";
 	const toggle = () =>{
-		(open = !open);
+        size = '25px';
+		open = !open;
 	}
 
     async function loadData(){
@@ -281,7 +282,7 @@
                     <td><input bind:value="{searchCountry['production']}"></td>
                     <td><input bind:value="{searchCountry['exportation']}"></td>
                     <td><input bind:value="{searchCountry['distribution']}"></td>
-                    <td><Button on:click={searchCountries}>Buscar</Button></td>
+                    <td><Button outline on:click={searchCountries}>Buscar</Button></td>
             </tr>
         </tbody>
         </Table>
@@ -305,7 +306,7 @@
                 <td><input bind:value="{newCountry['production']}"></td>
                 <td><input bind:value="{newCountry['exportation']}"></td>
                 <td><input bind:value="{newCountry['distribution']}"></td>
-                <td><Button on:click={insertCountry}>Insertar</Button></td>
+                <td><Button outline color = "primary" on:click={insertCountry}>Insertar</Button></td>
             </tr>
             {#each oilstats as data}
                 <tr>
@@ -314,41 +315,31 @@
                     <td>{data["production"]}</td>
                     <td>{data["exportation"]}</td>
                     <td>{data["distribution"]}</td>
-                    <td><Button on:click={deleteCountry(data.country, data.year)}>Borrar</Button></td>
+                    <td><Button outline color = "danger" on:click={deleteCountry(data.country, data.year)}>Borrar</Button></td>
                 </tr>
             {/each}
         </tbody>
     </Table>
-    <Button outline color="warning" on:click={toggle}>Buscar</Button>
-			  <Modal isOpen={open} {toggle} size = "">
-                <Table>
-                <thead>
-                    <tr>
-                        <th>Pais</th>
-                        <th>Año</th>
-                        <th>Produccion</th>
-                        <th>Exportacion</th>
-                        <th>Distribucion</th>
-                        <th>Acciones</th>
-                        
+                <Button outline color="warning" on:click={toggle}>Buscar</Button>
+                <Modal isOpen={open} {toggle} {size}>
+                    <ModalHeader>
+                        Buscar un dato
+                    </ModalHeader>
+                    <ModalBody>
+                        <tr>
+                        <p>Pais</p>
+                        <input bind:value="{searchCountry.country}">
+                        </tr>
+                        <tr>
+                        <p>Año</p>
+                        <input bind:value="{searchCountry.year}">
                     </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                            <td><input bind:value="{searchCountry.country}"></td>
-                            <td><input bind:value="{searchCountry.year}"></td>
-                            <td><input bind:value="{searchCountry['production']}"></td>
-                            <td><input bind:value="{searchCountry['exportation']}"></td>
-                            <td><input bind:value="{searchCountry['distribution']}"></td>
-                            <td><Button on:click={searchCountry}>Buscar</Button></td>
-                    </tr>
-                </tbody>
-                </Table>
-				
-				
-				  <Button color="secondary" on:click={toggle}>Cerrar</Button>
-				
-			  </Modal>
+                    </ModalBody>
+                <ModalFooter>
+                    <Button color="primary" on:click={searchCountry}>Buscar</Button>
+                    <Button color="secondary" on:click={toggle}>Cerrar</Button>
+                </ModalFooter>
+                </Modal>
     
 
     <Button outline color="info" on:click="{previousPage}">Página anterior</Button>
@@ -377,5 +368,7 @@
   div{
     margin-bottom: 15px;
   }
+
+  
 </style>
 
