@@ -30,7 +30,8 @@
     let limit = 10;
 	let offset = 0;
     let actual = 1;
-    let numData = 5;
+    let num_paginas = 0;
+    let pagina = (offset/10)+1;
 
     async function loadData(){
         console.log("Loading nutsstats...");
@@ -38,7 +39,6 @@
 
         if(res.ok){
             console.log("Ok.");
-            numData=5;
             getData();
             errorMsg = "";
             okMsg = "Datos cargados correctamente."
@@ -48,7 +48,26 @@
         }
     }   
 
+
+    async function getNumPaginas() {
+        console.log("Fetching nutsstats...");
+        const res = await fetch(BASE_NUTS_PATH+"nuts-production-stats");
+        let datos=[]
+        if(res.ok){
+            const json = await res.json();
+            datos = json;
+            num_paginas=(datos.length/10)+1|0;
+            if(datos.length%10==0&&num_paginas!==1){
+                num_paginas--;
+            }
+        }
+        else{
+            console.log("ERROR!");
+        }
+    }
+
     async function getData(){
+        getNumPaginas();
         console.log("Fetching nutsstats...");
         var url = BASE_NUTS_PATH+"nuts-production-stats?limit="+limit+"&offset="+offset;//*limit);
         const res = await fetch(url);
@@ -57,7 +76,9 @@
             console.log("Ok.");
             const json = await res.json();
             nutsstats = json;
+            pagina = (offset/10)+1;
             console.log(`We have received ${nutsstats.length} countries.`);
+            console.log("pagina= "+pagina+" num_pag= "+num_paginas);
         }else{
             console.log("Error!");
         }
@@ -83,8 +104,6 @@
                             }
                            ).then( (res) => {
                                 if(res.ok) {
-                                numData++;
-                                console.log("NUMDATA IS:" + numData);
                                 getData();
                                 okMsg = `${newCountry.country} ${newCountry.year} ha sido insertado correctamente.`
                                 errorMsg = "";
@@ -96,7 +115,12 @@
                                    if(res.status === 400){
                                     okMsg="";
                                     errorMsg = `Todos los campos deben estar rellenados según el patrón definido.`
-                                   }
+                                    newCountry.country = "";
+                                    newCountry.year = "";
+                                    newCountry["almond"] = "";
+                                    newCountry["walnut"] = "";
+                                    newCountry["pistachio"] = "";
+                                    }
                                 console.log("ERROR!" + errorMsg);
                                }
                             
@@ -112,17 +136,22 @@
                             }
                             ).then( (res) => {
                                 if(res.ok) {
-                                numData--;
-                                console.log("NUMDATA IS:" + numData);
-                                getData();
-                                okMsg = `${country} ${year} ha sido eliminado correctamente.`
-                                errorMsg = "";
+                                    if(nutsstats.length==1&&num_paginas>1){
+                                        offset-=10;
+                                        getData();
+                                    }else{
+                                        getData();
+                                    }
+                            
+                                    getData();
+                                    okMsg = `${country} ${year} ha sido eliminado correctamente.`
+                                    errorMsg = "";
                                 }else{
                                     if(res.status === 404){
                                        okMsg = "";
                                        errorMsg = `${country} ${year} no se encuentra en la base de datos.`
                                     }
-                                console.log("ERROR!" + errorMsg);
+                                    console.log("ERROR!" + errorMsg);
                                }
                             
                            })
@@ -139,7 +168,7 @@
                     if (res.ok) {
                         console.log("OK");
                         nutsstats = [];
-                        numData = 0;
+                        getData();
                         errorMsg = "";
                         okMsg = "Datos borrados correctamente";
                     } else {
@@ -156,48 +185,9 @@
             });
     }
 
-    async function nextPage() {
-        if (offset+10 > numData) {
-            if(numdata!=0){
-                offset += numData;
-            actual = 2;
-            }
-        } else {
-            offset +=10
-            actual = 2;
-        }
-        console.log("Offset: "+ offset);
-        const res = await fetch(BASE_NUTS_PATH+"nuts-production-stats?limit="+limit+"&offset="+offset);
-        if (res.ok) {
-            console.log("Ok:");
-            const json = await res.json();
-            nutsstats = json;
-            console.log("Received " + nutsstats.length + " data.");
-        } else {
-            console.log("ERROR!");
-        }
-    }
-
-    async function previousPage() {
- 
-        if (offset-10>=1) {
-            offset -= 10; 
-            actual -= 1;
-        } else {
-            offset = 0
-            actual = 1;
-        }
-        console.log("Offset: " +offset);
-        const res = await fetch(BASE_NUTS_PATH+"nuts-production-stats?limit="+limit+"&offset="+offset);
-        if (res.ok) {
-            console.log("Ok:");
-            const json = await res.json();
-            nutsstats = json;
-            console.log("Received " + nutsstats.length + " data.");
-        } else {
-            console.log("ERROR!");
-        }
-    }
+    //paginacion
+    const siguiente= () => {offset+=10; getData()}
+    const anterior= () => {offset-=10; getData()}
 
     async function searchCountries(offset) {
 		let url = "/api/v2/nuts-production-stats?limit=10&offset="+ offset;
@@ -312,9 +302,19 @@
             {/each}
         </tbody>
     </Table>
-    <Button outline color="info" on:click="{previousPage}">Página anterior</Button>
-    <Button>{actual}</Button>
-    <Button outline color="info" on:click="{nextPage}">Siguiente Página</Button>
+    
+    {#if nutsstats.length !== 0}
+        <div style="text-align: right; " >
+            {#if pagina >1}
+            <Button outline color="info" on:click={anterior}>Anterior</Button>
+            {/if}
+            <Button color="dark" >Página {pagina}</Button>    
+            {#if num_paginas-pagina !=0 }
+             <Button outline color="info" on:click={siguiente}>Siguiente</Button>
+             {/if}
+        </div>
+        {/if}
+
     <Button outline color="secondary" on:click="{pop}">Retroceder</Button>
     <Button outline color="primary" on:click="{loadData}">Cargar datos iniciales</Button>
     <Button outline color="danger" on:click="{deleteAllCountries}">Borrar todos los datos</Button>

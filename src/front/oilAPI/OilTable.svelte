@@ -62,7 +62,7 @@ import { get } from "svelte/store";
     }   
 
     async function getNumPaginas() {
-        console.log("Fetching school data...");
+        console.log("Fetching oilstats...");
         const res = await fetch(BASE_OIL_API_PATH+"oil-production-stats");
         let datos=[]
         if(res.ok){
@@ -366,7 +366,7 @@ import { get } from "svelte/store";
     </Table>
                 
     {#if oilstats.length !== 0}
-        <div style="text-align: center; " >
+        <div style="text-align: right; " >
             {#if pagina >1}
             <Button outline color="info" on:click={anterior}>Anterior</Button>
             {/if}
