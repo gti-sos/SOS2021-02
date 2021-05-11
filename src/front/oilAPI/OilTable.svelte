@@ -55,13 +55,31 @@ import { get } from "svelte/store";
             getData();
             //numData = 5;
             errorMsg = "";
-            okMsg = "Datos cargados correctamente."
+            okMsg = "Datos cargados correctamente.";
         }else{
             console.log("Error!");
         }
     }   
 
+    async function getNumPaginas() {
+        console.log("Fetching school data...");
+        const res = await fetch(BASE_OIL_API_PATH+"oil-production-stats");
+        let datos=[]
+        if(res.ok){
+            const json = await res.json();
+            datos = json;
+            num_paginas=(datos.length/10)+1|0;
+            if(datos.length%10==0&&num_paginas!==1){
+                num_paginas--;
+            }
+        }
+        else{
+            console.log("ERROR!");
+        }
+    }
+
     async function getData(){
+        getNumPaginas();
         console.log("Fetching oilstats...");
         var url = BASE_OIL_API_PATH+"oil-production-stats?limit="+limit+"&offset="+offset;//*limit);
         const res = await fetch(url);
@@ -70,8 +88,9 @@ import { get } from "svelte/store";
             console.log("Ok.");
             const json = await res.json();
             oilstats = json;
-            pagina = (offset/10)+1
+            pagina = (offset/10)+1;
             console.log(`We have received ${oilstats.length} countries.`);
+            console.log("pagina="+pagina+"num_pag="+num_paginas);
         }else{
             console.log("Error!");
         }
@@ -230,22 +249,7 @@ import { get } from "svelte/store";
         const siguiente= () => {offset+=10; getData()}
         const anterior= () => {offset-=10; getData()}
 
-        async function getNumPaginas() {
-        console.log("Fetching school data...");
-        const res = await fetch(BASE_OIL_API_PATH);
-        let datos=[]
-        if(res.ok){
-            const json = await res.json();
-            datos = json;
-            num_paginas=(datos.length/10)+1|0;
-            if(datos.length%10==0&&num_paginas!==1){
-                num_paginas--;
-            }
-        }
-        else{
-            console.log("ERROR!");
-        }
-    }
+        
     async function searchCountries(offset) {
 		let url = "/api/v2/oil-production-stats?limit=10&offset="+ offset;
 		console.log("Searching countries...");
@@ -363,11 +367,11 @@ import { get } from "svelte/store";
                 
     {#if oilstats.length !== 0}
         <div style="text-align: center; " >
-            {#if pagina != 1}
+            {#if pagina >1}
             <Button outline color="info" on:click={anterior}>Anterior</Button>
             {/if}
-            <Button color="dark" >Página nº: {pagina}/{num_paginas}</Button>    
-            {#if num_paginas>= 0 }
+            <Button color="dark" >Página nº: {pagina}</Button>    
+            {#if num_paginas-pagina !=0 }
              <Button outline color="info" on:click={siguiente}>Siguiente</Button>
              {/if}
         </div>
