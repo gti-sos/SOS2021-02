@@ -93,6 +93,10 @@
                                        okMsg = "";
                                        errorMsg = `${newCountry.country} ${newCountry.year} ya se encuentra cargado.`
                                    }
+                                   if(res.status === 400){
+                                    okMsg="";
+                                    errorMsg = `Todos los campos deben estar rellenados según el patrón definido.`
+                                   }
                                 console.log("ERROR!" + errorMsg);
                                }
                             
