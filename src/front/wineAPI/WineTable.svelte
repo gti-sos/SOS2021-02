@@ -105,6 +105,15 @@
                                        errorMsg = `${newCountry.country} ${newCountry.year} ya se encuentra cargado.`
                                    }
                                    console.log("ERROR!" + errorMsg);
+                                   if(res.status === 400){
+                                        okMsg = "";
+                                        errorMsg = "Entrada de datos incorrecta";
+                                        newCountry.country = "";
+                                        newCountry.year = "";
+                                        newCountry["production"] = "";
+                                        newCountry["exportation"] = "";
+                                        newCountry["distribution"] = "";
+                                   }
                                }
                             
                            })
