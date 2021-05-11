@@ -8,6 +8,7 @@
 
     import Table from "sveltestrap/src/Table.svelte";
     import Button from "sveltestrap/src/Button.svelte";
+    import numData from "./OilTable.svelte";
     export let params = {};
     //ruda de v2
     const BASE_OIL_API_PATH = "/api/v2/";
@@ -66,6 +67,7 @@
         if (res.ok) {
           console.log("OK");
           getData();
+          
           errorMsg = "";
           okMsg = "Dato actualizado";
         } else {

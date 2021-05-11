@@ -11,6 +11,7 @@
 
     import Table from "sveltestrap/src/Table.svelte";
     import Button from "sveltestrap/src/Button.svelte";
+import { get } from "svelte/store";
     var BASE_OIL_API_PATH = "/api/v2/";
     let oilstats = [];
     let newCountry = {
@@ -34,7 +35,9 @@
     let limit = 10;
 	let offset = 0;
     let actual = 1;
-    let numData = 5;
+    let num_paginas = 0;
+    let pagina = (offset/10)+1;
+    //let numData = 5;
 
     let open = false;
 	let size = "";
@@ -50,7 +53,7 @@
         if(res.ok){
             console.log("Ok.");
             getData();
-            numData = 5;
+            //numData = 5;
             errorMsg = "";
             okMsg = "Datos cargados correctamente."
         }else{
@@ -67,6 +70,7 @@
             console.log("Ok.");
             const json = await res.json();
             oilstats = json;
+            pagina = (offset/10)+1
             console.log(`We have received ${oilstats.length} countries.`);
         }else{
             console.log("Error!");
@@ -93,8 +97,8 @@
                             }
                            ).then( (res) => {
                                if(res.ok) {
-                                numData++;
-                                console.log("NUMDATA IS:" + numData);
+                                //numData++;
+                                //console.log("NUMDATA IS:" + numData);
                             getData();
                             okMsg = `${newCountry.country} ${newCountry.year} ha sido insertado correctamente.`
                             errorMsg = "";
@@ -128,8 +132,13 @@
                             }
                            ).then( (res) => {
                                if(res.ok) {
-                                numData--;
-                                console.log("NUMDATA IS:" + numData);
+                                //numData--;
+                                if(oilstats.length==1&&num_paginas>1){
+                         offset-=10; getData()
+                      }else{
+                         getData();
+                     }
+                                //console.log("NUMDATA IS:" + numData);
                             getData();
                             okMsg = `${country} ${year} ha sido eliminado correctamente.`
                             errorMsg = "";
@@ -174,7 +183,7 @@
   }
     
 
-    async function nextPage() {
+    /*async function nextPage() {
         if (offset+10 > numData) {
             if(numdata!=0){
                 offset += numData;
@@ -216,7 +225,27 @@
             console.log("ERROR!");
         }
     }
+*/
+        //paginacion
+        const siguiente= () => {offset+=10; getData()}
+        const anterior= () => {offset-=10; getData()}
 
+        async function getNumPaginas() {
+        console.log("Fetching school data...");
+        const res = await fetch(BASE_OIL_API_PATH);
+        let datos=[]
+        if(res.ok){
+            const json = await res.json();
+            datos = json;
+            num_paginas=(datos.length/10)+1|0;
+            if(datos.length%10==0&&num_paginas!==1){
+                num_paginas--;
+            }
+        }
+        else{
+            console.log("ERROR!");
+        }
+    }
     async function searchCountries(offset) {
 		let url = "/api/v2/oil-production-stats?limit=10&offset="+ offset;
 		console.log("Searching countries...");
@@ -332,11 +361,20 @@
         </tbody>
     </Table>
                 
-    
+    {#if oilstats.length !== 0}
+        <div style="text-align: center; " >
+            {#if pagina != 1}
+            <Button outline color="info" on:click={anterior}>Anterior</Button>
+            {/if}
+            <Button color="dark" >Página nº: {pagina}/{num_paginas}</Button>    
+            {#if num_paginas>= 0 }
+             <Button outline color="info" on:click={siguiente}>Siguiente</Button>
+             {/if}
+        </div>
+        {/if}
 
-    <Button outline color="info" on:click="{previousPage}">Página anterior</Button>
-    <Button>{actual}</Button>
-    <Button outline color="info" on:click="{nextPage}">Siguiente Página</Button>
+    
+    
     <Button outline color="secondary" on:click="{pop}">Atrás</Button>
     <Button outline color="primary" on:click="{loadData}">Cargar datos iniciales</Button>
     <Button outline color="danger" on:click="{deleteAllCountries}">Borrar todos los datos</Button>
