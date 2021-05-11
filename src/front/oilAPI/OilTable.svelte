@@ -102,7 +102,17 @@
                                    if(res.status === 409){
                                        okMsg = "";
                                        errorMsg = `${newCountry.country} ${newCountry.year} ya se encuentra cargado.`
+                                   }if(res.status === 400){
+                                        okMsg = "";
+                                        errorMsg = "Entrada de datos incorrecta";
+                                        newCountry.country = "";
+                                        newCountry.year = "";
+                                        newCountry["production"] = "";
+                                        newCountry["exportation"] = "";
+                                        newCountry["distribution"] = "";
                                    }
+
+                                   
                                    console.log("ERROR!" + errorMsg);
                                }
                             
@@ -146,6 +156,7 @@
                                     console.log("OK");
                                     oilstats = [];
                                     numData = 0;
+                                    getData();
                                     errorMsg = "";
                                     okMsg = "Datos borrados correctamente";
                                 } else {

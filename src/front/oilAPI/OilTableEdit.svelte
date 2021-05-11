@@ -69,7 +69,7 @@
           errorMsg = "";
           okMsg = "Dato actualizado";
         } else {
-          errorMsg = res.status + ": " + res.statusText;
+          errorMsg = "Parametros incorrectos";
           getData();
           console.log("ERROR!" + errorMsg);
         }
