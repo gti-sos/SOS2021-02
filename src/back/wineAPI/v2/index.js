@@ -113,9 +113,6 @@ module.exports.register = (app) => {
             "import": 9219,
             "export": 3974
         }
-        
-
-
     ];
     //Get al info (tabla)
     app.get("/info/wine-production-stats", (request,response) => {
