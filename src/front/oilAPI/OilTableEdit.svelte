@@ -46,7 +46,7 @@
         }
     }   
     
-
+//1
     async function updateData() {
 
         console.log("Updating country..." + JSON.stringify(params.country)+JSON.stringify(params.year));
