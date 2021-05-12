@@ -6,12 +6,13 @@
         pop
     } from "svelte-spa-router";
     import {
-        Modal
+        Modal, ModalBody, ModalFooter, ModalHeader
     } from "sveltestrap";
 
 
     import Table from "sveltestrap/src/Table.svelte";
     import Button from "sveltestrap/src/Button.svelte";
+    import { get } from "svelte/store";
     var BASE_WINE_API_PATH = "/api/v2/";
     let winestats = [];
     let newCountry = {
@@ -25,8 +26,8 @@
         country: "",
         year: "",
         "production": "",
-        "exportation": "",
-        "distribution": "",
+        "import": "",
+        "export": "",
     }
     let errorMsg = "";
     let okMsg = "";
@@ -34,7 +35,11 @@
     let limit = 10;
 	let offset = 0;
     let actual = 1;
-    let numData = 5;
+    let num_paginas = 0;
+    let pagina = (offset/10)+1;
+    //let numData = 5;
+
+
 
     let open = false;
 	let size = "";
@@ -49,7 +54,7 @@
         if(res.ok){
             console.log("Ok.");
             getData();
-            numData = 5;
+            //numData = 5;
             errorMsg = "";
             okMsg = "Datos cargados correctamente."
 
@@ -58,8 +63,24 @@
             console.log("Error!");
         }
     }   
-
+    async function getNumPaginas() {
+        console.log("Fetching winestats...");
+        const res = await fetch(BASE_WINE_API_PATH+"wine-production-stats");
+        let datos=[]
+        if(res.ok){
+            const json = await res.json();
+            datos = json;
+            num_paginas=(datos.length/10)+1|0;
+            if(datos.length%10==0&&num_paginas!==1){
+                num_paginas--;
+            }
+        }
+        else{
+            console.log("ERROR!");
+        }
+    }
     async function getData(){
+        getNumPaginas();
         console.log("Fetching winestats...");
         var url = BASE_WINE_API_PATH+"wine-production-stats?limit="+limit+"&offset="+offset;//*limit);
         const res = await fetch(url);
@@ -68,7 +89,9 @@
             console.log("Ok.");
             const json = await res.json();
             winestats = json;
+            pagina = (offset/10)+1;
             console.log(`We have received ${winestats.length} countries.`);
+            console.log("pagina="+pagina+"num_pag="+num_paginas);
         }else{
             console.log("Error!");
         }
@@ -94,8 +117,8 @@
                             }
                            ).then( (res) => {
                             if(res.ok) {
-                                numData++;
-                                console.log("NUMDATA IS:" + numData);
+                                //numData++;
+                                //console.log("NUMDATA IS:" + numData);
                             getData();
                             okMsg = `${newCountry.country} ${newCountry.year} ha sido insertado correctamente.`
                             errorMsg = "";
@@ -103,17 +126,17 @@
                                    if(res.status === 409){
                                        okMsg = "";
                                        errorMsg = `${newCountry.country} ${newCountry.year} ya se encuentra cargado.`
-                                   }
-                                   console.log("ERROR!" + errorMsg);
-                                   if(res.status === 400){
+                                   }if(res.status === 400){
                                         okMsg = "";
                                         errorMsg = "Entrada de datos incorrecta";
                                         newCountry.country = "";
                                         newCountry.year = "";
                                         newCountry["production"] = "";
-                                        newCountry["exportation"] = "";
-                                        newCountry["distribution"] = "";
+                                        newCountry["import"] = "";
+                                        newCountry["export"] = "";
                                    }
+
+                                   console.log("ERROR!" + errorMsg);
                                }
                             
                            })
@@ -128,13 +151,17 @@
                             }
                            ).then( (res) => {
                             if(res.ok) {
-                                numData--;
-                                console.log("NUMDATA IS:" + numData);
+                                //numData--;
+                                if(winestats.length==1&&num_paginas>1){
+                                offset-=10; getData()
+                        }else{
+                            getData();
+                    }
                             getData();
                             okMsg = `${country} ${year} ha sido eliminado correctamente.`
                             errorMsg = "";
-                               }else{
-                                   if(res.status === 404){
+                            }else{
+                                if(res.status === 404){
                                        okMsg = "";
                                        errorMsg = `${country} ${year} no se encuentra en la base de datos.`
                                    }
@@ -143,6 +170,7 @@
                             
                            })
     }
+    
     async function deleteAllCountries(){
         console.log("Deleting all countries ");
 
@@ -155,6 +183,7 @@
                                     console.log("OK");
                                     winestats = [];
                                     numData = 0;
+                                    getData();
                                     errorMsg = "";
                                     okMsg = "Datos borrados correctamente";
                                 } else {
@@ -170,48 +199,12 @@
                                 }
                                 });
   }
-  async function nextPage() {
-        if (offset+10 > numData) {
-            if(numdata!=0){
-                offset += numData;
-            actual = 2;
-            }
-        } else {
-            offset +=10
-            actual = 2;
-        }
-        console.log("Offset: "+ offset);
-        const res = await fetch(BASE_WINE_API_PATH+"wine-production-stats?limit="+limit+"&offset="+offset);
-        if (res.ok) {
-            console.log("Ok:");
-            const json = await res.json();
-            winestats = json;
-            console.log("Received " + winestats.length + " data.");
-        } else {
-            console.log("ERROR!");
-        }
-    }
+  
+    //paginacion
+    const siguiente= () => {offset+=10; getData()}
+    const anterior= () => {offset-=10; getData()}
 
-    async function previousPage() {
- 
-        if (offset-10>=1) {
-            offset -= 10; 
-            actual -= 1;
-        } else {
-            offset = 0
-            actual = 1;
-        }
-        console.log("Offset: " +offset);
-        const res = await fetch(BASE_WINE_API_PATH+"wine-production-stats?limit="+limit+"&offset="+offset);
-        if (res.ok) {
-            console.log("Ok:");
-            const json = await res.json();
-            winestats = json;
-            console.log("Received " + winestats.length + " data.");
-        } else {
-            console.log("ERROR!");
-        }
-    }
+   
 
     async function searchCountries(offset) {
 		let url = "/api/v2/wine-production-stats?limit=10&offset="+ offset;
@@ -253,6 +246,7 @@
 			errorMsg = "La búsqueda no ha obtenido resultados.";
 		};
 	};
+
     onMount(getData);
 </script>
 
@@ -326,12 +320,21 @@
                 {/each}
             </tbody>
         </Table>
-        
+       
+        {#if winestats.length !== 0}
+        <div style="text-align: right; " >
+            {#if pagina >1}
+            <Button outline color="info" on:click={anterior}>Anterior</Button>
+            {/if}
+            <Button color="dark" >Página nº: {pagina}</Button>    
+            {#if num_paginas-pagina !=0 }
+             <Button outline color="info" on:click={siguiente}>Siguiente</Button>
+             {/if}
+        </div>
+        {/if}
         
     
-        <Button outline color="info" on:click="{previousPage}">Página anterior</Button>
-        <Button>{actual}</Button>
-        <Button outline color="info" on:click="{nextPage}">Siguiente Página</Button>
+       
         <Button outline color="secondary" on:click="{pop}">Atrás</Button>
         <Button outline color="primary" on:click="{loadData}">Cargar datos iniciales</Button>
         <Button outline color="danger" on:click="{deleteAllCountries}">Borrar todos los datos</Button>
