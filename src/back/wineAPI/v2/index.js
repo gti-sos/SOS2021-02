@@ -43,6 +43,79 @@ module.exports.register = (app) => {
             "import": 10155,
             "export": 4210
         }
+        {
+            "country": "Spain",
+            "year": 2010,
+            "production": 35353,
+            "import": 405,
+            "export": 17156
+        },
+        {
+            "country": "Italy",
+            "year": 2010,
+            "production": 48525,
+            "import": 1668,
+            "export": 21482
+        },
+        {
+            "country": "Greece",
+            "year": 2010,
+            "production": 2950,
+            "import": 107,
+            "export": 370
+        },
+        {
+            "country": "Turkey",
+            "year": 2010,
+            "production": 601,
+            "import": 70,
+            "export": 27
+        },
+        {
+            "country": "USA",
+            "year": 2010,
+            "production": 20887,
+            "import": 9320,
+            "export": 4009
+        },
+        {
+            "country": "Spain",
+            "year": 2009,
+            "production": 36093,
+            "import": 350,
+            "export": 14607
+        },
+        {
+            "country": "Italy",
+            "year": 2009,
+            "production": 47314,
+            "import": 1461,
+            "export": 19519
+        },
+        {
+            "country": "Greece",
+            "year": 2009,
+            "production": 3366,
+            "import": 165,
+            "export": 304
+        },
+        {
+            "country": "Turkey",
+            "year": 2009,
+            "production": 476,
+            "import": 65,
+            "export": 36
+        },
+        {
+            "country": "USA",
+            "year": 2009,
+            "production": 21965,
+            "import": 9219,
+            "export": 3974
+        }
+        
+
+
     ];
     //Get al info (tabla)
     app.get("/info/wine-production-stats", (request,response) => {
