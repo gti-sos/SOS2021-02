@@ -11,7 +11,7 @@
 
     import Table from "sveltestrap/src/Table.svelte";
     import Button from "sveltestrap/src/Button.svelte";
-    import { get } from "svelte/store";
+import { get } from "svelte/store";
     var BASE_OIL_API_PATH = "/api/v2/";
     let oilstats = [];
     let newCountry = {
@@ -153,7 +153,7 @@
                                if(res.ok) {
                                 //numData--;
                                 if(oilstats.length==1&&num_paginas>1){
-                                offset-=10; getData()
+                         offset-=10; getData()
                       }else{
                          getData();
                      }
