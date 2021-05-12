@@ -6,13 +6,13 @@ var db = new DataStore({ filename: dat.join(__dirname, 'nuts-stats.db'), autoloa
 var nutsstats = [];
 
 module.exports.register = (app) => {
-
+    /*
     //Get al info (tabla)
     app.get("/info/nuts-production-stats", (request,response) => {
         response.send("<html><body><h1>En esta tabla se muestran los datos de la producción de almendras, nueces y pistachos en los diferentes países que más rendimiento sacan de ello</h1><table border><tr><th>country</th><th>year</th><th>almond</th><th>walnut</th><th>pistachio</th></tr><tr><th>Spain</th><th>2011</th><th>208800</th><th>13815</th><th>2708</th></tr><tr><th>Italy</th><th>2011</th><th>104790</th><th>10500</th><th>3079</th></tr><tr><th>Greece</th><th>2011</th><th>29800</th><th>29800</th><th>7791</th></tr><tr><th>Turkey</th><th>2011</th><th>69838</th><th>203212</th><th>112000</th></tr><tr><th>USA</th><th>2011</th><th>1655000</th><th>418212</th><th>201395</th></tr></table></body></html>");
         console.log("New request to /info/nuts-production-stats has arrived");
     });
-
+    */
     //GET loadInitialData
     app.get(BASE_NUTS_API_PATH+"nuts-production-stats/loadInitialData", (req, res) =>{
         
@@ -53,6 +53,76 @@ module.exports.register = (app) => {
                 "almond": 1655000,
                 "walnut": 418212,
                 "pistachio": 201395
+            },
+            {
+                "country": "Spain",
+                "year": 2010,
+                "almond": 22518,
+                "walnut": 13525,
+                "pistachio": 2722
+            },
+            {
+                "country": "Italy",
+                "year": 2010,
+                "almond": 108160,
+                "walnut": 14000,
+                "pistachio": 2852
+            },
+            {
+                "country": "Greece",
+                "year": 2010,
+                "almond": 32900,
+                "walnut": 22200,
+                "pistachio": 7902
+            },
+            {
+                "country": "Turkey",
+                "year": 2010,
+                "almond": 55398,
+                "walnut": 178142,
+                "pistachio": 128000
+            },
+            {
+                "country": "USA",
+                "year": 2010,
+                "almond": 1413800,
+                "walnut": 457221,
+                "pistachio": 236775
+            },
+            {
+                "country": "Spain",
+                "year": 2009,
+                "almond": 270686,
+                "walnut": 13299,
+                "pistachio": 2783
+            },
+            {
+                "country": "Italy",
+                "year": 2009,
+                "almond": 106660,
+                "walnut": 12000,
+                "pistachio": 3110
+            },
+            {
+                "country": "Greece",
+                "year": 2009,
+                "almond": 39996,
+                "walnut": 22000,
+                "pistachio": 7939
+            },
+            {
+                "country": "Turkey",
+                "year": 2009,
+                "almond": 54844,
+                "walnut": 177298,
+                "pistachio": 81795
+            },
+            {
+                "country": "USA",
+                "year": 2009,
+                "almond": 1162200,
+                "walnut": 396440,
+                "pistachio": 161025
             }
         ];
         
