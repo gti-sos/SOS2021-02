@@ -42,7 +42,7 @@ module.exports.register = (app) => {
             "production": 19187,
             "import": 10155,
             "export": 4210
-        }
+        },
         {
             "country": "Spain",
             "year": 2010,
