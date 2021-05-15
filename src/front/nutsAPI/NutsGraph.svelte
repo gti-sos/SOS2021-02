@@ -45,15 +45,7 @@
                 layout: 'vertical',
                 align: 'right',
                 verticalAlign: 'middle'
-            },/*
-            plotOptions: {
-                series: {
-                    label: {
-                        connectorAllowed: false
-                    },
-                    pointStart: 2010
-                }
-            },*/
+            },
             series: [{
                 name: 'Almond',
                 data: almond

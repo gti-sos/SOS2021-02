@@ -2,18 +2,27 @@
     import {
         onMount
     } from "svelte";
- 
-    let generalData = [];   
+    
     let nutsData = [];
     let oilData = [];
     let wineData = [];
+    let nutsGeneral = [];
+    let oilGeneral = [];
+    let wineGeneral = [];
     
-    async function getData(){
+    async function loadGraph(){  
+
         const nuts = await fetch("/api/v2/nuts-production-stats");
         if(nuts.ok){
             nutsData = await nuts.json();
             console.log(`We have received ${nutsData.length} data points: `);
             console.log(JSON.stringify(nutsData,null,2));
+            nutsData.forEach(data => {
+                ejeX.push(data.country + "-" + data.year);
+                almond.push(data["almond"]);
+                walnut.push(data["walnut"]);
+                pistachio.push(data["pistachio"]);
+            });
         }else{
             console.log("Error loading nuts");
         }
@@ -35,11 +44,7 @@
         }else{
             console.log("Error loading wine");
         }
-    }   
-    
-    onMount(getData);
-    
-    async function loadGraph(){  
+
         Highcharts.chart('container', {
             title: {
                 text: 'My data'
