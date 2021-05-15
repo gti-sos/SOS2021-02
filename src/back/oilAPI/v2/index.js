@@ -40,6 +40,41 @@ module.exports.register = (app) => {
             "production": 3,
             "exportation": 0.38,
             "distribution": 9.22
+        },
+        {
+            "country": "Spain",
+            "year": 2000,
+            "production": 1389.6,
+            "exportation": 39.03,
+            "distribution": 22.42
+        },
+        {
+            "country": "Italy",
+            "year": 2000,
+            "production": 440,
+            "exportation": 34.56,
+            "distribution": 18.61
+        },
+        {
+            "country": "Greece",
+            "year": 2000,
+            "production": 320,
+            "exportation": 9.64,
+            "distribution": 10.42
+        },
+        {
+            "country": "Turkey",
+            "year": 2000,
+            "production": 70,
+            "exportation": 1.40,
+            "distribution": 2.80
+        },
+        {
+            "country": "USA",
+            "year": 2000,
+            "production": 1,
+            "exportation": 0.30,
+            "distribution": 7.51
         }
     ];
     
