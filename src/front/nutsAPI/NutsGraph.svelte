@@ -9,8 +9,8 @@
     let almond = [];
     let walnut = [];
     let pistachio = [];
-
-    async function getData(){
+    
+    async function loadGraph(){  
         const nuts = await fetch("/api/v2/nuts-production-stats");
         if(nuts.ok){
             nutsData = await nuts.json();
@@ -25,13 +25,10 @@
         }else{
             console.log("Error loading nuts");
         }
-    }   
-    
-    async function loadGraph(){  
-        getData();
+
         Highcharts.chart('container', {
             title: {
-                text: 'Nuts Graph'
+                text: 'Gráfico de Frutos Secos'
             },
             yAxis: {
                 title: {
@@ -39,8 +36,8 @@
                 }
             },
             xAxis: {
-                accessibility: {
-                    rangeDescription: 'País-Año'
+                title: {
+                    text: 'País-Año'
                 },
                 categories: ejeX
             },
@@ -98,10 +95,5 @@
 <main>
     <figure class="highcharts-figure">
         <div id="container"></div>
-        <p class="highcharts-description">
-            Basic line chart showing trends in a dataset. This chart includes the
-            <code>series-label</code> module, which adds a label to each line for
-            enhanced readability.
-        </p>
     </figure>  
 </main>
