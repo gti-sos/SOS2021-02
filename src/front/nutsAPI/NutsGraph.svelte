@@ -3,8 +3,12 @@
         onMount
     } from "svelte";
  
-    let generalData = [];   
+    //let generalData = [];   
     let nutsData = [];
+    let ejeX = [];
+    let almond = [];
+    let walnut = [];
+    let pistachio = [];
 
     async function getData(){
         const nuts = await fetch("/api/v2/nuts-production-stats");
@@ -12,33 +16,39 @@
             nutsData = await nuts.json();
             console.log(`We have received ${nutsData.length} data points: `);
             console.log(JSON.stringify(nutsData,null,2));
+            nutsData.forEach(data => {
+                ejeX.push(data.country + "-" + data.year);
+                almond.push(data["almond"]);
+                walnut.push(data["walnut"]);
+                pistachio.push(data["pistachio"]);
+            });
         }else{
             console.log("Error loading nuts");
         }
     }   
     
-    onMount(getData);
-    
     async function loadGraph(){  
+        getData();
         Highcharts.chart('container', {
             title: {
                 text: 'Nuts Graph'
             },
             yAxis: {
                 title: {
-                    text: 'Quantity'
+                    text: 'Cantidad'
                 }
             },
             xAxis: {
                 accessibility: {
-                    rangeDescription: 'Year'
-                }
+                    rangeDescription: 'País-Año'
+                },
+                categories: ejeX
             },
             legend: {
                 layout: 'vertical',
                 align: 'right',
                 verticalAlign: 'middle'
-            },
+            },/*
             plotOptions: {
                 series: {
                     label: {
@@ -46,10 +56,18 @@
                     },
                     pointStart: 2010
                 }
-            },
+            },*/
             series: [{
-                name: 'Installation',
-                data: data
+                name: 'Almond',
+                data: almond
+            },
+            {
+                name: 'Walnut',
+                data: walnut
+            },
+            {
+                name: 'Pistachio',
+                data: pistachio
             }],
             responsive: {
                 rules: [{
