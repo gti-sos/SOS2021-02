@@ -23,6 +23,9 @@
         <a href="https://documenter.getpostman.com/view/10673756/TzRLkqi1"
                 ><Button color="primary">Documentación de Postman v2</Button></a
               >
+        <a href="#/oil-graph"
+                ><Button color="warning">Gráfica</Button></a
+              >
         <ul>
         <p1>José Manuel González Domínguez. Fuente: <a href="https://sos2021-02.herokuapp.com/api/v2/oil-production-stats"> oil-production-stats</a></p1>
     </ul>
@@ -41,6 +44,7 @@
         <a href="https://documenter.getpostman.com/view/14969253/TzRNEpmA"
           ><Button color="primary">Documentación de Postman v2</Button></a
         >
+        
         
         <ul>
             <p1>Alejandro Fernández Baena. Fuente: <a href="https://sos2021-02.herokuapp.com/api/v2/wine-production-stats"> wine-production-stats</a></p1>

@@ -10,6 +10,7 @@
 	import NotFound from './NotFound.svelte';
 	import Info from './Info.svelte';
 	import NutsGraph from './nutsAPI/NutsGraph.svelte';
+	import OilGraph from './oilAPI/OilGraph.svelte';
 
 
 	const routes = {
@@ -22,6 +23,7 @@
 		"/wine-production-stats/:country/:year": WineEdit,
 		"/info": Info,
 		"/nuts-graph": NutsGraph,
+		"/oil-graph": OilGraph,
 		"*": NotFound
 	};
 </script>
