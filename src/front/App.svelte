@@ -11,6 +11,7 @@
 	import Info from './Info.svelte';
 	import NutsGraph from './nutsAPI/NutsGraph.svelte';
 	import OilGraph from './oilAPI/OilGraph.svelte';
+	import WineGraph from './wineAPI/WineGraph.svelte';
 	import GeneralGraph from './GeneralGraph.svelte';
 
 
@@ -25,6 +26,7 @@
 		"/info": Info,
 		"/nuts-graph": NutsGraph,
 		"/oil-graph": OilGraph,
+		"/wine-graph": WineGraph,
 		"/general-graph": GeneralGraph,
 		"*": NotFound
 	};

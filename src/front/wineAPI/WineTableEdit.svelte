@@ -8,6 +8,7 @@
 
     import Table from "sveltestrap/src/Table.svelte";
     import Button from "sveltestrap/src/Button.svelte";
+    import numData from "./WineTable.svelte";
     export let params = {};
     const BASE_WINE_API_PATH = "/api/v2/";
     let data = {};
