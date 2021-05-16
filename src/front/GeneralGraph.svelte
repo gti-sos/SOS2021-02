@@ -2,6 +2,10 @@
     import {
         onMount
     } from "svelte";
+    import {
+        pop
+    } from "svelte-spa-router";
+    import Button from "sveltestrap/src/Button.svelte";
     
     let nutsData = [];
     let oilData = [];
@@ -9,6 +13,7 @@
     let nutsGeneral = [];
     let oilGeneral = [];
     let wineGeneral = [];
+    let ejeX = [];
     
     async function loadGraph(){  
 
@@ -19,9 +24,9 @@
             console.log(JSON.stringify(nutsData,null,2));
             nutsData.forEach(data => {
                 ejeX.push(data.country + "-" + data.year);
-                almond.push(data["almond"]);
-                walnut.push(data["walnut"]);
-                pistachio.push(data["pistachio"]);
+                nutsGeneral.push(data["almond"]);
+                //walnut.push(data["walnut"]);
+                //pistachio.push(data["pistachio"]);
             });
         }else{
             console.log("Error loading nuts");
@@ -32,6 +37,12 @@
             oilData = await oil.json();
             console.log(`We have received ${oilData.length} data points: `);
             console.log(JSON.stringify(oilData,null,2));
+            oilData.forEach(data => {
+                ejeX.push(data.country + "-" + data.year);
+                oilGeneral.push(data["production"]);
+                //walnut.push(data["walnut"]);
+                //pistachio.push(data["pistachio"]);
+            });
         }else{
             console.log("Error loading oil");
         }
@@ -41,13 +52,19 @@
             wineData = await wine.json();
             console.log(`We have received ${wineData.length} data points: `);
             console.log(JSON.stringify(wineData,null,2));
+            wineData.forEach(data => {
+                ejeX.push(data.country + "-" + data.year);
+                wineGeneral.push(data["production"]);
+                //walnut.push(data["walnut"]);
+                //pistachio.push(data["pistachio"]);
+            });
         }else{
             console.log("Error loading wine");
         }
 
         Highcharts.chart('container', {
             title: {
-                text: 'My data'
+                text: 'Gráfico General'
             },
             yAxis: {
                 title: {
@@ -55,26 +72,35 @@
                 }
             },
             xAxis: {
-                accessibility: {
-                    rangeDescription: 'Year'
-                }
+                title: {
+                    text: 'Año'
+                },
+                categories: ejeX
             },
             legend: {
                 layout: 'vertical',
                 align: 'right',
                 verticalAlign: 'middle'
             },
-            plotOptions: {
+            /*plotOptions: {
                 series: {
                     label: {
                         connectorAllowed: false
                     },
                     pointStart: 2010
                 }
-            },
+            },*/
             series: [{
-                name: 'Installation',
-                data: data
+                name: 'Almond',
+                data: nutsGeneral
+            },
+            {
+                name: ' OilProduction',
+                data: oilGeneral
+            },
+            {
+                name: 'WineProduction',
+                data: wineGeneral
             }],
             responsive: {
                 rules: [{
@@ -105,10 +131,7 @@
 <main>
     <figure class="highcharts-figure">
         <div id="container"></div>
-        <p class="highcharts-description">
-            Basic line chart showing trends in a dataset. This chart includes the
-            <code>series-label</code> module, which adds a label to each line for
-            enhanced readability.
-        </p>
-    </figure>  
+        
+    </figure> 
+    <Button outline color="secondary" on:click="{pop}">Atrás</Button> 
 </main>

@@ -9,6 +9,18 @@
       
       <h1>SOS2021-02</h1>
       <a href="old_index_static.html"> Ver la información de los componentes del grupo</a>
+
+      <Jumbotron>
+        <p>Grafico General</p>
+        <a href="#/general-graph"
+                ><Button color="primary">Grafica</Button></a
+              >
+        <ul>
+        <p1>Grafico general del grupo</p1>
+    </ul>
+    </Jumbotron>
+
+
     <Jumbotron>
         <p>API DATOS ACEITE</p>
         <a href="#/oil-production-stats"

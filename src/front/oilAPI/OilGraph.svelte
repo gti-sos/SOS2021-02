@@ -2,6 +2,10 @@
     import {
         onMount
     } from "svelte";
+    import {
+        pop
+    } from "svelte-spa-router";
+    import Button from "sveltestrap/src/Button.svelte";
  
     //let generalData = [];   
     let oilData = [];
@@ -96,5 +100,6 @@
     <figure class="highcharts-figure">
         <div id="container"></div>
         
-    </figure>  
+    </figure>
+    <Button outline color="secondary" on:click="{pop}">Atrás</Button>
 </main>

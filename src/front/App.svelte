@@ -11,6 +11,7 @@
 	import Info from './Info.svelte';
 	import NutsGraph from './nutsAPI/NutsGraph.svelte';
 	import OilGraph from './oilAPI/OilGraph.svelte';
+	import GeneralGraph from './GeneralGraph.svelte';
 
 
 	const routes = {
@@ -24,6 +25,7 @@
 		"/info": Info,
 		"/nuts-graph": NutsGraph,
 		"/oil-graph": OilGraph,
+		"/general-graph": GeneralGraph,
 		"*": NotFound
 	};
 </script>
