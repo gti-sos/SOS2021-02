@@ -14,6 +14,17 @@
     let oilGeneral = [];
     let wineGeneral = [];
     let ejeX = [];
+    var mapa = new Map();
+
+
+    function filtraElementos(value, key, map) {
+        if(value.length == 3){
+            ejeX.push(key);
+            nutsGeneral.push(value[0]);
+            oilGeneral.push(value[1]);
+            wineGeneral.push(value[2]);
+        }
+    }
     
     async function loadGraph(){  
 
@@ -23,10 +34,18 @@
             console.log(`We have received ${nutsData.length} data points: `);
             console.log(JSON.stringify(nutsData,null,2));
             nutsData.forEach(data => {
-                ejeX.push(data.country + "-" + data.year);
-                nutsGeneral.push(data["almond"]);
-                //walnut.push(data["walnut"]);
-                //pistachio.push(data["pistachio"]);
+                if(mapa.has(data.country + "-" + data.year)){
+                    let aux = mapa.get(data.country + "-" + data.year);
+                    aux.push(data["almond"]);
+                    mapa.set(data.country + "-" + data.year, aux);
+                }else{
+                    
+                    console.log(data["almond"]);
+                    let aux = [];
+                    aux.push(data["almond"]);
+                    console.log(aux);
+                    mapa.set(data.country + "-" + data.year, aux);
+                }
             });
         }else{
             console.log("Error loading nuts");
@@ -38,10 +57,17 @@
             console.log(`We have received ${oilData.length} data points: `);
             console.log(JSON.stringify(oilData,null,2));
             oilData.forEach(data => {
-                ejeX.push(data.country + "-" + data.year);
-                oilGeneral.push(data["production"]);
-                //walnut.push(data["walnut"]);
-                //pistachio.push(data["pistachio"]);
+                if(mapa.has(data.country + "-" + data.year)){
+                    let aux = mapa.get(data.country + "-" + data.year);
+                    console.log(aux);
+                    aux.push(data["production"]);
+                    mapa.set(data.country + "-" + data.year, aux);
+                }else{
+                    let aux = [];
+                    aux.push(data["production"]);
+                    console.log(aux);
+                    mapa.set(data.country + "-" + data.year, aux);
+                }
             });
         }else{
             console.log("Error loading oil");
@@ -53,14 +79,25 @@
             console.log(`We have received ${wineData.length} data points: `);
             console.log(JSON.stringify(wineData,null,2));
             wineData.forEach(data => {
-                ejeX.push(data.country + "-" + data.year);
-                wineGeneral.push(data["production"]);
-                //walnut.push(data["walnut"]);
-                //pistachio.push(data["pistachio"]);
+                if(mapa.has(data.country + "-" + data.year)){
+                    let aux = mapa.get(data.country + "-" + data.year);
+                    aux.push(data["production"]);
+                    console.log(aux);
+                    mapa.set(data.country + "-" + data.year, aux);
+                }else{
+                    let aux = [];
+                    aux.push(data["production"]);
+                    console.log(aux);
+                    mapa.set(data.country + "-" + data.year, aux);
+                }
             });
         }else{
             console.log("Error loading wine");
         }
+
+        console.log(mapa);
+
+        mapa.forEach(filtraElementos);
 
         Highcharts.chart('container', {
             title: {
@@ -68,7 +105,7 @@
             },
             yAxis: {
                 title: {
-                    text: 'Quantity'
+                    text: 'Cantidad'
                 }
             },
             xAxis: {
@@ -82,14 +119,6 @@
                 align: 'right',
                 verticalAlign: 'middle'
             },
-            /*plotOptions: {
-                series: {
-                    label: {
-                        connectorAllowed: false
-                    },
-                    pointStart: 2010
-                }
-            },*/
             series: [{
                 name: 'Almond',
                 data: nutsGeneral

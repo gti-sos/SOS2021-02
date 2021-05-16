@@ -12,10 +12,12 @@
 
       <Jumbotron>
         <p>Grafico General</p>
-        <a href="#/general-graph"
+        <div>
+          <a href="#/general-graph"
                 ><Button color="primary">Grafica</Button></a
               >
-        <ul>
+        </div>
+    <ul>
         <p1>Grafico general del grupo</p1>
     </ul>
     </Jumbotron>
@@ -90,15 +92,18 @@
 
    <style>
        p {
-  color: rgb(0, 0, 0);
-  width: 300px;
-  border: 1px solid black;
-  
-  margin-bottom: 25px;
-  margin-left: 43%;
-  text-align: center;
-}
-    ul {
-        margin-top: 25px;
-    }
+            color: rgb(0, 0, 0);
+            width: 300px;
+            border: 1px solid black;
+            
+            margin-bottom: 25px;
+            margin-left: 43%;
+            text-align: center;
+          }
+      ul {
+          margin-top: 25px;
+      }
+      div{
+        text-align: center;
+      }
    </style>
