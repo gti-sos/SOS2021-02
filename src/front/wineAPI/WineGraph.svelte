@@ -23,8 +23,8 @@
             wineData.forEach(data => {
                 ejeX.push(data.country + "-" + data.year);
                 production.push(data["production"]);
-                importe.push(data["importe"]);
-                exporte.push(data["exporte"]);
+                importe.push(data["import"]);
+                exporte.push(data["export"]);
             });
         }else{
             console.log("Error loading wine");
