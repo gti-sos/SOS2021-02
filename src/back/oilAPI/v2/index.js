@@ -9,21 +9,21 @@ module.exports.register = (app) => {
         {
             "country": "Spain",
             "year": 2011,
-            "production": 669.1,
+            "production": 1389.6,
             "exportation": 48.36,
             "distribution": 18.61
         },
         {
             "country": "Italy",
             "year": 2011,
-            "production": 735,
+            "production": 440,
             "exportation": 28.74,
             "distribution": 22.12
         },
         {
             "country": "Greece",
             "year": 2011,
-            "production": 420,
+            "production": 300,
             "exportation": 5.48,
             "distribution": 7.71
         },
@@ -44,21 +44,21 @@ module.exports.register = (app) => {
         {
             "country": "Spain",
             "year": 2000,
-            "production": 1389.6,
+            "production": 669.1,
             "exportation": 39.03,
             "distribution": 22.42
         },
         {
             "country": "Italy",
             "year": 2000,
-            "production": 440,
+            "production": 735,
             "exportation": 34.56,
             "distribution": 18.61
         },
         {
             "country": "Greece",
             "year": 2000,
-            "production": 320,
+            "production": 420,
             "exportation": 9.64,
             "distribution": 10.42
         },
