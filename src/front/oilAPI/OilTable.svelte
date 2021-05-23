@@ -183,7 +183,6 @@
                                 if (res.ok) {
                                     console.log("OK");
                                     oilstats = [];
-                                    numData = 0;
                                     getData();
                                     errorMsg = "";
                                     okMsg = "Datos borrados correctamente";
