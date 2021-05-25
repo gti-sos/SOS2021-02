@@ -99,7 +99,11 @@
 
         mapa.forEach(filtraElementos);
 
+        
         Highcharts.chart('container', {
+            chart: {
+                type: 'column'
+            },
             title: {
                 text: 'Gráfico General'
             },

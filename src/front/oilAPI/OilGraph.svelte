@@ -31,6 +31,9 @@
         }
     
         Highcharts.chart('container', {
+            chart: {
+                type: 'area'
+            },
             title: {
                 text: 'Oil Graph'
             },
