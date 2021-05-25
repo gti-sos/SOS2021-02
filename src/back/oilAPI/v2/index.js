@@ -3,7 +3,7 @@ var DataStore = require("nedb");
 var dat = require ('path');
 var db = new DataStore({ filename: dat.join(__dirname, 'oil-stats.db'), autoload: true});
 var oilstats = [];
-//prueba
+
 module.exports.register = (app) => {
     var oilstatsInitial = [
         {
