@@ -13,6 +13,10 @@
 	import OilGraph from './oilAPI/OilGraph.svelte';
 	import WineGraph from './wineAPI/WineGraph.svelte';
 	import GeneralGraph from './GeneralGraph.svelte';
+	import Integrations from './integrations.svelte';
+	import ChildrenEmploymentGraph from './integrations/nuts/children-employment-graph.svelte';
+	import ObesityGraph from './integrations/oil/obesity-graph.svelte';
+	import ChildrenSchoolGraph from './integrations/wine/children-school-graph.svelte';
 
 
 	const routes = {
@@ -28,6 +32,10 @@
 		"/oil-graph": OilGraph,
 		"/wine-graph": WineGraph,
 		"/general-graph": GeneralGraph,
+		"/integrations": Integrations,
+		"/children-employment-graph": ChildrenEmploymentGraph,
+		"/obesity-graph": ObesityGraph,
+		"/children-school-graph": ChildrenSchoolGraph,
 		"*": NotFound
 	};
 </script>

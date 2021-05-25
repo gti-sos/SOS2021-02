@@ -20,7 +20,18 @@
     <ul>
         <p1>Grafico general del grupo</p1>
     </ul>
+
+    <p>Integraciones</p>
+        <div>
+          <a href="#/integrations"
+                ><Button color="primary">Integraciones</Button></a
+              >
+        </div>
+    <ul>
+        <p1>Integraciones del grupo</p1>
+    </ul>
     </Jumbotron>
+
 
 
     <Jumbotron>
