@@ -10,7 +10,7 @@
 	import NotFound from './NotFound.svelte';
 	import Info from './Info.svelte';
 	import NutsGraph from './nutsAPI/NutsGraph.svelte';
-	import NutsGraphc3 from './nutsAPI/NutsGraphC3.svelte';
+	//import NutsGraphc3 from './nutsAPI/NutsGraphC3.svelte';
 	import OilGraph from './oilAPI/OilGraph.svelte';
 	import WineGraph from './wineAPI/WineGraph.svelte';
 	import GeneralGraph from './GeneralGraph.svelte';
@@ -31,7 +31,7 @@
 		"/wine-production-stats/:country/:year": WineEdit,
 		"/info": Info,
 		"/nuts-graph": NutsGraph,
-		"/nuts-graphc3": NutsGraphc3,
+		//"/nuts-graphc3": NutsGraphc3,
 		"/oil-graph": OilGraph,
 		"/wine-graph": WineGraph,
 		"/general-graph": GeneralGraph,
