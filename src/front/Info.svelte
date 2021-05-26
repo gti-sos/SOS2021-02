@@ -91,7 +91,7 @@
         <a href="https://documenter.getpostman.com/view/10637366/TzRNE9Zz"
               ><Button color="primary">Documentación de Postman v2</Button></a
               >
-        <a href="#/nuts-graphc3"
+        <a href="#/nuts-graph"
               ><Button color="warning">Gráfica</Button></a
               >
         <ul>
