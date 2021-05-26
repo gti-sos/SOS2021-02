@@ -13,6 +13,9 @@
         <p>INTEGRACIONES ACEITE</p>
         <a href="#/obesity-graph"
                 ><Button color="warning">Gráfica obesity</Button></a>
+
+        <a href="#/oil-chart"
+                ><Button color="warning">Gráfica oil con canvas</Button></a>
     </Jumbotron>
     <Jumbotron>
         <p>INTEGRACIONES VINO</p>
