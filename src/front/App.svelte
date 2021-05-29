@@ -19,6 +19,7 @@
 	import ObesityGraph from './integrations/oil/obesity-graph.svelte';
 	import ChildrenSchoolGraph from './integrations/wine/children-school-graph.svelte';
 	import OilChart from './integrations/oil/oilChart.svelte';
+	import FoodconsumptionGraph from './integrations/nuts/foodconsumption-graph.svelte';
 
 
 	const routes = {
@@ -31,6 +32,7 @@
 		"/wine-production-stats/:country/:year": WineEdit,
 		"/info": Info,
 		"/nuts-graph": NutsGraph,
+		"/food-consumption-graph": FoodconsumptionGraph,
 		//"/nuts-graphc3": NutsGraphc3,
 		"/oil-graph": OilGraph,
 		"/wine-graph": WineGraph,
