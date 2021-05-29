@@ -30,6 +30,8 @@
         <p>INTEGRACIONES FRUTOS SECOS</p>
         <a href="#/food-consumption-graph"
               ><Button color="warning">Gráfica food-consumption</Button></a>
+        <a href="#/children-employment-graph"
+              ><Button color="warning">Gráfica children-employment</Button></a>
     </Jumbotron>
 
             <a href="https://github.com/gti-sos/SOS2021-02"> Repositorio del grupo</a>

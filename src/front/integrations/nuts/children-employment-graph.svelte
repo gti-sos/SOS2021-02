@@ -7,120 +7,59 @@
     } from "svelte-spa-router";
     import Button from "sveltestrap/src/Button.svelte";
     
-    let nutsData = [];
-    let oilData = [];
-    let wineData = [];
-    let nutsGeneral = [];
-    let oilGeneral = [];
-    let wineGeneral = [];
+    let childrenData = [];
+    let percent_children_employment_m = [];
+    let percent_children_employment_f = [];
+    let percent_children_employment_t = [];
     let ejeX = [];
     var mapa = new Map();
-
-
-    require.config({
-            baseUrl: '/js',
-            paths: {
-                d3: "http://d3js.org/d3.v5.min"
-                }
-        });
-
-        require(["d3", "c3"], function(d3, c3) {
-        c3.generate({
-            bindto: '#chart',
-            data: {
-                columns: [
-                    ['data1', 30, 200, 100, 400, 150, 250],
-                    ['data2', 50, 20, 10, 40, 15, 25]
-                ]
-            }
-        });
-        });
-
+    var URL = "https://sos2021-24.herokuapp.com/api/v2/children-employment";
 
     function filtraElementos(value, key, map) {
-        if(value.length == 3){
+        if(value){
             ejeX.push(key);
-            nutsGeneral.push(value[0]);
-            oilGeneral.push(value[1]);
-            wineGeneral.push(value[2]);
+            percent_children_employment_m.push(value[0]);
+            percent_children_employment_f.push(value[1]);
+            percent_children_employment_t.push(value[2]);
         }
     }
-
+    
     async function loadGraph(){  
 
-        const nuts = await fetch("/api/v2/nuts-production-stats");
-        
-        if(nuts.ok){
-            nutsData = await nuts.json();
-            console.log(`We have received ${nutsData.length} data points: `);
-            console.log(JSON.stringify(nutsData,null,2));
-            nutsData.forEach(data => {
+        const children = await fetch(URL);
+        if(children.ok){
+            childrenData = await children.json();
+            console.log(`We have received ${childrenData.length} data points: `);
+            console.log(JSON.stringify(childrenData,null,2));
+            childrenData.forEach(data => {
                 if(mapa.has(data.country + "-" + data.year)){
                     let aux = mapa.get(data.country + "-" + data.year);
-                    aux.push(data["almond"]);
+                    aux.push(data["percent_children_employment_m"]);
+                    aux.push(data["percent_children_employment_f"]);
+                    aux.push(data["percent_children_employment_t"]);
                     mapa.set(data.country + "-" + data.year, aux);
                 }else{
-                    
-                    console.log(data["almond"]);
+                    console.log(data["percent_children_employment_m"]);
                     let aux = [];
-                    aux.push(data["almond"]);
+                    aux.push(data["percent_children_employment_m"]);
+                    aux.push(data["percent_children_employment_f"]);
+                    aux.push(data["percent_children_employment_t"]);
                     console.log(aux);
                     mapa.set(data.country + "-" + data.year, aux);
                 }
             });
         }else{
-            console.log("Error loading nuts");
+            console.log("Error loading children");
         }
         
-        const oil = await fetch("/api/v2/oil-production-stats");
-        if(oil.ok){
-            oilData = await oil.json();
-            console.log(`We have received ${oilData.length} data points: `);
-            console.log(JSON.stringify(oilData,null,2));
-            oilData.forEach(data => {
-                if(mapa.has(data.country + "-" + data.year)){
-                    let aux = mapa.get(data.country + "-" + data.year);
-                    console.log(aux);
-                    aux.push(data["production"]);
-                    mapa.set(data.country + "-" + data.year, aux);
-                }else{
-                    let aux = [];
-                    aux.push(data["production"]);
-                    console.log(aux);
-                    mapa.set(data.country + "-" + data.year, aux);
-                }
-            });
-        }else{
-            console.log("Error loading oil");
-        }
-        
-        const wine = await fetch("/api/v2/wine-production-stats");
-        if(wine.ok){
-            wineData = await wine.json();
-            console.log(`We have received ${wineData.length} data points: `);
-            console.log(JSON.stringify(wineData,null,2));
-            wineData.forEach(data => {
-                if(mapa.has(data.country + "-" + data.year)){
-                    let aux = mapa.get(data.country + "-" + data.year);
-                    aux.push(data["production"]);
-                    console.log(aux);
-                    mapa.set(data.country + "-" + data.year, aux);
-                }else{
-                    let aux = [];
-                    aux.push(data["production"]);
-                    console.log(aux);
-                    mapa.set(data.country + "-" + data.year, aux);
-                }
-            });
-        }else{
-            console.log("Error loading wine");
-        }
-
         console.log(mapa);
 
         mapa.forEach(filtraElementos);
 
         Highcharts.chart('container', {
+            chart:{
+                type: 'bar'
+            },
             title: {
                 text: 'Gráfico General'
             },
@@ -141,16 +80,15 @@
                 verticalAlign: 'middle'
             },
             series: [{
-                name: 'Almond',
-                data: nutsGeneral
+                name: 'percent_children_employment_m',
+                data: percent_children_employment_m
             },
             {
-                name: ' OilProduction',
-                data: oilGeneral
-            },
-            {
-                name: 'WineProduction',
-                data: wineGeneral
+                name: 'percent_children_employment_f',
+                data: percent_children_employment_f
+            },{
+                name: 'percent_children_employment_t',
+                data: percent_children_employment_t
             }],
             responsive: {
                 rules: [{
@@ -171,12 +109,11 @@
 </script>
 
 <svelte:head>
-<!-- Load c3.css -->
-<link href="/path/to/c3.css" rel="stylesheet">
-
-<!-- Load d3.js and c3.js -->
-<script src="/path/to/d3.v5.min.js" charset="utf-8"></script>
-<script src="/path/to/c3.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/series-label.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js" on:load="{loadGraph}"></script>
 </svelte:head>
 
 <main>
