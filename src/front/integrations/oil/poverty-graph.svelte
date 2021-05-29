@@ -7,51 +7,55 @@
     } from "svelte-spa-router";
     import Button from "sveltestrap/src/Button.svelte";
     
-    let obesityData = [];
-    let manPercent = [];
-    let womanPercent = [];
-    let totalPopulation = [];
+    let povertyData = [];
+    let peopleRisk = [];
+    let peopleLine = [];
+    let homePoverty = [];
+    let percentagePoverty = [];
     let ejeX = [];
     var mapa = new Map();
-    var URL = " http://sos2021-10.herokuapp.com/api/integration/obesity-stats"
+    var URL = " https://endpoint-poverty-risks.herokuapp.com/api/v1/"
 
 
     function filtraElementos(value, key, map) {
         if(value){
             ejeX.push(key);
-            manPercent.push(value[0]);
-            womanPercent.push(value[1]);
-            totalPopulation.push(value[2]);
+            peopleRisk.push(value[0]);
+            peopleLine.push(value[1]);
+            homePoverty.push(value[2]);
+            percentagePoverty.push(value[3]);
         }
     }
     
     async function loadGraph(){  
 
-        const obesity = await fetch(URL);
-        if(obesity.ok){
-            obesityData = await obesity.json();
-            console.log(`We have received ${obesityData.length} data points: `);
-            console.log(JSON.stringify(obesityData,null,2));
-            obesityData.forEach(data => {
+        const poverty = await fetch(URL);
+        if(poverty.ok){
+            povertyData = await poverty.json();
+            console.log(`We have received ${povertyData.length} data points: `);
+            console.log(JSON.stringify(povertyData,null,2));
+            povertyData.forEach(data => {
                 if(mapa.has(data.country + "-" + data.year)){
                     let aux = mapa.get(data.country + "-" + data.year);
-                    aux.push(data["man_percent"]);
-                    aux.push(data["woman_percent"]);
-                    aux.push(data["total_population"]);
+                    aux.push(data["people_in_risk_of_poverty"]);
+                    aux.push(data["people_poverty_line"]);
+                    aux.push(data["home_poverty_line"]);
+                    aux.push(data["percentage_risk_of_poverty"]);
                     mapa.set(data.country + "-" + data.year, aux);
                 }else{
                     
-                    console.log(data["man_percent"]);
+                    console.log(data["people_in_risk_of_poverty"]);
                     let aux = [];
-                    aux.push(data["man_percent"]);
-                    aux.push(data["woman_percent"]);
-                    aux.push(data["total_population"]);
+                    aux.push(data["people_in_risk_of_poverty"]);
+                    aux.push(data["people_poverty_line"]);
+                    aux.push(data["home_poverty_line"]);
+                    aux.push(data["percentage_risk_of_poverty"]);
                     console.log(aux);
                     mapa.set(data.country + "-" + data.year, aux);
                 }
             });
         }else{
-            console.log("Error loading obesity");
+            console.log("Error loading poverty");
         }
         
         
@@ -62,12 +66,15 @@
 
         Highcharts.chart('container', {
             chart:{
-                type: 'column'
+                type: 'area'
             },
             title: {
                 text: 'Gráfico General'
             },
             yAxis: {
+                labels: {
+                    format: '{value}%'
+            },
                 title: {
                     text: 'Cantidad'
                 }
@@ -78,22 +85,47 @@
                 },
                 categories: ejeX
             },
+            plotOptions: {
+                area: {
+                    stacking: 'percent',
+                    lineColor: '#ffffff',
+                    lineWidth: 1,
+                    marker: {
+                        lineWidth: 1,
+                        lineColor: '#ffffff'
+            },
+            accessibility: {
+                pointDescriptionFormatter: function (point) {
+                    function round(x) {
+                        return Math.round(x * 100) / 100;
+                    }
+                    return (point.index + 1) + ', ' + point.category + ', ' +
+                        point.y + ' millions, ' + round(point.percentage) + '%, ' +
+                        point.series.name;
+                    }
+                }
+            }
+        },
             legend: {
                 layout: 'vertical',
                 align: 'right',
                 verticalAlign: 'middle'
             },
             series: [{
-                name: 'man_percent',
-                data: manPercent
+                name: 'people_in_risk_of_poverty',
+                data: peopleRisk
             },
             {
-                name: ' woman_percent',
-                data: womanPercent
+                name: ' people_poverty_line',
+                data: peopleLine
             },
             {
-                name: 'total_population',
-                data: totalPopulation
+                name: 'home_poverty_line',
+                data: homePoverty
+            },
+            {
+                name: 'percentage_risk_of_poverty',
+                data: percentagePoverty
             }],
             responsive: {
                 rules: [{

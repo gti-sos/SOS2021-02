@@ -20,6 +20,7 @@
 	import ChildrenSchoolGraph from './integrations/wine/children-school-graph.svelte';
 	import OilChart from './integrations/oil/oilChart.svelte';
 	import FoodconsumptionGraph from './integrations/nuts/foodconsumption-graph.svelte';
+	import PovertyGraph from './integrations/oil/poverty-graph.svelte';
 
 
 	const routes = {
@@ -40,6 +41,7 @@
 		"/integrations": Integrations,
 		"/children-employment-graph": ChildrenEmploymentGraph,
 		"/obesity-graph": ObesityGraph,
+		"/poverty-graph" : PovertyGraph,
 		"/oil-chart": OilChart,
 		"/children-school-graph": ChildrenSchoolGraph,
 		"*": NotFound
