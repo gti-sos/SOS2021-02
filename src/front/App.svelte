@@ -21,6 +21,7 @@
 	import OilChart from './integrations/oil/oilChart.svelte';
 	import FoodconsumptionGraph from './integrations/nuts/foodconsumption-graph.svelte';
 	import PovertyGraph from './integrations/oil/poverty-graph.svelte';
+	import ImdbExt from './integrations/oil/imdbExt.svelte';
 
 
 	const routes = {
@@ -44,6 +45,7 @@
 		"/obesity-graph": ObesityGraph,
 		"/poverty-graph" : PovertyGraph,
 		"/oil-chart": OilChart,
+		"/imdbExt": ImdbExt,
 		"/children-school-graph": ChildrenSchoolGraph,
 		"*": NotFound
 	};

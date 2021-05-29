@@ -19,6 +19,11 @@
 
         <a href="#/oil-chart"
                 ><Button color="warning">Gráfica oil con canvas</Button></a>
+        <p1>
+           APIs Externas 
+        </p1>
+        <a href="#/imdbExt"
+                ><Button color="warning">Gráfica IMDB</Button></a>
         
     </Jumbotron>
     <Jumbotron>
