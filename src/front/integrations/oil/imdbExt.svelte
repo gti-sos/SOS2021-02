@@ -1,7 +1,7 @@
 <script>
     let pluginCycling = [];
     let MyData = [];
-	//async function loadGraph(){
+	async function loadGraph(){
         console.log("Fetching renewable sources stats...");	
 		const res = await fetch("https://imdb8.p.rapidapi.com/auto-complete", {
             "method": "GET",
@@ -20,7 +20,7 @@
 		} else {
 			console.log("ERROR!");
         }
-    //}
+    }
 </script>
 <svelte:head>
         <script src="https://canvasjs.com/assets/script/canvasjs.min.js" on:load="{loadGraph}"> </script>
