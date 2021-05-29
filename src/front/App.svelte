@@ -33,6 +33,7 @@
 		"/info": Info,
 		"/nuts-graph": NutsGraph,
 		"/food-consumption-graph": FoodconsumptionGraph,
+		"/childre-employment-graph": ChildrenEmploymentGraph,
 		//"/nuts-graphc3": NutsGraphc3,
 		"/oil-graph": OilGraph,
 		"/wine-graph": WineGraph,
