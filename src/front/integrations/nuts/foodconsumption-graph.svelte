@@ -12,9 +12,6 @@
     let gramPer = [];
     let dailyGram = [];
     let dailyCal = [];
-    let foodGeneral = [];
-    let oilGeneral = [];
-    let wineGeneral = [];
     let ejeX = [];
     var mapa = new Map();
     var URL = "https://sos2021-10.herokuapp.com/api/integration/foodconsumption-stats";
