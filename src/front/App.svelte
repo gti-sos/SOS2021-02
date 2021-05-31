@@ -22,6 +22,7 @@
 	import FoodconsumptionGraph from './integrations/nuts/foodconsumption-graph.svelte';
 	import PovertyGraph from './integrations/oil/poverty-graph.svelte';
 	import ImdbExt from './integrations/oil/imdbExt.svelte';
+	import Ext1Balldontlie from './integrations/nuts/ext1-balldontlie.svelte';
 
 
 	const routes = {
@@ -36,6 +37,7 @@
 		"/nuts-graph": NutsGraph,
 		"/food-consumption-graph": FoodconsumptionGraph,
 		"/childre-employment-graph": ChildrenEmploymentGraph,
+		"/ext1-balldontlie": Ext1Balldontlie,
 		//"/nuts-graphc3": NutsGraphc3,
 		"/oil-graph": OilGraph,
 		"/wine-graph": WineGraph,
