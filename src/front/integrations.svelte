@@ -39,6 +39,8 @@
               ><Button color="warning">Gráfica children-employment</Button></a>
         <a href="#/ext1-balldontlie"
         ><Button color="warning">Gráfica ext1-balldontlie</Button></a>
+        <a href="#/ext2-aoe"
+        ><Button color="warning">Gráfica ext2-aoe</Button></a>
     </Jumbotron>
 
             <a href="https://github.com/gti-sos/SOS2021-02"> Repositorio del grupo</a>

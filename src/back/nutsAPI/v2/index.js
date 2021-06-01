@@ -341,5 +341,14 @@ module.exports.register = (app) => {
         });
         
     });
-
+/*
+    //cada vez que llame a /proxyAOE sera como si llamase a https://age-of...com
+    app.use("/proxyAOE", function(req, res) {
+        var apiServerHost = "https://age-of-empires-2-api.herokuapp.com";
+        console.log("url: " + req.url);
+        console.log('piped: ' + req.url);
+        var url = apiServerHost + req.url;
+        req.pipe(request(url)).pipe(res);
+    });
+*/
 }
