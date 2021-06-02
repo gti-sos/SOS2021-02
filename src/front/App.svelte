@@ -24,6 +24,7 @@
 	import ImdbExt from './integrations/oil/imdbExt.svelte';
 	import Ext1Balldontlie from './integrations/nuts/ext1-balldontlie.svelte';
 	import Ext2Ghibli from './integrations/nuts/ext2-ghibli.svelte';
+	import SanityStatsGraph from './integrations/wine/sanity-stats-graph.svelte';
 
 
 	const routes = {
@@ -51,6 +52,7 @@
 		"/oil-chart": OilChart,
 		"/imdbExt": ImdbExt,
 		"/children-school-graph": ChildrenSchoolGraph,
+		"/sanity-stats-graph": SanityStatsGraph,
 		"*": NotFound
 	};
 </script>

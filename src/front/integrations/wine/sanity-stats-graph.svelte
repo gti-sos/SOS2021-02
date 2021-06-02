@@ -7,49 +7,49 @@
     } from "svelte-spa-router";
     import Button from "sveltestrap/src/Button.svelte";
     
-    let childrenData = [];
-    let children_out_school_male = [];
-    let children_out_school_female= [];
-    let children_out_school_total= [];
+    let sanityData = [];
+    let health_expenditure_in_percentage = [];
+    let doctor_per_1000_habitant= [];
+    let hospital_bed= [];
     let ejeX = [];
     var mapa = new Map();
-    var URL = "http://sos2021-24.herokuapp.com/api/v2/children-out-school";
+    var URL = "https://sanity-integration.herokuapp.com/sanity-stats";
 
     function filtraElementos(value, key, map) {
         if(value){
             ejeX.push(key);
-            children_out_school_male.push(value[0]);
-            children_out_school_female.push(value[1]);
-            children_out_school_total.push(value[2]);
+            health_expenditure_in_percentage.push(value[0]);
+            doctor_per_1000_habitant.push(value[1]);
+            hospital_bed.push(value[2]);
         }
     }
     
     async function loadGraph(){  
 
-        const children = await fetch(URL);
-        if(children.ok){
-            childrenData = await children.json();
-            console.log(`We have received ${childrenData.length} data points: `);
-            console.log(JSON.stringify(childrenData,null,2));
-            childrenData.forEach(data => {
+        const sanity = await fetch(URL);
+        if(sanity.ok){
+            sanityData = await sanity.json();
+            console.log(`We have received ${sanityData.length} data points: `);
+            console.log(JSON.stringify(sanityData,null,2));
+            sanityData.forEach(data => {
                 if(mapa.has(data.country + "-" + data.year)){
                     let aux = mapa.get(data.country + "-" + data.year);
-                    aux.push(data["children_out_school_male"]);
-                    aux.push(data["children_out_school_female"]);
-                    aux.push(data["children_out_school_total"]);
+                    aux.push(data["health_expenditure_in_percentage"]);
+                    aux.push(data["doctor_per_1000_habitant"]);
+                    aux.push(data["hospital_bed"]);
                     mapa.set(data.country + "-" + data.year, aux);
                 }else{
-                    console.log(data["percent_children_out_school_m"]);
+                    console.log(data["health_expenditure_in_percentage"]);
                     let aux = [];
-                    aux.push(data["children_out_school_male"]);
-                    aux.push(data["children_out_school_female"]);
-                    aux.push(data["children_out_school_total"]);
+                    aux.push(data["health_expenditure_in_percentage"]);
+                    aux.push(data["doctor_per_1000_habitant"]);
+                    aux.push(data["hospital_bed"]);
                     console.log(aux);
                     mapa.set(data.country + "-" + data.year, aux);
                 }
             });
         }else{
-            console.log("Error loading children");
+            console.log("Error loading sanity");
         }
         
         console.log(mapa);
@@ -80,15 +80,15 @@
                 verticalAlign: 'middle'
             },
             series: [{
-                name: 'children_out_school_male',
-                data: children_out_school_male
+                name: 'health_expenditure_in_percentage',
+                data: health_expenditure_in_percentage
             },
             {
-                name: 'children_out_school_female',
-                data: children_out_school_female
+                name: 'doctor_per_1000_habitant',
+                data: doctor_per_1000_habitant
             },{
-                name: 'children_out_school_total',
-                data: children_out_school_total
+                name: 'hospital_bed',
+                data: hospital_bed
             }],
             responsive: {
                 rules: [{
