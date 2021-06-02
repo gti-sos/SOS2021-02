@@ -22,8 +22,8 @@
         <p1>
            APIs Externas 
         </p1>
-        <a href="#/imdbExt"
-                ><Button color="warning">Gráfica IMDB</Button></a>
+        <a href="#/coinExt"
+                ><Button color="warning">Gráfica COIN</Button></a>
         
     </Jumbotron>
     <Jumbotron>

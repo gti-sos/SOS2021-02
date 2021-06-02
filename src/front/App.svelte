@@ -21,7 +21,7 @@
 	import OilChart from './integrations/oil/oilChart.svelte';
 	import FoodconsumptionGraph from './integrations/nuts/foodconsumption-graph.svelte';
 	import PovertyGraph from './integrations/oil/poverty-graph.svelte';
-	import ImdbExt from './integrations/oil/imdbExt.svelte';
+	import CoinGraph from './integrations/oil/coinExt.svelte';
 	import Ext1Balldontlie from './integrations/nuts/ext1-balldontlie.svelte';
 	import Ext2Ghibli from './integrations/nuts/ext2-ghibli.svelte';
 	import SanityStatsGraph from './integrations/wine/sanity-stats-graph.svelte';
@@ -50,7 +50,7 @@
 		"/obesity-graph": ObesityGraph,
 		"/poverty-graph" : PovertyGraph,
 		"/oil-chart": OilChart,
-		"/imdbExt": ImdbExt,
+		"/coinExt": CoinGraph,
 		"/children-school-graph": ChildrenSchoolGraph,
 		"/sanity-stats-graph": SanityStatsGraph,
 		"*": NotFound
