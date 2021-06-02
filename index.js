@@ -30,6 +30,13 @@ oilAPI1.register(app);
 
 var oilAPI =  require("./src/back/oilAPI/v2");
 oilAPI.register(app);
+//proxyExt
+var proxyImdb = "https://sg.media-imdb.com/suggests/a/aa.json"
+var pathProxyImdb = "/proxyImdb"
+app.use(pathProxyImdb, function(req,res){
+	console.log("Piped:" + req.baseUrl + req.url);
+	req.pipe(request(proxyImd)).pipe(res);
+});
 //=========================================== AFB =========================================================
 var wineAPI =  require("./src/back/wineAPI/v2");
 wineAPI.register(app);
