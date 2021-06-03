@@ -16,7 +16,7 @@
     
     async function loadGraph(){  
 
-        const coins = await fetch(URL);
+        const coins = await fetch("/proxyCoin");
         if(coins.ok){
             coinsData = await coins.json();
             
