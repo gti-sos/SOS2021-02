@@ -1,7 +1,11 @@
 <script>
     import {
+        pop
+    } from "svelte-spa-router";
+    import {
         onMount
     } from "svelte";
+    import Button from "sveltestrap/src/Button.svelte";
  
     //let generalData = [];   
     let nutsData = [];
@@ -91,4 +95,5 @@
     <figure class="highcharts-figure">
         <div id="container"></div>
     </figure>  
+    <Button outline color="secondary" on:click="{pop}">Atrás</Button>
 </main>
