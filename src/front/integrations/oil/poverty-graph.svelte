@@ -28,7 +28,10 @@
     }
     
     async function loadGraph(){  
+        const load = await fetch("https://endpoint-poverty-risks.herokuapp.com/api/v1/loadInitialData");
+        if(load.ok){
 
+        
         const poverty = await fetch(URL);
         if(poverty.ok){
             povertyData = await poverty.json();
@@ -57,7 +60,9 @@
         }else{
             console.log("Error loading poverty");
         }
-        
+    }else{
+        console.log("Los datos no estan cargados correctamente.")
+    }
         
 
         console.log(mapa);

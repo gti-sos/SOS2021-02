@@ -76,4 +76,5 @@
 
     <main>
         <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+        <Button outline color="secondary" on:click="{pop}">Atrás</Button> 
         </main>
