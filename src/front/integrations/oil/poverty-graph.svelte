@@ -14,7 +14,7 @@
     let percentagePoverty = [];
     let ejeX = [];
     var mapa = new Map();
-    var URL = " https://endpoint-poverty-risks.herokuapp.com/api/v1/"
+    var URL = " https://endpoint-poverty-risks.herokuapp.com/api/v1/" // Si no carga la página esque hay que hacer un loadInitialData en el enlace de la API.
 
 
     function filtraElementos(value, key, map) {

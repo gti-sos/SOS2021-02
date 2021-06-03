@@ -29,7 +29,7 @@
 	import SanityStatsGraph from './integrations/wine/sanity-stats-graph.svelte';
 	import NutsGraphPlotly from './nutsAPI/NutsGraphPlotly.svelte';
 	import CoinstatsEXT1Graph from './integrations/wine/coinstatsEXT1.svelte';
-	//import WineEdite from './integrations/wine/wineApi.svelte';
+	import WineEdite from './integrations/wine/wineMorris.svelte';
 	
 
 
@@ -62,7 +62,7 @@
 		"/children-school-graph": ChildrenSchoolGraph,
 		"/sanity-stats-graph": SanityStatsGraph,
 		"/coinstatsEXT1" : CoinstatsEXT1Graph,
-		//"/wineApi" : WineEdite,
+		"/wineMorris" : WineEdite,
 		"*": NotFound
 	};
 </script>
