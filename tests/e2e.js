@@ -4,7 +4,7 @@ var n = 1;
 (async () => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
-  await page.goto('http://localhost:10000/');
+  await page.goto('https://sos2021-02.herokuapp.com/');
   await page.waitForTimeout(1000);
   await page.screenshot({ path: './tests/'+n+'_Principal.png' });
   n++;
