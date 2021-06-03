@@ -25,6 +25,8 @@
 	import CoinloreGraph from './integrations/oil/coinloreExt.svelte';
 	import Ext1Balldontlie from './integrations/nuts/ext1-balldontlie.svelte';
 	import Ext2Ghibli from './integrations/nuts/ext2-ghibli.svelte';
+	import SanityStatsGraph from './integrations/wine/sanity-stats-graph.svelte';
+	import NutsGraphPlotly from './nutsAPI/NutsGraphPlotly.svelte';
 
 
 	const routes = {
@@ -37,6 +39,7 @@
 		"/wine-production-stats/:country/:year": WineEdit,
 		"/info": Info,
 		"/nuts-graph": NutsGraph,
+		"/nuts-graph-plotly": NutsGraphPlotly,
 		"/food-consumption-graph": FoodconsumptionGraph,
 		"/childre-employment-graph": ChildrenEmploymentGraph,
 		"/ext1-balldontlie": Ext1Balldontlie,
@@ -53,6 +56,7 @@
 		"/coinExt": CoinGraph,
 		"/coinloreExt": CoinloreGraph,
 		"/children-school-graph": ChildrenSchoolGraph,
+		"/sanity-stats-graph": SanityStatsGraph,
 		"*": NotFound
 	};
 </script>

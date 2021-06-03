@@ -92,8 +92,10 @@
               ><Button color="primary">Documentación de Postman v2</Button></a
               >
         <a href="#/nuts-graph"
-              ><Button color="warning">Gráfica</Button></a
+              ><Button color="warning">Gráfica High</Button></a
               >
+        <a href="#/nuts-graph-plotly">
+          <Button color="warning">Gráfica Plotly</Button></a>
         <ul>
             <p1>Antonio José Marín Rodríguez. Fuente: <a href="https://sos2021-02.herokuapp.com/api/v2/nuts-production-stats"> nuts-production-stats</a></p1>
         </ul>

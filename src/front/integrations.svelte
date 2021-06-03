@@ -32,6 +32,8 @@
         <p>INTEGRACIONES VINO</p>
         <a href="#/children-school-graph"
         ><Button color="warning">Gráfica children-school</Button></a>
+        <a href="#/sanity-stats-graph"
+        ><Button color="warning">Gráfica sanity-stats</Button></a>
     </Jumbotron>
     <Jumbotron>
         <p>INTEGRACIONES FRUTOS SECOS</p>
