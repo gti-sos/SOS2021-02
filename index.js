@@ -3,7 +3,7 @@ var cool = require("cool-ascii-faces");
 var express = require("express");
 var path = require("path");
 var bodyParser = require("body-parser");
-
+var request = require("request");
 var port = (process.env.PORT || 10000);
 //var BASE_API_PATH = "/api/v1/";
 var app = express();
@@ -31,11 +31,11 @@ oilAPI1.register(app);
 var oilAPI =  require("./src/back/oilAPI/v2");
 oilAPI.register(app);
 //proxyExt
-var proxyImdb = "https://sg.media-imdb.com/suggests/a/aa.json"
-var pathProxyImdb = "/proxyImdb"
-app.use(pathProxyImdb, function(req,res){
+var proxyCoinlore = "https://api.coinlore.net/api/tickers/?start=20&limit=10"
+var pathProxyCoinlore = "/proxyCoinlore"
+app.use(pathProxyCoinlore, function(req,res){
 	console.log("Piped:" + req.baseUrl + req.url);
-	req.pipe(request(proxyImd)).pipe(res);
+	req.pipe(request(proxyCoinlore)).pipe(res);
 });
 //=========================================== AFB =========================================================
 var wineAPI =  require("./src/back/wineAPI/v2");

@@ -24,6 +24,8 @@
         </p1>
         <a href="#/coinExt"
                 ><Button color="warning">Gráfica COIN</Button></a>
+        <a href="#/coinloreExt"
+                ><Button color="warning">Gráfica Cryptomonedas</Button></a>
         
     </Jumbotron>
     <Jumbotron>

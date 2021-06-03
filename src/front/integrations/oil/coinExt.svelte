@@ -14,7 +14,6 @@
     let market = [];
     var URL = "https://api.coincap.io/v2/assets";
 
-    //sumar puntajes y hacer proporcion
     async function loadGraph(){  
 
         const coins = await fetch(URL);
@@ -23,14 +22,7 @@
             console.log(`We have received ${coinsData.length} data points: `);
             console.log(JSON.stringify(coinsData,null,2));
             coinsData.data.forEach(data => {
-                /*if(dato.id && dato.rank){
-                    var nombre = dato.id;
-                    var supply = parseInt(dato.supply);
-                    var maxSupply = parseInt(dato.maxSupply);
-                    var market = parseInt(dato.marketCapUsd);
-                    let aux = [nombre,supply, maxSupply, market];
-                    
-                }*/
+                
                 ejeX.push(data.id + "-"+ parseInt(data.rank));
                 supply.push(parseFloat(data.supply));
                 maxSupply.push(parseFloat(data.maxSupply));
@@ -41,16 +33,7 @@
             console.log("Error loading coins");
         }
         
-        //console.log(actor);
-        //console.log(visitor);
-
-
-        //console.log("Locales: " + local_p);
-        //console.log("Visitantes: " + visitor_p);
-
-        // Radialize the colors
-
-        // Build the chart
+        
         Highcharts.chart('container', {
             chart:{
                 type: 'spline',
