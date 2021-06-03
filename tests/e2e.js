@@ -4,7 +4,7 @@ var n = 1;
 (async () => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
-  await page.goto('https://sos2021-02.herokuapp.com/');
+  await page.goto('http://localhost:10000/');
   await page.waitForTimeout(1000);
   await page.screenshot({ path: './tests/'+n+'_Principal.png' });
   n++;
@@ -17,7 +17,7 @@ var n = 1;
   await page.click("body > main > main > a:nth-child(2)");
   await page.waitForTimeout(1000);
   await page.screenshot({ path: './tests/'+n+'_Componentes.png' });
-  await page.goto('https://sos2021-02.herokuapp.com/#/info');
+  await page.goto('http://localhost:10000/#/info');
   n++;
 
   //Grafica general
@@ -83,7 +83,7 @@ var n = 1;
   await page.screenshot({ path: './tests/'+n+'_EXT2ghibli.png' });
   await page.click("body > main > main > button");
   n++;
-  await page.goto('https://sos2021-02.herokuapp.com/#/info');
+  await page.goto('http://localhost:10000/#/info');
   
 
   //OIL Tabla
