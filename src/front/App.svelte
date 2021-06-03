@@ -10,11 +10,9 @@
 	import NotFound from './NotFound.svelte';
 	import Info from './Info.svelte';
 	import NutsGraph from './nutsAPI/NutsGraph.svelte';
-	
-	//import NutsGraphc3 from './nutsAPI/NutsGraphC3.svelte';
 	import OilGraph from './oilAPI/OilGraph.svelte';
 	import WineGraph from './wineAPI/WineGraph.svelte';
-	import GeneralGraph from './GeneralGraph.svelte';
+	import Analytics from './GeneralGraph.svelte';
 	import Integrations from './integrations.svelte';
 	import ChildrenEmploymentGraph from './integrations/nuts/children-employment-graph.svelte';
 	import ObesityGraph from './integrations/oil/obesity-graph.svelte';
@@ -30,6 +28,7 @@
 	import NutsGraphPlotly from './nutsAPI/NutsGraphPlotly.svelte';
 	import CoinstatsEXT1Graph from './integrations/wine/coinstatsEXT1.svelte';
 	import WineEdite from './integrations/wine/wineMorris.svelte';
+	import About from './About.svelte';
 	
 
 
@@ -48,10 +47,10 @@
 		"/childre-employment-graph": ChildrenEmploymentGraph,
 		"/ext1-balldontlie": Ext1Balldontlie,
 		"/ext2-aoe": Ext2Ghibli,
-		//"/nuts-graphc3": NutsGraphc3,
 		"/oil-graph": OilGraph,
 		"/wine-graph": WineGraph,
-		"/general-graph": GeneralGraph,
+		"/analytics": Analytics,
+		"/About": About,
 		"/integrations": Integrations,
 		"/children-employment-graph": ChildrenEmploymentGraph,
 		"/obesity-graph": ObesityGraph,

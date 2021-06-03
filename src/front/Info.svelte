@@ -11,11 +11,13 @@
       <a href="old_index_static.html"> Ver la información de los componentes del grupo</a>
 
       <Jumbotron>
-        <p>Grafico General</p>
+        <p>General</p>
         <div>
-          <a href="#/general-graph"
-                ><Button color="primary">Grafica</Button></a
+          <a href="#/analytics"
+                ><Button color="primary">Gráfica General (Analytics)</Button></a
               >
+          <a href="#/about">
+            <Button color="primary">About</Button></a>
         </div>
     <ul>
         <p1>Grafico general del grupo</p1>
