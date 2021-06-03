@@ -10,6 +10,7 @@
 	import NotFound from './NotFound.svelte';
 	import Info from './Info.svelte';
 	import NutsGraph from './nutsAPI/NutsGraph.svelte';
+	
 	//import NutsGraphc3 from './nutsAPI/NutsGraphC3.svelte';
 	import OilGraph from './oilAPI/OilGraph.svelte';
 	import WineGraph from './wineAPI/WineGraph.svelte';
@@ -27,6 +28,9 @@
 	import Ext2Ghibli from './integrations/nuts/ext2-ghibli.svelte';
 	import SanityStatsGraph from './integrations/wine/sanity-stats-graph.svelte';
 	import NutsGraphPlotly from './nutsAPI/NutsGraphPlotly.svelte';
+	import CoinstatsEXT1Graph from './integrations/wine/coinstatsEXT1.svelte';
+	import WineEdite from './integrations/wine/wineApi.svelte';
+	
 
 
 	const routes = {
@@ -57,6 +61,8 @@
 		"/coinloreExt": CoinloreGraph,
 		"/children-school-graph": ChildrenSchoolGraph,
 		"/sanity-stats-graph": SanityStatsGraph,
+		"/coinstatsEXT1" : CoinstatsEXT1Graph,
+		"/wineApi" : WineEdite,
 		"*": NotFound
 	};
 </script>

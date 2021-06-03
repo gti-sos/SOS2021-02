@@ -40,7 +40,13 @@ app.use(pathProxyCoinlore, function(req,res){
 //=========================================== AFB =========================================================
 var wineAPI =  require("./src/back/wineAPI/v2");
 wineAPI.register(app);
-
+//proxyExt
+var proxyCoin = "https://api.coinstats.app/public/v1/coins?"
+var pathProxyCoin = "/proxyCoin"
+app.use(pathProxyCoin , function(req,res){
+	console.log("Piped:" + req.baseUrl + req.url);
+	req.pipe(request(proxyCoin)).pipe(res);
+});
 // =======================================Codigo de grupo===========================
 app.listen(port, () => {//la segunda parte del listen se ejecuta cuando el servidor esta listo
 	console.log("Server ready. Listening on port " + port);
