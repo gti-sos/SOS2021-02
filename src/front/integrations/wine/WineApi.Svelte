@@ -1,4 +1,4 @@
-<!-- Hecho con morris-->
+
 
 <script>
     import Button from "sveltestrap/src/Button.svelte";
@@ -41,8 +41,11 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
     </svelte:head>
+    <main>
     <h2 style="text-align: center">Produccion de vino por año (2009 - 2011)</h2>
     
     <div id="AwesomeChart" style="height: 250px;"></div>
     <p></p>
     <p></p>
+
+    </main>
