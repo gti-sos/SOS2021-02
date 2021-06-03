@@ -36,8 +36,9 @@
         ><Button color="warning">Gráfica sanity-stats</Button></a>
         <a href="#/coinstatsEXT1"
         ><Button color="warning">Gráfica coins</Button></a>
-        <a href="#/wineApi"
+        <!--<a href="#/wineApi"
         ><Button color="warning">Gráfica wineApi</Button></a>
+        -->
     </Jumbotron>
     <Jumbotron>
         <p>INTEGRACIONES FRUTOS SECOS</p>
