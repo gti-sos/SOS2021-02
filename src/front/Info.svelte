@@ -73,9 +73,12 @@
         <a href="https://documenter.getpostman.com/view/14969253/TzRNEpmA"
           ><Button color="primary">Documentación de Postman v2</Button></a
         >
-        <!--<a href="#/wine-graph"
+        <a href="#/wine-graph"
         ><Button color="warning">Gráfica</Button></a
-      >-->
+        >
+        <a href="#/wineMorris"
+        ><Button color="warning">Gráfica Morris</Button></a
+        >
         
         <ul>
             <p1>Alejandro Fernández Baena. Fuente: <a href="https://sos2021-02.herokuapp.com/api/v2/wine-production-stats"> wine-production-stats</a></p1>
