@@ -40,12 +40,19 @@ app.use(pathProxyCoinlore, function(req,res){
 //=========================================== AFB =========================================================
 var wineAPI =  require("./src/back/wineAPI/v2");
 wineAPI.register(app);
-//proxyExt
+//proxyExt1
 var proxyCoin = "https://api.coinstats.app/public/v1/coins?"
 var pathProxyCoin = "/proxyCoin"
 app.use(pathProxyCoin , function(req,res){
 	console.log("Piped:" + req.baseUrl + req.url);
 	req.pipe(request(proxyCoin)).pipe(res);
+});
+//proxyExt2
+var proxyGive = "https://www.gamerpower.com/api/giveaways"
+var pathProxyGive = "/proxyGive"
+app.use(pathProxyGive , function(req,res){
+	console.log("Piped:" + req.baseUrl + req.url);
+	req.pipe(request(proxyGive)).pipe(res);
 });
 // =======================================Codigo de grupo===========================
 app.listen(port, () => {//la segunda parte del listen se ejecuta cuando el servidor esta listo

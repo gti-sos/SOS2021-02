@@ -28,6 +28,7 @@
 	import NutsGraphPlotly from './nutsAPI/NutsGraphPlotly.svelte';
 	import CoinstatsEXT1Graph from './integrations/wine/coinstatsEXT1.svelte';
 	import WineEdite from './integrations/wine/wineMorris.svelte';
+	import GivestatsEXT2Graph from './integrations/wine/giveEXT2.svelte';
 	import About from './About.svelte';
 	
 
@@ -62,6 +63,7 @@
 		"/sanity-stats-graph": SanityStatsGraph,
 		"/coinstatsEXT1" : CoinstatsEXT1Graph,
 		"/wineMorris" : WineEdite,
+		"/giveEXT2" : GivestatsEXT2Graph,
 		"*": NotFound
 	};
 </script>

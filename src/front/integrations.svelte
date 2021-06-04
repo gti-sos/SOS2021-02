@@ -33,8 +33,13 @@
         ><Button color="warning">Gráfica children-school</Button></a>
         <a href="#/sanity-stats-graph"
         ><Button color="warning">Gráfica sanity-stats</Button></a>
+        <p1>
+            APIs Externas 
+         </p1>
         <a href="#/coinstatsEXT1"
         ><Button color="warning">Gráfica coins</Button></a>
+        <a href="#/giveEXT2"
+        ><Button color="warning">Gráfica reddit</Button></a>
         <a href="#/wineMorris"
         ><Button color="warning">Gráfica wineMorris</Button></a>
     </Jumbotron>
