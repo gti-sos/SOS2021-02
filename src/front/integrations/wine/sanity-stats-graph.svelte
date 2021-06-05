@@ -125,7 +125,7 @@
                   Se muestra el número de camas en hospitales en varios países y años.
                 </p>
               </figure>
-              <Button id="back" outline color="secondary" on:click="{pop}"> Atrás</Button>
+              <Button outline color="secondary" on:click="{pop}">Atrás</Button> 
             </div>
       </main>
       

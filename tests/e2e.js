@@ -27,7 +27,7 @@ var n = 1;
 
   //Grafica general
   await page.click("body > main > main > div:nth-child(3) > div:nth-child(2) > a");
-  await page.waitForTimeout(4000);
+  await page.waitForTimeout(6000);
   await page.screenshot({ path: './tests/'+n+'_GraficaGeneral.png' });
   await page.click("body > main > main > button");
   n++;
@@ -63,9 +63,27 @@ var n = 1;
   await page.click("body > main > main > button");
   n++;
   //Integraciones Wine
-
-
-
+  await page.click("body > main > main > div:nth-child(3) > a:nth-child(2)");
+  await page.waitForTimeout(3000);
+  await page.screenshot({ path: './tests/'+n+'_schoolGraph.png' });
+  await page.click("body > main > main > button");
+  n++;
+  await page.click("body > main > main > div:nth-child(3) > a:nth-child(3) > button");
+  await page.waitForTimeout(3000);
+  await page.screenshot({ path: './tests/'+n+'_sanityGraph.png' });
+  await page.click("body > main > main > div:nth-child(2) > button");
+  n++;
+  await page.click("body > main > main > div:nth-child(3) > a:nth-child(5)");
+  await page.waitForTimeout(4000);
+  await page.screenshot({ path: './tests/'+n+'_coinsGraph.png' });
+  await page.click("body > main > main > button");
+  n++;
+  await page.click("body > main > main > div:nth-child(3) > a:nth-child(6)");
+  await page.waitForTimeout(5000);
+  await page.screenshot({ path: './tests/'+n+'_giveGraph.png' });
+  await page.click("body > main > main > button");
+  n++;
+  
 
   //Integraciones Nuts
   await page.click("body > main > main > div:nth-child(4) > a:nth-child(2)");
@@ -154,6 +172,64 @@ var n = 1;
    await page.click("body > main > main > button");
    n++;
   //WINE
+
+  //WINE Tabla
+  await page.click("body > main > main > div:nth-child(5) > a:nth-child(2)");
+  await page.waitForTimeout(1000);
+  await page.screenshot({ path: './tests/'+n+'_WineTable.png' });
+  n++;
+  //Cargar datos iniciales
+  await page.click("body > main > main > button.btn.btn-outline-primary");
+  await page.waitForTimeout(1000);
+  //Insertar nuevo dato
+  await page.focus("body > main > main > table.table.table-bordered > tbody > tr:nth-child(1) > td:nth-child(1) > input");
+  await page.keyboard.type("Alemania");
+ 
+  await page.focus("body > main > main > table.table.table-bordered > tbody > tr:nth-child(1) > td:nth-child(2) > input");
+  await page.keyboard.type("1");
+ 
+  await page.focus("body > main > main > table.table.table-bordered > tbody > tr:nth-child(1) > td:nth-child(3) > input");
+  await page.keyboard.type("1");
+ 
+  await page.focus("body > main > main > table.table.table-bordered > tbody > tr:nth-child(1) > td:nth-child(4) > input");
+  await page.keyboard.type("1");
+ 
+  await page.focus("body > main > main > table.table.table-bordered > tbody > tr:nth-child(1) > td:nth-child(5) > input");
+  await page.keyboard.type("1");
+ 
+  await page.click("body > main > main > table.table.table-bordered > tbody > tr:nth-child(1) > td:nth-child(6) > button");
+  await page.waitForTimeout(1000);
+  await page.screenshot({ path: './tests/'+n+'_InsertWineData.png' });
+  n++;
+  //Buscar el dato insertado 
+  await page.focus("body > main > main > table:nth-child(3) > tbody > tr > td:nth-child(1) > input");
+  await page.keyboard.type("Alemania");
+  
+  await page.click("body > main > main > table:nth-child(3) > tbody > tr > td:nth-child(6) > button");
+  await page.waitForTimeout(1000);
+  await page.screenshot({ path: './tests/'+n+'_SearchWineData.png' });
+   n++;
+  //Eliminamos el dato buscado el dato insertado anteriormente
+  await page.click("body > main > main > table.table.table-bordered > tbody > tr:nth-child(2) > td:nth-child(6) > button");
+  await page.waitForTimeout(1000);
+  await page.screenshot({ path: './tests/'+n+'_DeleteWineData.png' });
+  n++;
+  
+  await page.click("body > main > main > button.btn.btn-outline-secondary");
+  n++;
+  //WINE Grafica Highcharts completa
+  await page.click("body > main > main > div:nth-child(5) > a:nth-child(6) > button");
+  await page.waitForTimeout(3000);
+  await page.screenshot({ path: './tests/'+n+'_winegraphinitial.png' });
+  await page.click("body > main > main > button");
+  n++;
+ //WINE Grafica Morris
+  await page.click("body > main > main > div:nth-child(5) > a:nth-child(7) > button");
+  await page.waitForTimeout(3000);
+  await page.screenshot({ path: './tests/'+n+'_MorrisWineGraph.png' });
+  await page.click("#AwesomeChart > button");
+  n++;
+ 
 
 
   //NUTS Tabla

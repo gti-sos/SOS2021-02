@@ -781,6 +781,14 @@
 		{
 			"key": "PORT",
 			"value": "10000"
+		},
+		{
+			"key": "HEROKU",
+			"value": "https://sos2021-02.herokuapp.com"
+		},
+		{
+			"key": "LOCALHOST",
+			"value": "localhost:10000"
 		}
 	]
 }

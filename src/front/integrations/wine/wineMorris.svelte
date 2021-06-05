@@ -43,7 +43,9 @@
     <main>
     <h2 style="text-align: center">Produccion de vino por año (2009 - 2011)</h2>
     
-    <div id="AwesomeChart" style="height: 250px;"></div>
+    <div id="AwesomeChart" style="height: 250px;">
+        <Button outline color="secondary" on:click="{pop}">Atrás</Button> 
+    </div>
     <p></p>
     <p></p>
 
