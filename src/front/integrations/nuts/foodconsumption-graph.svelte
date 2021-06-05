@@ -60,74 +60,31 @@
 
         mapa.forEach(filtraElementos);
 
-        Highcharts.chart('container', {
-            chart:{
-                type: 'bar'
-            },
-            title: {
-                text: 'Gráfico General'
-            },
-            yAxis: {
-                title: {
-                    text: 'Cantidad'
-                }
-            },
-            xAxis: {
-                title: {
-                    text: 'Año'
-                },
-                categories: ejeX
-            },
-            legend: {
-                layout: 'vertical',
-                align: 'right',
-                verticalAlign: 'middle'
-            },
-            series: [{
-                name: 'caloryperperson',
-                data: caloryPer
-            },
-            {
-                name: 'gramperperson',
-                data: gramPer
-            },{
-                name: 'dailygram',
-                data: dailyGram
-            },
-            {
-                name: 'dailycalory',
-                data: dailyCal
-            }],
-            responsive: {
-                rules: [{
-                    condition: {
-                        maxWidth: 500
-                    },
-                    chartOptions: {
-                        legend: {
-                            layout: 'horizontal',
-                            align: 'center',
-                            verticalAlign: 'bottom'
-                        }
-                    }
-                }]
-            }
-        });
+        var trace1 = {
+        x: caloryPer,
+        y: gramPer,
+        text: ejeX,
+        mode: 'markers',
+        };
+
+        var data = [trace1];
+
+        var layout = {
+        title: 'Gráfico que muestra una comparativa de calorías-gramos ingeridos por persona en diferentes países y fechas',
+        showlegend: false,
+        height: 1000,
+        width: 1000
+        };
+
+        Plotly.newPlot('graph', data, layout);
   }
 </script>
 
 <svelte:head>
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/series-label.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script src="https://code.highcharts.com/modules/export-data.js"></script>
-    <script src="https://code.highcharts.com/modules/accessibility.js" on:load="{loadGraph}"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js" on:load="{loadGraph}"></script>
 </svelte:head>
 
 <main>
-    <figure class="highcharts-figure">
-        <div id="container"></div>
-        
-    </figure> 
+    <div id="graph"></div>
     <Button outline color="secondary" on:click="{pop}">Atrás</Button> 
 </main>
