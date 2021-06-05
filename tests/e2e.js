@@ -2,7 +2,10 @@ const puppeteer = require('puppeteer');
 var n = 1;
 
 (async () => {
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({
+    headless: false
+  });
+  
   const page = await browser.newPage();
   await page.goto('http://localhost:10000/');
   await page.waitForTimeout(1000);
@@ -53,7 +56,7 @@ var n = 1;
   n++;
 
   await page.click("body > main > main > div:nth-child(2) > a:nth-child(5)");
-  await page.waitForTimeout(3000);
+  await page.waitForTimeout(5000);
   await page.screenshot({ path: './tests/'+n+'_OilExterna2.png' });
   await page.click("body > main > main > button");
   n++;
@@ -90,6 +93,48 @@ var n = 1;
   await page.click("body > main > main > div:nth-child(4) > a:nth-child(2)");
   await page.waitForTimeout(1000);
   await page.screenshot({ path: './tests/'+n+'_OilTable.png' });
+  n++;
+  //Cargamos los datos iniciales
+  await page.click("body > main > main > button.btn.btn-outline-primary");
+  await page.waitForTimeout(1000);
+
+
+  //Insertamos un nuevo dato
+  await page.focus("body > main > main > table.table.table-bordered > tbody > tr:nth-child(1) > td:nth-child(1) > input");
+  await page.keyboard.type("PruebaInsert");
+
+  await page.focus("body > main > main > table.table.table-bordered > tbody > tr:nth-child(1) > td:nth-child(2) > input");
+  await page.keyboard.type("1");
+
+  await page.focus("body > main > main > table.table.table-bordered > tbody > tr:nth-child(1) > td:nth-child(3) > input");
+  await page.keyboard.type("1");
+
+  await page.focus("body > main > main > table.table.table-bordered > tbody > tr:nth-child(1) > td:nth-child(4) > input");
+  await page.keyboard.type("1");
+
+  await page.focus("body > main > main > table.table.table-bordered > tbody > tr:nth-child(1) > td:nth-child(5) > input");
+  await page.keyboard.type("1");
+
+  await page.click("body > main > main > table.table.table-bordered > tbody > tr:nth-child(1) > td:nth-child(6) > button");
+  await page.waitForTimeout(1000);
+  await page.screenshot({ path: './tests/'+n+'_InsertOilData.png' });
+  n++;
+
+  //Buscamos el dato insertado anteriormente
+  await page.focus("body > main > main > table:nth-child(3) > tbody > tr > td:nth-child(1) > input");
+  await page.keyboard.type("PruebaInsert");
+
+  await page.click("body > main > main > table:nth-child(3) > tbody > tr > td:nth-child(6) > button");
+  await page.waitForTimeout(1000);
+  await page.screenshot({ path: './tests/'+n+'_SearchOilData.png' });
+  n++;
+
+  //Eliminamos el dato buscado el dato insertado anteriormente
+  await page.click("body > main > main > table.table.table-bordered > tbody > tr:nth-child(2) > td:nth-child(6) > button");
+  await page.waitForTimeout(1000);
+  await page.screenshot({ path: './tests/'+n+'_DeleteOilData.png' });
+  n++;
+
   await page.click("body > main > main > button.btn.btn-outline-secondary");
   n++;
 
