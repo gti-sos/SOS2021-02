@@ -35,7 +35,7 @@
             type: 'area'
             },
             title: {
-                text: 'Gráfico de Vino'
+                text: 'Gráfico de datos de Vino'
             },
             yAxis: {
                 labels: {

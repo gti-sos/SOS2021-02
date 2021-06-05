@@ -38,7 +38,7 @@
                 type: 'bar'
             },
             title: {
-                text: 'Gráfico General'
+                text: 'Gráfico API Externa2'
             },
             yAxis: {
                 title: {

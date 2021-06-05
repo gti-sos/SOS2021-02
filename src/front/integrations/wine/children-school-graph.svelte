@@ -61,7 +61,7 @@
                 type: 'column'
             },
             title: {
-                text: 'Gráfico General'
+                text: 'Gráfico GRUPO 24 - Children-out-school'
             },
             yAxis: {
                 title: {
