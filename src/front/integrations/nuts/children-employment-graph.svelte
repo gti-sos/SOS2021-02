@@ -13,7 +13,7 @@
     let percent_children_employment_t = [];
     let ejeX = [];
     var mapa = new Map();
-    var URL = "https://sos2021-24.herokuapp.com/api/v2/children-employment";
+    var URL = "/proxyChi";
 
     function filtraElementos(value, key, map) {
         if(value){
@@ -56,70 +56,41 @@
 
         mapa.forEach(filtraElementos);
 
-        Highcharts.chart('container', {
-            chart:{
-                type: 'bar'
-            },
-            title: {
-                text: 'Gráfico General'
-            },
-            yAxis: {
-                title: {
-                    text: 'Cantidad'
-                }
-            },
-            xAxis: {
-                title: {
-                    text: 'Año'
-                },
-                categories: ejeX
-            },
-            legend: {
-                layout: 'vertical',
-                align: 'right',
-                verticalAlign: 'middle'
-            },
-            series: [{
-                name: 'percent_children_employment_m',
-                data: percent_children_employment_m
-            },
-            {
-                name: 'percent_children_employment_f',
-                data: percent_children_employment_f
-            },{
-                name: 'percent_children_employment_t',
-                data: percent_children_employment_t
-            }],
-            responsive: {
-                rules: [{
-                    condition: {
-                        maxWidth: 500
-                    },
-                    chartOptions: {
-                        legend: {
-                            layout: 'horizontal',
-                            align: 'center',
-                            verticalAlign: 'bottom'
-                        }
-                    }
-                }]
-            }
-        });
+        var trace1 = {
+        x: ejeX,
+        y: percent_children_employment_m,
+        name: 'Niños',
+        type: 'bar'
+        };
+
+        var trace2 = {
+        x: ejeX,
+        y: percent_children_employment_f,
+        name: 'Niñas',
+        type: 'bar'
+        };
+
+        var trace3 = {
+        x: ejeX,
+        y: percent_children_employment_t,
+        name: 'Total',
+        type: 'bar'
+        };
+
+        var data = [trace1, trace2, trace3];
+
+        var layout = {barmode: 'group'};
+
+        Plotly.newPlot('graph', data, layout);
   }
 </script>
 
 <svelte:head>
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/series-label.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script src="https://code.highcharts.com/modules/export-data.js"></script>
-    <script src="https://code.highcharts.com/modules/accessibility.js" on:load="{loadGraph}"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js" on:load="{loadGraph}"></script>
 </svelte:head>
 
 <main>
-    <figure class="highcharts-figure">
-        <div id="container"></div>
-        
-    </figure> 
+    <p>Porcentaje de menores de edad trabajando en distintos países</p>
+    <div id="graph"></div>
     <Button outline color="secondary" on:click="{pop}">Atrás</Button> 
 </main>

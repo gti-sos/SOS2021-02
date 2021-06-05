@@ -23,6 +23,14 @@ app.use(bodyParser.json());
 var nutsAPI =  require("./src/back/nutsAPI/v2");
 nutsAPI.register(app);
 
+//proxy Children employment
+var proxyChi = "https://sos2021-24.herokuapp.com/api/v2/children-employment"
+var pathProxyChi = "/proxyChi"
+app.use(pathProxyChi, function(req,res){
+	console.log("Piped:" + req.baseUrl + req.url);
+	req.pipe(request(proxyChi)).pipe(res);
+});
+
 
 //=========================================== JMGD =========================================================
 var oilAPI1 =  require("./src/back/oilAPI/v1");
