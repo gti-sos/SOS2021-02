@@ -8,13 +8,8 @@
     import Button from "sveltestrap/src/Button.svelte";
     
     let extcoin = [];
-    let ejeX= [];
-    let priceUsd = [];
-    let percent24 = [];
-    let percent1 = [];
-    let percent7 = [];
-    let Datos = [];
-    var URL = "https://api.coinlore.net/api/tickers/?start=20&limit=10";
+    
+    //var URL = "https://api.coinlore.net/api/tickers/?start=20&limit=10";
 //"/proxyCoinlore"
    
     async function loadGraph(){  
