@@ -39,7 +39,7 @@
         <a href="#/coinstatsEXT1"
         ><Button color="warning">Gráfica coins</Button></a>
         <a href="#/giveEXT2"
-        ><Button color="warning">Gráfica reddit</Button></a>
+        ><Button color="warning">Gráfica giveEXT2</Button></a>
         
     </Jumbotron>
     <Jumbotron>

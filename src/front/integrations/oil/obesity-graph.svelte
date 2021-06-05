@@ -60,71 +60,77 @@
 
         
         var chart = new CanvasJS.Chart("chartContainer", {
-	animationEnabled: true,
-	title:{
-		text: "Olympic Medals of all Times (till 2016 Olympics)"
-	},
-	axisY: {
-		title: "Medals",
-		includeZero: true
-	},
-	legend: {
-		cursor:"pointer",
-		itemclick : toggleDataSeries
-	},
-	toolTip: {
-		shared: true,
-		content: toolTipFormatter
-	},
-	data: [{
-		type: "bar",
-		showInLegend: true,
-		name: "manPercent",
-		color: "gold",
-		dataPoints: dataMan
-	},
-	{
-		type: "bar",
-		showInLegend: true,
-		name: "womanPercent",
-		color: "silver",
-		dataPoints: dataWoman
-	},
-	{
-		type: "bar",
-		showInLegend: true,
-		name: "totalPopulation",
-		color: "#A57164",
-		dataPoints: dataTotal
-	}]
-});
-chart.render();
+            animationEnabled: true,
+            title:{
+                text: "Datos Obesidad en el mundo"
+            },
+            axisY: {
+                title: "Unidades",
+                includeZero: true
+            },
+            axisX: {
+                margin: 50,
+                labelPlacement: "outside",
+                interval: 1,
+                tickPlacement: "outside"
+            },
+            legend: {
+                cursor:"pointer",
+                itemclick : toggleDataSeries
+            },
+            toolTip: {
+                shared: true,
+                content: toolTipFormatter
+            },
+            data: [{
+                type: "bar",
+                showInLegend: true,
+                name: "manPercent",
+                color: "gold",
+                dataPoints: dataMan
+            },
+            {
+                type: "bar",
+                showInLegend: true,
+                name: "womanPercent",
+                color: "silver",
+                dataPoints: dataWoman
+            },
+            {
+                type: "bar",
+                showInLegend: true,
+                name: "totalPopulation",
+                color: "#A57164",
+                dataPoints: dataTotal
+            }]
+        });
+        chart.render();
 
-function toolTipFormatter(e) {
-	var str = "";
-	var total = 0 ;
-	var str3;
-	var str2 ;
-	for (var i = 0; i < e.entries.length; i++){
-		var str1 = "<span style= \"color:"+e.entries[i].dataSeries.color + "\">" + e.entries[i].dataSeries.name + "</span>: <strong>"+  e.entries[i].dataPoint.y + "</strong> <br/>" ;
-		total = e.entries[i].dataPoint.y + total;
-		str = str.concat(str1);
-	}
-	str2 = "<strong>" + e.entries[0].dataPoint.label + "</strong> <br/>";
-	str3 = "<span style = \"color:Tomato\">Total: </span><strong>" + total + "</strong><br/>";
-	return (str2.concat(str)).concat(str3);
-}
+        function toolTipFormatter(e) {
+            var str = "";
+            var total = 0 ;
+            var str3;
+            var str2 ;
+            for (var i = 0; i < e.entries.length; i++){
+                var str1 = "<span style= \"color:"+e.entries[i].dataSeries.color + "\">" + e.entries[i].dataSeries.name + "</span>: <strong>"+  e.entries[i].dataPoint.y + "</strong> <br/>" ;
+                total = e.entries[i].dataPoint.y + total;
+                str = str.concat(str1);
+            }
+            str2 = "<strong>" + e.entries[0].dataPoint.label + "</strong> <br/>";
+            str3 = "<span style = \"color:Tomato\">Total: </span><strong>" + total + "</strong><br/>";
+            return (str2.concat(str)).concat(str3);
+        }
 
-function toggleDataSeries(e) {
-	if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
-		e.dataSeries.visible = false;
-	}
-	else {
-		e.dataSeries.visible = true;
-	}
-	chart.render();
-}
-  }
+        function toggleDataSeries(e) {
+            if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+                e.dataSeries.visible = false;
+            }
+            else {
+                e.dataSeries.visible = true;
+            }
+            chart.render();
+        }
+        }
 </script>
 
 <svelte:head>

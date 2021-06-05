@@ -35,56 +35,45 @@
         
          Highcharts.chart('container', {
             chart:{
-                type: 'bar'
-            },
-            title: {
-                text: 'Gráfico General'
-            },
-            yAxis: {
-                title: {
-                    text: 'Precio'
-                }
-            },
-            xAxis: {
-                title: {
-                    text: 'Nombre'
-                },
-                categories: ejeX
+                type: 'lollipop'
             },
             legend: {
-                layout: 'vertical',
-                align: 'right',
-                verticalAlign: 'middle'
+        enabled: false
+        },
+        title: {
+            text: 'API externa1 coins'
+        },
+        tooltip: {
+             shared: true
+        },
+        xAxis: {
+            type: 'nombre',
+            categories: coinsData
+        },
+        yAxis: {
+            title: {
+             text: 'Precios'
+             }
+        },
+          series: [
+            {
+              name: "Precios",
+              data: price,
+              colorByPoint: true
             },
-            series: [{
-                name: 'price',
-                data: price
-            }],
-            responsive: {
-                rules: [{
-                    condition: {
-                        maxWidth: 500
-                    },
-                    chartOptions: {
-                        legend: {
-                            layout: 'horizontal',
-                            align: 'center',
-                            verticalAlign: 'bottom'
-                        }
-                    }
-                }]
-            }
+          ],
         });
-  }
+      }
 </script>
 
 <svelte:head>
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/series-label.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"on:load={loadGraph}></script>
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
+    <script src="https://code.highcharts.com/modules/dumbbell.js"></script>
+    <script src="https://code.highcharts.com/modules/lollipop.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script src="https://code.highcharts.com/modules/export-data.js"></script>
-    <script src="https://code.highcharts.com/modules/accessibility.js" on:load="{loadGraph}"></script>
-</svelte:head>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+        </svelte:head>
 
 <main>
     <figure class="highcharts-figure">
