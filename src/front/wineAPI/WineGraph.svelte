@@ -31,13 +31,19 @@
         }
 
         Highcharts.chart('container', {
+            chart: {
+            type: 'area'
+            },
             title: {
                 text: 'Gráfico de Vino'
             },
             yAxis: {
-                title: {
-                    text: 'Cantidad'
-                }
+                labels: {
+            format: '{value}%'
+            },
+            title: {
+            enabled: true
+              }
             },
             xAxis: {
                 title: {
@@ -45,6 +51,35 @@
                 },
                 categories: ejeX
             },
+            tickmarkPlacement: 'on',
+            title: {
+               enabled: false
+            },
+            tooltip: {
+            pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.percentage:.1f}%</b> ({point.y:,.0f} millions)<br/>',
+            split: true
+            },
+            plotOptions: {
+            area: {
+            stacking: 'percent',
+            lineColor: '#ffffff',
+            lineWidth: 1,
+            marker: {
+            lineWidth: 1,
+            lineColor: '#ffffff'
+         },
+      accessibility: {
+        pointDescriptionFormatter: function (point) {
+          function round(x) {
+            return Math.round(x * 100) / 100;
+          }
+          return (point.index + 1) + ', ' + point.category + ', ' +
+            point.y + ' millions, ' + round(point.percentage) + '%, ' +
+            point.series.name;
+        }
+      }
+    }
+  },
             legend: {
                 layout: 'vertical',
                 align: 'right',
@@ -62,20 +97,7 @@
                 name: 'Exporte',
                 data: exporte
             }],
-            responsive: {
-                rules: [{
-                    condition: {
-                        maxWidth: 500
-                    },
-                    chartOptions: {
-                        legend: {
-                            layout: 'horizontal',
-                            align: 'center',
-                            verticalAlign: 'bottom'
-                        }
-                    }
-                }]
-            }
+           
         });
   }
 </script>
