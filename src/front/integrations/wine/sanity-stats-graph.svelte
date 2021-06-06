@@ -1,30 +1,28 @@
 <script>
     import Button from "sveltestrap/src/Button.svelte";
     import { pop } from "svelte-spa-router";
-      let Data = [];
-      let CountryDateData = [];
-      let health = [];
-      let doctor = [];
-      let hospital = [];
+      let dato = [];
+      let countryDat = [];
+      let health_exp = [];
+      let doctor_habitant = [];
+      let hospital_b = [];
       const BASE_API_PATH = "/api/v2";
-      let schoolData = [];
-      let schoolChartCountryDateData = [];
-      let cyd = [];
       
-      async function loadChart() {
+      
+      async function loadData() {
           console.log("Fetching data...");
           const res = await fetch("https://sanity-integration.herokuapp.com/sanity-stats");
-          Data = await res.json();
+          dato = await res.json();
           if (res.ok) {
-              Data.forEach(stat => {
-              CountryDateData.push(stat.country+"/"+stat.year);
-              health.push(stat["health_expenditure_in_percentage"]);
-              doctor.push(stat["doctor_per_1000_habitant"]);
-              hospital.push(stat["hospital_bed"]);   
+              dato.forEach(dat => {
+              countryDat.push(dat.country+"/"+dat.year);
+              health_exp.push(dat["health_expenditure_in_percentage"]);
+              doctor_habitant.push(dat["doctor_per_1000_habitant"]);
+              hospital_b.push(dat["hospital_bed"]);   
             });
           }
           
-          console.log("Sanity chart: " + Data);
+          console.log("Sanity date: " + dato);
           
           Highcharts.chart("container", {
             chart: {
@@ -38,7 +36,7 @@
               }
           },
             title: {
-              text: "Número de camas en hospitales",
+              text: "Nº camas en hospitales",
             },
             yAxis: {
               title: {
@@ -49,7 +47,7 @@
               title: {
                 text: "",
               },
-              categories: CountryDateData
+              categories: countryDat
             },
             legend: {
               layout: "vertical",
@@ -79,8 +77,8 @@
           },
             series: [
               {
-                name: "Número de camas",
-                data: hospital,
+                name: "Nº de camas",
+                data: hospital_b,
                 colorByPoint: true
               },
               
@@ -105,7 +103,7 @@
         }
       </script>
       <svelte:head>
-        <script src="https://code.highcharts.com/highcharts.js" on:load={loadChart}></script>
+        <script src="https://code.highcharts.com/highcharts.js" on:load={loadData}></script>
         <script src="https://code.highcharts.com/highcharts-3d.js"></script>
       <script src="https://code.highcharts.com/modules/cylinder.js"></script>
       <script src="https://code.highcharts.com/modules/exporting.js"></script>
@@ -115,15 +113,13 @@
       
       <main>
           <div>
-              <h1 style="text-align: center;">Uso <strong>API Sanity Stats </strong></h1>
+              <h1 style="text-align: center;">Uso <strong>API GRUPO SOS(Sanity Stats) </strong></h1>
             </div>
           
           <div>
               <figure class="highcharts-figure">
                 <div id="container" />
-                <p style="text-align: center;" class="highcharts-description">
-                  Se muestra el número de camas en hospitales en varios países y años.
-                </p>
+                
               </figure>
               <Button outline color="secondary" on:click="{pop}">Atrás</Button> 
             </div>
