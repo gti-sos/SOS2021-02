@@ -10,11 +10,11 @@
     <Jumbotron>
         <p>Enlaces a videos</p>
         <a href="#/"
-                ><Button color="primary">Video Oil-stats</Button></a>
+                ><Button color="primary">Video Oil-stats (José Manuel Domínguez)</Button></a>
         <a href="#/"
-                ><Button color="primary">Video Wine-stats</Button></a>
-        <a href="#/"
-                ><Button color="primary">Video Nuts-stats</Button></a>
+                ><Button color="primary">Video Wine-stats (Alejandro Fernández)</Button></a>
+        <a href="https://youtu.be/BhJIrdYyVCg"
+                ><Button color="primary">Video Nuts-stats (Antonio José Marín)</Button></a>
     </Jumbotron>
 
   </main>
