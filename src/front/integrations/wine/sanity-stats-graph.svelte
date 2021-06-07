@@ -9,118 +9,75 @@
       const BASE_API_PATH = "/api/v2";
       
       
-      async function loadData() {
+      async function loadGraph() {
           console.log("Fetching data...");
           const res = await fetch("https://sanity-integration.herokuapp.com/sanity-stats");
           dato = await res.json();
           if (res.ok) {
               dato.forEach(dat => {
-              countryDat.push(dat.country+"/"+dat.year);
-              health_exp.push(dat["health_expenditure_in_percentage"]);
-              doctor_habitant.push(dat["doctor_per_1000_habitant"]);
-              hospital_b.push(dat["hospital_bed"]);   
+              var nombre = dat.country + "/" + dat.year;
+              var datos = dat.hospital_bed;
+              let lista = [];
+              lista.push(nombre);
+              lista.push(parseInt(datos));
+              countryDat.push(lista);
+              console.log(countryDat);
             });
           }
           
           console.log("Sanity date: " + dato);
           
-          Highcharts.chart("container", {
-            chart: {
-              type: 'column',
-              options3d: {
-                  enabled: true,
-                  alpha: 15,
-                  beta: 20,
-                  depth: 50,
-                  viewDistance: 60
-              }
-          },
-            title: {
-              text: "Nº camas en hospitales",
+          Highcharts.chart('container', {
+    chart: {
+        type: 'pyramid3d',
+        options3d: {
+            enabled: true,
+            alpha: 10,
+            depth: 50,
+            viewDistance: 50
+        }
+    },
+    title: {
+        text: 'Grupo SOS Sanity-Stats'
+    },
+    plotOptions: {
+        series: {
+            dataLabels: {
+                enabled: true,
+                format: '<b>{point.name}</b> ({point.y:,.0f})',
+                allowOverlap: true,
+                x: 10,
+                y: -5
             },
-            yAxis: {
-              title: {
-                text: "",
-              },
-            },
-            xAxis: {
-              title: {
-                text: "",
-              },
-              categories: countryDat
-            },
-            legend: {
-              layout: "vertical",
-              align: "right",
-              verticalAlign: "middle",
-            },
-            annotations: [
-              {
-                labels: [
-                  {
-                    point: "date",
-                    text: "",
-                  },
-                  {
-                    point: "min",
-                    text: "Min",
-                    backgroundColor: "gray",
-                  },
-                ],
-              },
-            ],
-           plotOtions: {
-              series: {
-                  depth: 30,
-                  colorByPoint: false
-              }
-          },
-            series: [
-              {
-                name: "Nº de camas",
-                data: hospital_b,
-                colorByPoint: true
-              },
-              
-            ],
-            responsive: {
-              rules: [
-                {
-                  condition: {
-                    maxWidth: 3000,
-                  },
-                  chartOptions: {
-                    legend: {
-                      layout: "horizontal",
-                      align: "center",
-                      verticalAlign: "bottom",
-                    },
-                  },
-                },
-              ],
-            },
-          });
+            width: '60%',
+            height: '80%',
+            center: ['50%', '45%']
+        }
+    },
+    series: [{
+        name: 'Unique users',
+        data: countryDat
+    }]
+});
         }
       </script>
       <svelte:head>
-        <script src="https://code.highcharts.com/highcharts.js" on:load={loadData}></script>
+        <script src="https://code.highcharts.com/highcharts.js" on:load="{loadGraph}"></script>
         <script src="https://code.highcharts.com/highcharts-3d.js"></script>
-      <script src="https://code.highcharts.com/modules/cylinder.js"></script>
-      <script src="https://code.highcharts.com/modules/exporting.js"></script>
-      <script src="https://code.highcharts.com/modules/export-data.js"></script>
-      <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+        <script src="https://code.highcharts.com/modules/cylinder.js"></script>
+        <script src="https://code.highcharts.com/modules/funnel3d.js"></script>
+        <script src="https://code.highcharts.com/modules/pyramid3d.js"></script>
+        <script src="https://code.highcharts.com/modules/exporting.js"></script>
+        <script src="https://code.highcharts.com/modules/export-data.js"></script>
+        <script src="https://code.highcharts.com/modules/accessibility.js"></script>
       </svelte:head>
       
       <main>
           <div>
-              <h1 style="text-align: center;">Uso <strong>API GRUPO SOS(Sanity Stats) </strong></h1>
-            </div>
-          
-          <div>
-              <figure class="highcharts-figure">
-                <div id="container" />
-                
-              </figure>
+            <figure class="highcharts-figure">
+              <div id="container"></div>
+            
+          </figure>
               <Button outline color="secondary" on:click="{pop}">Atrás</Button> 
             </div>
       </main>
@@ -128,7 +85,7 @@
       <style>
         .highcharts-figure {
             min-width: 320px; 
-            max-width: 1400px;
+            max-width: 1000px;
             margin: 1em auto;
         }
       </style>
