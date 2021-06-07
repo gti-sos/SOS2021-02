@@ -1,20 +1,3 @@
-<<<<<<< HEAD
-{"country":"Spain","year":2009,"almond":270686,"walnut":13299,"pistachio":2783,"_id":"0yx7ARZtObfT4gBK"}
-{"country":"Turkey","year":2010,"almond":55398,"walnut":178142,"pistachio":128000,"_id":"38a3jo7KtFPnmP1S"}
-{"country":"Greece","year":2010,"almond":32900,"walnut":22200,"pistachio":7902,"_id":"3I8UaSpzDiESqCjL"}
-{"country":"Turkey","year":2009,"almond":54844,"walnut":177298,"pistachio":81795,"_id":"3oHdtaMGRiFKMbcL"}
-{"country":"USA","year":2009,"almond":1162200,"walnut":396440,"pistachio":161025,"_id":"AhWsgr225CeC2nHZ"}
-{"country":"USA","year":2011,"almond":1655000,"walnut":418212,"pistachio":201395,"_id":"DviuDLCp5AtnOwx9"}
-{"country":"Greece","year":2009,"almond":39996,"walnut":22000,"pistachio":7939,"_id":"EJV0nLhgX1XX4bxj"}
-{"country":"Spain","year":2010,"almond":22518,"walnut":13525,"pistachio":2722,"_id":"O2cStE5T0LMaSqfe"}
-{"country":"Italy","year":2009,"almond":106660,"walnut":12000,"pistachio":3110,"_id":"QfCztfhsw10QIvC9"}
-{"country":"Turkey","year":2011,"almond":69838,"walnut":203212,"pistachio":112000,"_id":"SojiwDwznScTevW4"}
-{"country":"Greece","year":2011,"almond":29800,"walnut":29800,"pistachio":7791,"_id":"aW5W85TnMjXeStuA"}
-{"country":"USA","year":2010,"almond":1413800,"walnut":457221,"pistachio":236775,"_id":"k9Om4dU4h4zZmxW5"}
-{"country":"Italy","year":2010,"almond":108160,"walnut":14000,"pistachio":2852,"_id":"mJnxv9IhEdhvMZVT"}
-{"country":"Italy","year":2011,"almond":104790,"walnut":10500,"pistachio":3079,"_id":"q36rN06B64QxHIMa"}
-{"country":"Spain","year":2011,"almond":208800,"walnut":13815,"pistachio":2708,"_id":"soBHgq1fwA0BxPHe"}
-=======
 {"country":"Spain","year":2010,"almond":22518,"walnut":13525,"pistachio":2722,"_id":"2L8tOG3XEgPbyTT7"}
 {"country":"Greece","year":2009,"almond":39996,"walnut":22000,"pistachio":7939,"_id":"36kkXQ3tkHmOVYzl"}
 {"country":"Italy","year":2009,"almond":106660,"walnut":12000,"pistachio":3110,"_id":"DKrrUbsZ1BSEq4j3"}
@@ -30,4 +13,3 @@
 {"country":"Spain","year":2011,"almond":208800,"walnut":13815,"pistachio":2708,"_id":"lfMlaiNiShtoqdHd"}
 {"country":"USA","year":2010,"almond":1413800,"walnut":457221,"pistachio":236775,"_id":"ubwtyEpmTFcjD8Ve"}
 {"country":"Turkey","year":2009,"almond":54844,"walnut":177298,"pistachio":81795,"_id":"wHmSaQ3022jPNaMf"}
->>>>>>> 564a85682cf6e33905ce8161cf17d3e396f3408c
