@@ -64,14 +64,14 @@ var n = 1;
   n++;
   //Integraciones Wine
   await page.click("body > main > main > div:nth-child(3) > a:nth-child(2)");
-  await page.waitForTimeout(3000);
+  await page.waitForTimeout(5000);
   await page.screenshot({ path: './tests/'+n+'_schoolGraph.png' });
   await page.click("body > main > main > button");
   n++;
   await page.click("body > main > main > div:nth-child(3) > a:nth-child(3) > button");
-  await page.waitForTimeout(3000);
+  await page.waitForTimeout(5000);
   await page.screenshot({ path: './tests/'+n+'_sanityGraph.png' });
-  await page.click("body > main > main > div:nth-child(2) > button");
+  await page.click("body > main > main > div > button");
   n++;
   await page.click("body > main > main > div:nth-child(3) > a:nth-child(5)");
   await page.waitForTimeout(6000);
