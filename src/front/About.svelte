@@ -9,8 +9,8 @@
 
     <Jumbotron>
         <p>Enlaces a videos</p>
-        <a href="#/"
-                ><Button color="primary">Video Oil-stats (José Manuel Domínguez)</Button></a>
+        <a href="https://youtu.be/vdADqhMdRxw"
+                ><Button color="primary">Video Oil-stats (José Manuel González)</Button></a>
         <a href="#/"
                 ><Button color="primary">Video Wine-stats (Alejandro Fernández)</Button></a>
         <a href="https://youtu.be/BhJIrdYyVCg"
