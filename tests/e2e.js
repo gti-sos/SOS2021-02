@@ -74,7 +74,7 @@ var n = 1;
   await page.click("body > main > main > div:nth-child(2) > button");
   n++;
   await page.click("body > main > main > div:nth-child(3) > a:nth-child(5)");
-  await page.waitForTimeout(4000);
+  await page.waitForTimeout(6000);
   await page.screenshot({ path: './tests/'+n+'_coinsGraph.png' });
   await page.click("body > main > main > button");
   n++;
