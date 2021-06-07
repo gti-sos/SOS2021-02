@@ -55,7 +55,7 @@
         }
     },
     series: [{
-        name: 'Unique users',
+        name: 'Camas totales',
         data: countryDat
     }]
 });
